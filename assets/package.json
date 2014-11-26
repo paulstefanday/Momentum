@@ -1,0 +1,23 @@
+{
+  "name": "CC",
+  "version": "0.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "gulp": "^3.8.9",
+    "gulp-concat": "^2.4.1"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.9",
+    "gulp-coffee": "^2.2.0",
+    "gulp-concat": "^2.4.1",
+    "gulp-jade": "^0.9.0",
+    "gulp-sass": "^1.1.0",
+    "main-bower-files": "^2.4.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

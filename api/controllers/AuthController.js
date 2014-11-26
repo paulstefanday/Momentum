@@ -5,8 +5,13 @@
  * @help        :: See http://links.sailsjs.org/docs/controllers
  */
 
+        var expiry = new Date();
+        expiry.setDate(expiry.getDate() + 10);
+        expiry = parseInt( expiry / 1000 );
+
+
 module.exports = {
-	authenticate: function(req, res) {
+	login: function(req, res) {
     var email = req.param('email');
     var password = req.param('password');
 
@@ -27,17 +32,17 @@ module.exports = {
         if (!valid) {
           return res.json(401, {err: 'invalid username or password'});
         } else {
-          res.json({user: user, token: sailsTokenAuth.issueToken({sid: user.id})});
+          res.json({user: user, token: sailsTokenAuth.issueToken({sid: user.id, exp: expiry })});
         }
       });
     })
   },
 
-  register: function(req, res) {
+  signup: function(req, res) {
     //TODO: Do some validation on the input
-    if (req.body.password !== req.body.confirmPassword) {
-      return res.json(401, {err: 'Password doesn\'t match'});
-    }
+    // if (req.body.password !== req.body.confirmPassword) {
+    //   return res.json(401, {err: 'Password doesn\'t match'});
+    // }
 
     User.create({email: req.body.email, password: req.body.password}).exec(function(err, user) {
       if (err) {
@@ -45,7 +50,7 @@ module.exports = {
         return;
       }
       if (user) {
-        res.json({user: user, token: sailsTokenAuth.issueToken({sid: user.id})});
+        res.json({user: user, token: sailsTokenAuth.issueToken({sid: user.id, exp: expiry })});
       }
     });
   }

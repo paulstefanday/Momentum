@@ -1,0 +1,21 @@
+#nav
+  #nav-toggle(ng-click="toggleNav()" ng-class="{ 'ion-ios7-close-outline': nav, 'ion-navicon' : !nav}")
+  ul#nav-menu(ng-show="nav")
+    li 
+      a(href="" ng-click="goTo('home')") Home 
+    li
+      a(href="" ng-click="goTo('search')") Search
+    //- li
+    //-   a(href="" ng-click="goTo('jobs')") Jobs
+    //- li 
+    //-   a(href="" ng-click="goTo('signup')") Events
+    //- li 
+    //-   a(href="" ng-click="goTo('home')") Campaigns
+    li( ng-if="isAuthenticated()" )
+      a(href="" ng-click="goTo('admin')") Admin
+    li( ng-if="!isAuthenticated()" )
+      a(href="" ng-click="goTo('login')") Login
+    li( ng-if="!isAuthenticated()" )
+      a(href="" ng-click="goTo('signup')") Signup
+    li( ng-if="isAuthenticated()" )
+      a(href="" ng-click="logout()") Logout

@@ -1,0 +1,23 @@
+#search-field {
+	border-bottom: 3px solid #fff !important;
+	@extend .shadow;
+
+	& input {
+		width: 100%;
+		padding: 20px 0;
+		background: transparent;
+		font-size: 60px;
+		color: #fff;
+		font-family: 'Raleway', Calibri, Arial, sans-serif !important;
+		font-weight: 200 !important; 
+	}
+
+	& button {
+		font-size: 80px;
+		color: #fff;
+		background: transparent;
+		border: none;
+		float: right;
+	}
+
+}

@@ -1,0 +1,11 @@
+.container#cards
+	.row
+		.col-sm-3( ng-repeat="job in vm.jobs" )
+			.panel.panel-default
+				.panel-body
+					h4 {{job.heading}}
+					span {{job.category }}
+					span {{job.end_date }}
+					p {{ job.description }}
+				i.icon.ion-heart.favorite( ng-click="vm.favorite(job)" )
+				a.btn.btn-primary.btn-block(href="{{job.id }}") View details »

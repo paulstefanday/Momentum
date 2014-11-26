@@ -1,0 +1,32 @@
+#signup.view
+  .container
+    .row
+      .center-form
+        .panel-body
+          h2.text-center Sign up
+          form( method="post" ng-submit="vm.signup()" name="signupForm" )
+            .form-group.has-feedback( ng-class="{ 'has-error' : signupForm.fullName.$invalid && signupForm.fullName.$dirty }" )
+              input.form-control.input-lg( type="text" name="displayName" ng-model="vm.displayName" placeholder="Name" required autofocus )
+              span.ion-person.form-control-feedback
+              .help-block.text-danger( ng-if="signupForm.fullName.$dirty" ng-messages="signupForm.fullName.$error" )
+                div( ng-message="required" ) You must enter your name.
+            .form-group.has-feedback( ng-class="{ 'has-error' : signupForm.email.$invalid && signupForm.email.$dirty }" )
+              input.form-control.input-lg( type="email" id="email" name="email" ng-model="vm.email" placeholder="Email" required )
+              span.ion-at.form-control-feedback
+              .help-block.text-danger( ng-if="signupForm.email.$dirty" ng-messages="signupForm.email.$error" )
+                div( ng-message="required" ) Your email address is required.
+                div( ng-message="pattern" ) Your email address is invalid.
+
+            .form-group.has-feedback( ng-class="{ 'has-error' : signupForm.password.$invalid && signupForm.password.$dirty }" )
+              input.form-control.input-lg( password-strength type="password" name="password" ng-model="vm.password" placeholder="Password" required )
+              span.ion-key.form-control-feedback
+              .help-block.text-danger( ng-if="signupForm.password.$dirty" ng-messages="signupForm.password.$error" )
+                div( ng-message="required" ) Password is required.
+            p.text-center.text-muted 
+              small By clicking on Sign up, you agree to <a href="#">terms & conditions</a> and <a href="#">privacy policy</a>
+
+            button.btn.btn-lg.btn-block.btn-primary( type="submit" ng-disabled="signupForm.$invalid" ) Sign up
+            br
+            p.small.text-center.text-muted Already have an account? <a href="/#/login">Log in now</a>
+
+

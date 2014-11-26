@@ -1,0 +1,18 @@
+#home.view
+	a.search-btn.ion-ios7-search(href="#/search")
+	.content
+		#large-header.large-header
+			canvas#demo-canvas
+			#intro-text
+				//- a.btn.btn-primary.btn-xlg(href="#/search") Explore
+				h1.main-title Compassionate <br/><span class="thin">Community</span>
+				br
+				
+				.form-group(style="max-width:400px;width:90%;margin:0 auto;")
+					.input-group
+						input.form-control.input-xlg( type="text" placeholder="Your Email" ng-model="vm.email")
+						span.input-group-btn
+							button.btn.btn-primary.btn-xlg( type="button" ng-click="vm.joinUp()" ) Join Newsletter
+	
+	//- .clearfix
+	//- 	h1 Animated Background Headers <span>Examples for creative website header animations using Canvas and JavaScript</span>
