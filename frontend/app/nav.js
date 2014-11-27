@@ -6,7 +6,7 @@ function navBar() {
    
     var directive = {
         restrict: 'E',
-        templateUrl: 'partials/nav.html',
+        templateUrl: '/partials/nav.html',
         scope: false,
         replace: true,
         controller : controller,

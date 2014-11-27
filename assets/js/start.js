@@ -1,4 +1,4 @@
-angular.module('MyApp', ['ngAnimate', 'ngResource', 'ngMessages', 'ui.router', 'mgcrea.ngStrap', 'satellizer', 'ngSanitize',  'angular-loading-bar'])
+angular.module('MyApp', ['ngAnimate', 'templates', 'ngResource', 'ngMessages', 'ui.router', 'mgcrea.ngStrap', 'satellizer', 'ngSanitize',  'angular-loading-bar'])
   .config(function($stateProvider, $urlRouterProvider, $authProvider, $httpProvider, $datepickerProvider, $alertProvider, $selectProvider) {
 
     var noauth = [
