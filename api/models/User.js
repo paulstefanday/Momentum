@@ -16,6 +16,12 @@ module.exports = {
       required: true,
       unique: true
     },
+    first_name: {
+      type: 'string'
+    },
+    last_name: {
+      type: 'string'
+    },
     encryptedPassword: {
       type: 'string'
     },

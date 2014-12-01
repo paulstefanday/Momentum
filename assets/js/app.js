@@ -235,14 +235,21 @@ function homePage() {
   
 
 
-  controller.$inject = ['$scope', '$alert', '$auth'];
+  controller.$inject = ['$scope', '$alert', '$auth', 'Email'];
 
-  function controller($scope, $alert, $auth) {
+  function controller($scope, $alert, $auth, Email) {
           
         var vm = this;
 
         vm.joinUp = function() {
-            console.log(vm.email);
+            // if(!auth) return $alert({ content: 'Email needs to be valid' });
+
+            Email.subscribe({ email: vm.email }).then(function() {
+              $alert({ content: 'Thanks for subscribing' });
+            })
+            .catch(function(response) {
+              $alert({ content: JSON.stringify(response) });
+            });
         }
 
   }
@@ -331,12 +338,7 @@ function userProfile() {
           vm.user = data;
         })
         .error(function(error) {
-          $alert({
-            content: error.message,
-            animation: 'fadeZoomFadeDown',
-            type: 'material',
-            duration: 3
-          });
+          $alert({ content: JSON.stringify(error) });
         });
     };
 
@@ -349,12 +351,9 @@ function userProfile() {
         displayName: vm.user.displayName,
         email: vm.user.email
       }).then(function() {
-        $alert({
-          content: 'Profile has been updated',
-          animation: 'fadeZoomFadeDown',
-          type: 'material',
-          duration: 3
-        });
+        $alert({ content: 'Profile has been updated' });
+      }).catch(function(response) {
+        $alert({ content: 'Update failed' });
       });
     };
 
@@ -364,23 +363,13 @@ function userProfile() {
     vm.link = function(provider) {
       $auth.link(provider)
         .then(function() {
-          $alert({
-            content: 'You have successfully linked ' + provider + ' account',
-            animation: 'fadeZoomFadeDown',
-            type: 'material',
-            duration: 3
-          });
+          $alert({ content: 'You have successfully linked ' + provider + ' account' });
         })
         .then(function() {
           vm.getProfile();
         })
         .catch(function(response) {
-          $alert({
-            content: response.data.message,
-            animation: 'fadeZoomFadeDown',
-            type: 'material',
-            duration: 3
-          });
+          $alert({ content: JSON.stringify(response) });
         });
     };
 
@@ -390,23 +379,13 @@ function userProfile() {
    vm.unlink = function(provider) {
       $auth.unlink(provider)
         .then(function() {
-          $alert({
-            content: 'You have successfully unlinked ' + provider + ' account',
-            animation: 'fadeZoomFadeDown',
-            type: 'material',
-            duration: 3
-          });
+          $alert({ content: 'You have successfully unlinked ' + provider + ' account' });
         })
         .then(function() {
           vm.getProfile();
         })
         .catch(function(response) {
-          $alert({
-            content: response.data ? response.data.message : 'Could not unlink ' + provider + ' account',
-            animation: 'fadeZoomFadeDown',
-            type: 'material',
-            duration: 3
-          });
+          $alert({ content: response.data ? JSON.stringify(response) : 'Could not unlink ' + provider + ' account' });
         });
     };
 

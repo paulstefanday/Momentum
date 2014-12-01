@@ -5,10 +5,15 @@
         .panel-body
           h2.text-center Sign up
           form( method="post" ng-submit="vm.signup()" name="signupForm" )
-            .form-group.has-feedback( ng-class="{ 'has-error' : signupForm.fullName.$invalid && signupForm.fullName.$dirty }" )
-              input.form-control.input-lg( type="text" name="displayName" ng-model="vm.displayName" placeholder="Name" required autofocus )
+            .form-group.has-feedback( ng-class="{ 'has-error' : signupForm.first_name.$invalid && signupForm.first_name.$dirty }" )
+              input.form-control.input-lg( type="text" name="first_name" ng-model="vm.first_name" placeholder="Name" required autofocus )
               span.ion-person.form-control-feedback
-              .help-block.text-danger( ng-if="signupForm.fullName.$dirty" ng-messages="signupForm.fullName.$error" )
+              .help-block.text-danger( ng-if="signupForm.first_name.$dirty" ng-messages="signupForm.first_name.$error" )
+                div( ng-message="required" ) You must enter your name.
+            .form-group.has-feedback( ng-class="{ 'has-error' : signupForm.last_name.$invalid && signupForm.last_name.$dirty }" )
+              input.form-control.input-lg( type="text" name="last_name" ng-model="vm.last_name" placeholder="Name" required autofocus )
+              span.ion-person.form-control-feedback
+              .help-block.text-danger( ng-if="signupForm.first_name.$dirty" ng-messages="signupForm.first_name.$error" )
                 div( ng-message="required" ) You must enter your name.
             .form-group.has-feedback( ng-class="{ 'has-error' : signupForm.email.$invalid && signupForm.email.$dirty }" )
               input.form-control.input-lg( type="email" id="email" name="email" ng-model="vm.email" placeholder="Email" required )

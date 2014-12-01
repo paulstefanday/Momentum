@@ -33,20 +33,17 @@ body {
   line-height: 1.35; }
 
 .alert-material {
-  position: fixed;
-  right: 12px;
-  bottom: 12px;
-  z-index: 1;
-  display: inline-block;
+  text-align: center;
+  margin: 20px auto;
+  max-width: 500px;
+  width: 100%;
+  z-index: 10000000;
   min-height: 48px;
   padding: 13px 24px 12px;
-  font-family: 'Roboto', sans-serif;
-  color: #f1f1f1;
-  cursor: default;
-  background: #323232;
-  border-radius: 2px;
-  outline: none;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26); }
+  font-size: 15px !important;
+  background-color: rgba(0, 0, 0, 0.2);
+  color: #fff !important;
+  border-radius: 4px; }
 
 .repeat-animation.ng-enter-stagger, .repeat-animation.ng-leave-stagger, .repeat-animation.ng-move-stagger {
   -webkit-transition-delay: 0.2s;
@@ -79,6 +76,14 @@ body {
   width: 100%;
   height: 100%; }
 
+.alert-material.ng-enter {
+  -webkit-animation: 0.5s zoomIn;
+  animation: 0.5s zoomIn; }
+
+.alert-material.ng-leave {
+  -webkit-animation: 1s fadeOut;
+  animation: 1s fadeOut; }
+
 .ng-hide-remove {
   -webkit-animation: 1s zoomIn;
   animation: 1s zoomIn; }
@@ -87,35 +92,6 @@ body {
   -webkit-animation: 1s bounceOutDown;
   animation: 1s bounceOutDown;
   display: block !important; }
-
-/*********************
-* Old Animations
-*********************/
-.fadeZoom.ng-enter {
-  -webkit-animation-duration: 0.6s, 0.2s;
-  -moz-animation-duration: 0.2s, 0.2s;
-  -ms-animation-duration: 0.2s, 0.2s;
-  animation-duration: 0.2, 0.2s;
-  -webkit-animation-name: fadeIn, zoomIn;
-  -moz-animation-name: fadeIn, zoomIn;
-  -ms-animation-name: fadeIn, zoomIn;
-  animation-name: fadeIn, zoomIn; }
-
-.fadeZoomFadeDown.ng-enter {
-  -webkit-animation-duration: 0.2s, 0.2s;
-  -moz-animation-duration: 0.2s, 0.2s;
-  -ms-animation-duration: 0.2s, 0.2s;
-  animation-duration: 0.2s, 0.2s;
-  -webkit-animation-name: fadeIn, zoomIn;
-  -moz-animation-name: fadeIn, zoomIn;
-  -ms-animation-name: fadeIn, zoomIn;
-  animation-name: fadeIn, zoomIn; }
-
-.fadeZoomFadeDown.ng-leave {
-  -webkit-animation: fadeOutDown 0.2s;
-  -moz-animation: fadeOutDown 0.2s;
-  -ms-animation: fadeOutDown 0.2s;
-  animation: fadeOutDown 0.2s; }
 
 @-webkit-keyframes zoomIn {
   0% {
@@ -141,22 +117,22 @@ body {
 
 ::-webkit-input-placeholder {
   /* WebKit browsers */
-  color: #fff;
+  color: #000;
   opacity: 0.3; }
 
 :-moz-placeholder {
   /* Mozilla Firefox 4 to 18 */
-  color: #fff;
+  color: #000;
   opacity: 0.3; }
 
 ::-moz-placeholder {
   /* Mozilla Firefox 19+ */
-  color: #fff;
+  color: #000;
   opacity: 0.3; }
 
 :-ms-input-placeholder {
   /* Internet Explorer 10+ */
-  color: #fff;
+  color: #000;
   opacity: 0.3; }
 
 input {
@@ -164,7 +140,6 @@ input {
 
 .input-xlg {
   padding: 20px 16px !important;
-  text-transform: uppercase;
   height: 60px; }
 
 .datepicker.dropdown-menu {

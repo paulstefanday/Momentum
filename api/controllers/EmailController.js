@@ -17,9 +17,11 @@ module.exports = {
               messageHtml: req.param('email') + ' just subscribed.'
         };
 		
-		nodemailer.send(data, function(err, response){
-              sails.log.debug('nodemailer sent', err, response);
+		if(!req.param('email')) return res.json(404, {err: 'Must Enter Email'});
 
+
+      nodemailer.send(data, function(err, response){
+              sails.log.debug('nodemailer sent', err, response);
               res.json(200, {success: true});
         });
 

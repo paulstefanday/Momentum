@@ -31,20 +31,21 @@ body {
 }
 
 .alert-material {
-  position: fixed;
-  right: 12px;
-  bottom: 12px;
-  z-index: 1;
-  display: inline-block;
+  // position: fixed;
+  text-align:center;
+  margin:20px auto;
+  max-width: 500px;
+  width: 100%;
+  // top: 12px;
+  z-index: 10000000;
+  // display: inline-block;
   min-height: 48px;
   padding: 13px 24px 12px;
-  font-family: 'Roboto', sans-serif;
-  color: #f1f1f1;
-  cursor: default;
-  background: #323232;
-  border-radius: 2px;
-  outline: none;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  font-size: 15px !important;
+  background-color: rgba(0,0,0,0.2);
+  color:#fff !important;
+  border-radius: 4px;
+  // outline: none;
 }
 
 

@@ -123,6 +123,7 @@ angular.module('MyApp')
 angular.module('MyApp')
   .factory('Account', function($http, $auth) {
     var userId = $auth.getPayload().sid;
+
     return {
       getProfile: function() {
         return $http.get('/user/'+ userId);
@@ -146,6 +147,16 @@ angular.module('MyApp')
         return $http.delete('/user/' + userId + '/campain/' + message.id);
       }
     }
+  });
+angular.module('MyApp')
+  .factory('Email', function($http, $auth) {
+    // var userId = $auth.getPayload().sid;
+
+    return {
+      subscribe: function(user) {
+        return $http.post('/subscribe/', user);
+      }
+    };
   });
 angular.module('MyApp')
   .factory('Job', function($http, $auth) {

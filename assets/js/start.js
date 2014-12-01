@@ -33,9 +33,11 @@ angular.module('MyApp', ['ngAnimate', 'templates', 'ngResource', 'ngMessages', '
 
     // alert settings
     angular.extend($alertProvider.defaults, {
-            animation: 'fadeZoomFadeDown',
+            animation: '',
             type: 'material',
-            duration: 5
+            duration: 5,
+            // dismissable: false,
+            // placement: 'top-right'
     });
 
     // datepicker settings

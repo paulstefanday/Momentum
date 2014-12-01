@@ -6,11 +6,11 @@
 				h1.main-title Momentum <br/><span class="thin"></span>
 				br
 				
-				.form-group(style="max-width:400px;width:90%;margin:0 auto;")
+				form.form-group(name="subscribe" style="max-width:400px;width:90%;margin:0 auto;" ng-submit="vm.joinUp()")
 					.input-group
-						input.form-control.input-xlg( type="text" placeholder="Your Email" ng-model="vm.email")
+						input.form-control.input-xlg( type="email" placeholder="Your Email" ng-model="vm.email" style="text-transform: none !important")
 						span.input-group-btn
-							button.btn.btn-primary.btn-xlg( type="button" ng-click="vm.joinUp()" ) Join Newsletter
+							button.btn.btn-primary.btn-xlg( type="submit" ng-disabled="vm.email" ) Join Newsletter
 	
 	//- .clearfix
 	//- 	h1 Animated Background Headers <span>Examples for creative website header animations using Canvas and JavaScript</span>

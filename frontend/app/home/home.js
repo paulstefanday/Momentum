@@ -15,14 +15,21 @@ function homePage() {
   
 
 
-  controller.$inject = ['$scope', '$alert', '$auth'];
+  controller.$inject = ['$scope', '$alert', '$auth', 'Email'];
 
-  function controller($scope, $alert, $auth) {
+  function controller($scope, $alert, $auth, Email) {
           
         var vm = this;
 
         vm.joinUp = function() {
-            console.log(vm.email);
+            // if(!auth) return $alert({ content: 'Email needs to be valid' });
+
+            Email.subscribe({ email: vm.email }).then(function() {
+              $alert({ content: 'Thanks for subscribing' });
+            })
+            .catch(function(response) {
+              $alert({ content: JSON.stringify(response) });
+            });
         }
 
   }

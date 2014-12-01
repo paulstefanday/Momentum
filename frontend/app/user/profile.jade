@@ -1,23 +1,17 @@
 .container
   .row
     .col-sm-4
-      .panel.panel-default
-        .panel-heading Profile
-        .panel-body
-          legend Edit My Profile
-          form( method="post" ng-submit="vm.updateProfile()" )
-            .form-group
-              label.control-label Display Name
-              input( type="text" class="form-control" ng-model="vm.user.displayName" )
-            .form-group
-              label.control-label Email Address
-              input( type="email" class="form-control" ng-model="vm.user.email" )
-            button.btn.btn-lg.btn-success Update Information
+      h2 Edit My Profile
+      form( method="post" ng-submit="vm.updateProfile()" )
+        .form-group
+          input( type="text" class="form-control" ng-model="vm.user.first_name" placeholder="First Name" )
+        .form-group
+          input( type="text" class="form-control" ng-model="vm.user.last_name" placeholder="Last Name" )
+        .form-group
+          input( type="email" class="form-control" ng-model="vm.user.email" placeholder="Email" )
+        button.btn.btn-lg.btn-success.btn-block Update Information
 
-    .col-sm-4
-      .panel.panel-default
-        .panel-heading Accounts
-        .panel-body
-          legend Linked Accounts
-          button.btn.btn-sm.btn-danger( ng-if="!vm.user.linkedin" ng-click="link('linkedin')" ) Link LinkedIn Account
-          button.btn.btn-sm.btn-danger( ng-if="vm.user.linkedin" ng-click="unlink('linkedin')" ) Unlink LinkedIn Account
+    //- .col-sm-4
+    //-   h2 Linked Accounts
+    //-   button.btn.btn-lg.btn-danger.btn-block( ng-if="!vm.user.linkedin" ng-click="link('linkedin')" ) Link LinkedIn Account
+    //-   button.btn.btn-lg.btn-danger.btn-block( ng-if="vm.user.linkedin" ng-click="unlink('linkedin')" ) Unlink LinkedIn Account
