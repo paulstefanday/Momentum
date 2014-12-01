@@ -81,7 +81,7 @@ function login() {
           $alert({ content: 'You have successfully logged in' });
         })
         .catch(function(response) {
-          $alert({ content: response.data.message });
+          $alert({ content: JSON.stringify(response) });
         });
     };
 
@@ -91,7 +91,7 @@ function login() {
           $alert({ content: 'You have successfully logged in' });
         })
         .catch(function(response) {
-          $alert({ content: response.data });
+          $alert({ content: JSON.stringify(response) });
         });
     };
   
@@ -131,12 +131,8 @@ function signup() {
         email: vm.email,
         password: vm.password
       }).catch(function(response) {
-        var errors = '';
-        if(response.data.error.email) errors += response.data.error.email[0] + " ";
-        if(response.data.error.displayName) errors +=  response.data.error.displayName[0]+ " ";
-        if(response.data.error.password) errors += response.data.error.password[0]+ " ";
         $alert({
-          content: errors,
+          content: JSON.stringify(response),
           animation: 'fadeZoomFadeDown',
           type: 'material',
           duration: 6
@@ -149,8 +145,77 @@ function signup() {
 }
 
 angular.module('MyApp')
-  .controller('CategoryCreateCtrl', function($scope, $auth, $alert, Account) {
+  .controller('JobCreateCtrl', function($scope, $auth, $alert, Account, Job, Locations) {
 
+	$scope.job = {};
+	$scope.jobs = {};
+  $scope.states = Locations.getStates();
+
+    $scope.getJobs = function() {
+		Job.getJobs().success(function(data) {
+          $scope.jobs = data.data;
+          console.log(data.data);
+        })
+        .error(function(error) {
+          $alert({ content: error.message });
+        });
+    };
+
+    $scope.addJob = function() {
+     Job.addJob($scope.job)
+        .success(function(data) {
+          $scope.jobs.push(data.data);
+          $scope.job = {};
+          $scope.createForm.$setPristine();
+          $alert({ content: "Job created successfully" });
+        })
+        .error(function(error) {
+          $alert({ content: error.message });
+        });
+    };
+
+    $scope.deleteJob = function(index, id) {
+     	Job.deleteJob(id)
+        .success(function(data) {
+          console.log(data);
+          $scope.jobs.splice(index, 1); 
+        })
+        .error(function(error) {
+          $alert({ content: error.message });
+        });
+    };
+
+
+    $scope.getJobs();
+
+});
+angular.module('MyApp')
+  .controller('JobUpdateCtrl', function($scope, $stateParams, $auth, $alert, Account, Job, $location, $http, Locations ) {
+
+	 $scope.job = {};
+   $scope.states = Locations.getStates();
+
+    $scope.getJob = function() {
+		Job.getJob($stateParams.id).success(function(data) {
+          $scope.job = data.data;
+        })
+        .error(function(error) {
+          $alert({ content: error.message });
+        });
+    };
+
+    $scope.updateJob = function(index, id) {
+     	Job.updateJob($scope.job)
+        .success(function(data) {
+          $location.path('/admin/jobs');
+          $alert({ content: 'Job saved successfully' });
+        })
+        .error(function(error) {
+          $alert({ content: error.message });
+        });
+    };
+
+    $scope.getJob();
 
 });
 
@@ -234,52 +299,124 @@ function homeSearch() {
 
 
 
-angular
-    .module('MyApp')
-    .directive('previewJob', previewJob);
 
-function previewJob() {
-   
-    var directive = {
-        restrict: 'E',
-        transclude: true,
-        templateUrl: '/partials/job/preview.html',
-        scope: {},
-        link: link,
-        controller : controller,
-        controllerAs: 'vm'
+angular.module('MyApp').directive('userProfile', userProfile);
+
+function userProfile() {
+  return {
+      restrict: 'E',
+      transclude: true,
+      replace: true,
+      scope: {},
+      controller : controller,
+      link: link,
+      controllerAs: 'vm',
+      templateUrl: '/partials/user/profile.html'
+  };
+  
+
+
+  controller.$inject = ['$scope', '$alert', '$auth', 'Account'];
+
+  function controller($scope, $alert, $auth, Account) {
+          
+        var vm = this;
+
+    /**
+     * Get user's profile information.
+     */
+    vm.getProfile = function() {
+      Account.getProfile()
+        .success(function(data) {
+          vm.user = data;
+        })
+        .error(function(error) {
+          $alert({
+            content: error.message,
+            animation: 'fadeZoomFadeDown',
+            type: 'material',
+            duration: 3
+          });
+        });
     };
-    return directive;
 
 
-	controller.$inject = ['$scope', 'Job', '$alert'];
-	
-	function controller($scope, Job, $alert) {
-		
-		var vm = this;
-		vm.jobs = {};
+    /**
+     * Update user's profile information.
+     */
+    vm.updateProfile = function() {
+      Account.updateProfile({
+        displayName: vm.user.displayName,
+        email: vm.user.email
+      }).then(function() {
+        $alert({
+          content: 'Profile has been updated',
+          animation: 'fadeZoomFadeDown',
+          type: 'material',
+          duration: 3
+        });
+      });
+    };
 
-		vm.loadJobs = function() {
-			Job.getFeed().success(function(data) {
-			    vm.jobs = data.data;
-			});
-		}
+    /**
+     * Link third-party provider.
+     */
+    vm.link = function(provider) {
+      $auth.link(provider)
+        .then(function() {
+          $alert({
+            content: 'You have successfully linked ' + provider + ' account',
+            animation: 'fadeZoomFadeDown',
+            type: 'material',
+            duration: 3
+          });
+        })
+        .then(function() {
+          vm.getProfile();
+        })
+        .catch(function(response) {
+          $alert({
+            content: response.data.message,
+            animation: 'fadeZoomFadeDown',
+            type: 'material',
+            duration: 3
+          });
+        });
+    };
 
-		vm.favorite = function(job) {
-			var data = { job_id: job.id };
-			Job.addFav(data).success(function(data){
-				$alert({ content: "Added to favorites" });
-			}).error(function (error) {
-				$alert({ content: 'Please login to select a favorite' });
-			})
-		}
-	
-	}
+    /**
+     * Unlink third-party provider.
+     */
+   vm.unlink = function(provider) {
+      $auth.unlink(provider)
+        .then(function() {
+          $alert({
+            content: 'You have successfully unlinked ' + provider + ' account',
+            animation: 'fadeZoomFadeDown',
+            type: 'material',
+            duration: 3
+          });
+        })
+        .then(function() {
+          vm.getProfile();
+        })
+        .catch(function(response) {
+          $alert({
+            content: response.data ? response.data.message : 'Could not unlink ' + provider + ' account',
+            animation: 'fadeZoomFadeDown',
+            type: 'material',
+            duration: 3
+          });
+        });
+    };
 
-	function link(scope, el, attr, ctrl) {
-	
-		ctrl.loadJobs();
-    
+  }
+
+    function link(scope, el, attr, ctrl) {
+
+          ctrl.getProfile();
+
     }
-}
+
+};
 

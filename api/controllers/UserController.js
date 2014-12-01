@@ -8,17 +8,28 @@
 module.exports = {
   // Doing a DELETE /user/:parentid/message/:id will not delete the message itself
   // We do that here.
-	remove: function(req, res) {
+	// fetch: function(req, res) {
+ //    User.findOne(req.param('parentid')).exec(function(err, user){
+ //            if (!user) return res.json(401, {err: 'User not found'});
+ //            res.json(200, {data: user});
+ //    });
+ //  },
+
+  remove: function(req, res) {
     var relation = req.options.alias;
     switch (relation) {
-      case 'messages':
+      case 'campaigns':
         destroyMessage(req, res);
     }
   },
 
   create: function(req, res) {
     res.json(301, 'To create a user go to /auth/register');
-  }
+  },
+
+  // update: function(req, res) {
+
+  // }
 };
 
 function destroyMessage(req, res) {

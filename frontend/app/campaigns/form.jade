@@ -1,0 +1,31 @@
+.form-group
+  label.control-label Heading
+  input.form-control(type="text" ng-model="job.heading" ng-required="true")
+
+.form-group
+  label.control-label Description
+  textarea.form-control(ng-model="job.description" ng-required="true")
+
+.form-group
+  label.control-label Salary Max
+  input.form-control(type="text" ng-model="job.salary_max" ng-pattern="/^[0-9-]+$/")
+
+.form-group
+  label.control-label Salary Min
+  input.form-control(type="text" ng-model="job.salary_min" ng-pattern="/^[0-9-]+$/")
+
+.form-group
+  label.control-label Start Date
+  input.form-control(type="text" ng-model="job.start_date" data-max-date="{{job.end_date}}" bs-datepicker ng-required="true")
+
+.form-group
+  label.control-label End Date
+  input.form-control(type="text" ng-model="job.end_date" data-min-date="{{job.start_date}}" bs-datepicker ng-required="true")
+
+.form-group
+  label.control-label State
+  select.form-control( ng-model="job.state" ng-options="state.value as state.label for state in states" ng-required="true")
+
+.form-group
+  label.control-label Suburb
+  input.form-control(type="text" ng-model="job.suburb" ng-required="true" )

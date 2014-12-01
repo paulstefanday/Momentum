@@ -19,8 +19,8 @@ module.exports = {
     encryptedPassword: {
       type: 'string'
     },
-    messages: {
-      collection: 'message',
+    campaigns: {
+      collection: 'campaign',
       via: 'user'
     },
     toJSON: function() {

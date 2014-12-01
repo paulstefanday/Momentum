@@ -28,12 +28,8 @@ function signup() {
         email: vm.email,
         password: vm.password
       }).catch(function(response) {
-        var errors = '';
-        if(response.data.error.email) errors += response.data.error.email[0] + " ";
-        if(response.data.error.displayName) errors +=  response.data.error.displayName[0]+ " ";
-        if(response.data.error.password) errors += response.data.error.password[0]+ " ";
         $alert({
-          content: errors,
+          content: JSON.stringify(response),
           animation: 'fadeZoomFadeDown',
           type: 'material',
           duration: 6

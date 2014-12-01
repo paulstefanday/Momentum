@@ -28,7 +28,7 @@ function login() {
           $alert({ content: 'You have successfully logged in' });
         })
         .catch(function(response) {
-          $alert({ content: response.data.message });
+          $alert({ content: JSON.stringify(response) });
         });
     };
 
@@ -38,7 +38,7 @@ function login() {
           $alert({ content: 'You have successfully logged in' });
         })
         .catch(function(response) {
-          $alert({ content: response.data });
+          $alert({ content: JSON.stringify(response) });
         });
     };
   

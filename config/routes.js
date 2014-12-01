@@ -31,7 +31,7 @@ module.exports.routes = {
     view: 'homepage'
   },
 
-
+  'post /subscribe': 'EmailController.subscribe'
   // Custom routes here...
 
 

@@ -122,34 +122,30 @@ angular.module('MyApp')
 });
 angular.module('MyApp')
   .factory('Account', function($http, $auth) {
+    var userId = $auth.getPayload().sid;
     return {
       getProfile: function() {
-        return $http.get('/api/me');
+        return $http.get('/user/'+ userId);
       },
       updateProfile: function(profileData) {
-        return $http.put('/api/me', profileData);
+        return $http.put('/user/'+ userId, profileData);
       }
     };
   });
 angular.module('MyApp')
-  .factory('Category', function($http, $auth) {
+  .factory('Campaigns', function($http, $auth) {
+    var userId = $auth.getPayload().sid;
     return {
-      getcategory: function(limit) {
-        return $http.get('/api/category/');
+      getAll: function() {
+        return $http.get('/user/' + userId + '/campaign');
       },
-      getJob: function(id) {
-        return $http.get('/api/category/' + id);
+      create: function(message) {
+        return $http.post('/user/' + userId + '/campaign', {title: message});
       },
-      addJob: function(data) {
-        return $http.post('/api/category/', data);
-      },
-      updateJob: function(data) {
-        return $http.put('/api/category/' + data.id, data);
-      },
-      deleteJob: function(id) {
-        return $http.delete('/api/category/' + id);
+      remove: function(message) {
+        return $http.delete('/user/' + userId + '/campain/' + message.id);
       }
-    };
+    }
   });
 angular.module('MyApp')
   .factory('Job', function($http, $auth) {

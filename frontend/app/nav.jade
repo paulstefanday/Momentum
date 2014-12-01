@@ -12,6 +12,8 @@
     //- li 
     //-   a(href="" ng-click="goTo('home')") Campaigns
     li( ng-if="isAuthenticated()" )
+      a(href="" ng-click="goTo('profile')") Profile
+    li( ng-if="isAuthenticated()" )
       a(href="" ng-click="goTo('admin')") Admin
     li( ng-if="!isAuthenticated()" )
       a(href="" ng-click="goTo('login')") Login
