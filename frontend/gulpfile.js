@@ -9,29 +9,16 @@ var less = require('gulp-less');
 var paths = {
   scripts: ['common/**/*.js', 'app/**/*.js'],
   templates: 'app/**/*.jade',
-  // images: 'client/img/**/*',
   css: [ 'styles/**/*.less', 'app/**/*.less'],
   root: [ '../assets/js/' , '../assets/styles/']
 };
 
 gulp.task('less', function () {
-    // gulp.src('styles/style.scss')
-    //     .pipe(sass())
-    //     .pipe(concat('style.css'))
-    //     .pipe(gulp.dest(paths.root[1]));
-
-
   gulp.src(paths.css)
     .pipe(concat('style.less'))
-    .pipe(less({
-      // paths: [ path.join(__dirname, 'less', 'includes') ]
-    }))
+    .pipe(less())
     .pipe(concat('style.css'))
     .pipe(gulp.dest(paths.root[1]));
-
-
-
-
 });
 
 gulp.task('js-common', function() {
