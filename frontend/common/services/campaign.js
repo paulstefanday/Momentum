@@ -1,15 +1,17 @@
 angular.module('MyApp')
-  .factory('Campaigns', function($http, $auth) {
-    var userId = $auth.getPayload().sid;
+  .factory('Campaign', function($http, $auth) {
     return {
-      getAll: function() {
-        return $http.get('/user/' + userId + '/campaign');
+      find: function() {
+        var userId = $auth.getPayload().sub;
+        return $http.get('/user/' + userId + '/campaigns');
       },
-      create: function(message) {
-        return $http.post('/user/' + userId + '/campaign', {title: message});
+      create: function(campaign) {
+        var userId = $auth.getPayload().sub;
+        return $http.post('/user/' + userId + '/campaigns', campaign);
       },
-      remove: function(message) {
-        return $http.delete('/user/' + userId + '/campain/' + message.id);
+      delete: function(campaign) {
+        var userId = $auth.getPayload().sub;
+        return $http.delete('/user/' + userId + '/campains/' + campaign.id);
       }
     }
   });

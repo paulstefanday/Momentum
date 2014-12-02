@@ -10,8 +10,10 @@
     ul( ng-if="navCtrl.isAuthenticated()" )
       li
         a(href="" ng-click="navCtrl.goTo('profile')") Profile
+      //- li
+      //-   a(href="" ng-click="navCtrl.goTo('admin')") Admin
       li
-        a(href="" ng-click="navCtrl.goTo('admin')") Admin
+        a(href="" ng-click="navCtrl.goTo('campaigns')") Campaigns
       li
         a(href="" ng-click="navCtrl.logout()") Logout
     

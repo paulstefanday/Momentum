@@ -7,9 +7,9 @@
 				p A new way to campaign online
 				br
 				
-				form.form-group(name="subscribe" style="max-width:400px;width:90%;margin:0 auto;" ng-submit="vm.joinUp()")
+				form.form-group(name="subscribe" style="max-width:400px;width:90%;margin:0 auto;" ng-submit="homeCtrl.joinUp()")
 					.input-group
-						input.form-control.input-xlg( type="email" placeholder="Your Email" ng-model="vm.email" style="text-transform: none !important")
+						input.form-control.input-xlg( type="email" placeholder="Your Email" ng-model="homeCtrl.email" style="text-transform: none !important")
 						span.input-group-btn
-							button.btn.btn-primary.btn-xlg( type="submit" ng-disabled="vm.email" ) Request Invite
+							button.btn.btn-primary.btn-xlg( type="submit" ng-disabled="!homeCtrl.email" ) Request Invite
 	

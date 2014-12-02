@@ -2,15 +2,16 @@ angular.module('MyApp', ['ngAnimate', 'templates', 'ngResource', 'ngMessages', '
   .config(function($stateProvider, $urlRouterProvider, $authProvider, $httpProvider, $datepickerProvider, $alertProvider, $selectProvider) {
 
     var noauth = [
-      { state: 'home',            url: '/',             html: '<home-page/>',            directive: true },
-      { state: 'login',           url: '/login',        html: '<login-form/>',          directive: true },
-      { state: 'search',          url: '/search',       html: '<search/>',                  directive: true },
-      { state: 'signup',          url: '/signup',       html: '<signup-form/>',        directive: true }
+      { state: 'home',          url: '/',             html: '<home-page/>',             directive: true },
+      { state: 'login',         url: '/login',        html: '<login-form/>',            directive: true },
+      { state: 'search',        url: '/search',       html: '<search/>',                directive: true },
+      { state: 'signup',        url: '/signup',       html: '<signup-form/>',           directive: true }
     ];
 
     var hasauth = [
-      { state: 'admin',         url: '/admin',     html: '<user-profile/>',      directive: true },
-      { state: 'profile',         url: '/admin/profile',     html: '<user-profile/>',      directive: true }
+      { state: 'admin',         url: '/admin',              html: '<user-profile/>',        directive: true },
+      { state: 'profile',       url: '/admin/profile',      html: '<user-profile/>',        directive: true },
+      { state: 'campaigns',     url: '/admin/campaigns',    html: '<edit-campaigns/>',      directive: true }
     ];
 
     // alert settings

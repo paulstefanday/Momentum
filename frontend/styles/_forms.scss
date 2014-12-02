@@ -1,29 +1,43 @@
+#search {
+  & input::-webkit-input-placeholder { /* WebKit browsers */
+      color:    #fff;
+         opacity:  0.3;
+  }
+  & input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+     color:    #fff;
+     opacity:  0.3;
+  }
+  & input::-moz-placeholder { /* Mozilla Firefox 19+ */
+     color:    #fff;
+     opacity:  0.3;
+  }
+  & input:-ms-input-placeholder { /* Internet Explorer 10+ */
+     color:    #fff;
+        opacity:  0.3;
+  }
+}
 
 ::-webkit-input-placeholder { /* WebKit browsers */
-    color:    #fff;
-       opacity:  0.3;
+      color:    #000;
 }
 :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-   color:    #fff;
-   opacity:  0.3;
+     color:    #000;
 }
 ::-moz-placeholder { /* Mozilla Firefox 19+ */
-   color:    #fff;
-   opacity:  0.3;
+     color:    #000;
 }
 :-ms-input-placeholder { /* Internet Explorer 10+ */
-   color:    #fff;
-      opacity:  0.3;
+     color:    #000;
 }
 
 
-input {
+input, textarea {
   border:0px solid #fff !important;
   @extend .shadow;
 }
 
 .input-xlg {
-    padding:20px 16px !important;
+  padding:20px 16px !important;
   // text-transform:uppercase;
   height: 60px;
 }

@@ -22,12 +22,26 @@
   box-shadow:         0px 0px 0px 0px rgba(0,0,0,0.2) !important;
 }
 
-body {
-  background: $secondcolor;
-  color: #383a3c;
+html, body {
+    background: $secondcolor;
+      color: #383a3c;
   font-weight: 400;
   font-size: 1em;
   line-height: 1.35;
+} 
+
+
+#view-cover {
+  position:absolute;
+  top:0;
+  right:0;
+  width:100%;
+  height:100%;
+  background: -webkit-linear-gradient(120deg, darken( $secondcolor, 20%) 10%, $secondcolor 90%); /* Chrome 10+, Saf5.1+ */
+  background:    -moz-linear-gradient(120deg, darken( $secondcolor, 20%) 10%, $secondcolor 90%); /* FF3.6+ */
+  background:     -ms-linear-gradient(120deg, darken( $secondcolor, 20%) 10%, $secondcolor 90%); /* IE10 */
+  background:      -o-linear-gradient(120deg, darken( $secondcolor, 20%) 10%, $secondcolor 90%); /* Opera 11.10+ */
+  background:         linear-gradient(120deg, darken( $secondcolor, 20%) 10%, $secondcolor 90%); /* W3C */
 }
 
 .alert-material {

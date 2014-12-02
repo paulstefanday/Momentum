@@ -2,10 +2,11 @@ extends ./layout
 
 block body
   nav-bar
+  #view-cover
   div( ng-click="navCtrl.nav = false" ui-view id="view" ng-class="{ 'blur' : navCtrl.nav }" )
 
 block styles
-  link( href='http://fonts.googleapis.com/css?family=Raleway:200,500,800' rel='stylesheet' type='text/css' )
+  link( href='http://fonts.googleapis.com/css?family=Raleway:100,300,800' rel='stylesheet' type='text/css' )
   link( href="/bower_components/ionicons/css/ionicons.min.css" rel="stylesheet" )
   link( href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" )
   link( href="/bower_components/animate.css/animate.min.css" rel="stylesheet" )

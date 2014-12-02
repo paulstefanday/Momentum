@@ -9,7 +9,7 @@ function homePage() {
       scope: {},
       controller : controller,
       link: link,
-      controllerAs: 'vm',
+      controllerAs: 'homeCtrl',
       templateUrl: '/partials/home/home.html'
   };
 
@@ -17,12 +17,13 @@ function homePage() {
 
   function controller($scope, $alert, $auth, Email) {
           
-        var vm = this;
+        var homeCtrl = this;
 
-        vm.joinUp = function() {
-            if(!vm.email) return $alert({ content: 'Email needs to be valid' });
+        homeCtrl.joinUp = function() {
+            if(!homeCtrl.email) return $alert({ content: 'Email needs to be valid' });
 
-            Email.subscribe({ email: vm.email }).then(function() {
+            Email.subscribe({ email: homeCtrl.email }).then(function() {
+              homeCtrl.email = '';
               $alert({ content: 'Thanks for subscribing' });
             })
             .catch(function(response) {

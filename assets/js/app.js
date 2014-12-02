@@ -148,51 +148,77 @@ function signup() {
 
 }
 
-angular.module('MyApp')
-  .controller('JobCreateCtrl', function($scope, $auth, $alert, Account, Job, Locations) {
+angular
+    .module('MyApp')
+    .directive('editCampaigns', editCampaigns);
 
-	$scope.job = {};
-	$scope.jobs = {};
-  $scope.states = Locations.getStates();
+function editCampaigns() {
+   
+    var directive = {
+        restrict: 'E',
+        transclude: true,
+        replace: true,
+        templateUrl: '/partials/campaigns/edit.html',
+        scope: {},
+        controller : controller,
+        controllerAs: 'campCtrl',
+        link: link
+    };
+    return directive;
 
-    $scope.getJobs = function() {
-		Job.getJobs().success(function(data) {
-          $scope.jobs = data.data;
-          console.log(data.data);
+
+  controller.$inject = ['$scope', '$alert', 'Campaign'];
+  
+  function controller( $scope, $alert, Campaign ) {
+    
+    var campCtrl = this;
+
+    campCtrl.getCampaigns = function() {
+      Campaign.find()
+        .success(function(data) {
+          campCtrl.campaigns = data;
         })
         .error(function(error) {
-          $alert({ content: error.message });
+          $alert({ content: JSON.stringify(error) });
         });
-    };
+    }
 
-    $scope.addJob = function() {
-     Job.addJob($scope.job)
+    campCtrl.addCampaign = function() {
+      Campaign.create(campCtrl.newcampaign)
         .success(function(data) {
-          $scope.jobs.push(data.data);
-          $scope.job = {};
-          $scope.createForm.$setPristine();
+          console.log(data)
+          campCtrl.campaigns.push(data.campaigns[0]);
+          campCtrl.newcampaign = {};
+          campCtrl.createForm.$setPristine();
           $alert({ content: "Job created successfully" });
         })
         .error(function(error) {
           $alert({ content: error.message });
         });
-    };
+    }
 
-    $scope.deleteJob = function(index, id) {
-     	Job.deleteJob(id)
-        .success(function(data) {
-          console.log(data);
-          $scope.jobs.splice(index, 1); 
-        })
-        .error(function(error) {
-          $alert({ content: error.message });
-        });
-    };
+    // campCtrl.deleteJob = function(index, id) {
+    //   Campaign.delete(id)
+    //     .success(function(data) {
+    //       console.log(data);
+    //       $scope.jobs.splice(index, 1); 
+    //     })
+    //     .error(function(error) {
+    //       $alert({ content: error.message });
+    //     });
+    // }
 
+  
+  }
 
-    $scope.getJobs();
+  function link(scope, element, attr, ctrl) {
+    ctrl.newcampaign = {};
+    ctrl.campaigns = {};
+    ctrl.getCampaigns();
+  }
 
-});
+}
+
 angular.module('MyApp')
   .controller('JobUpdateCtrl', function($scope, $stateParams, $auth, $alert, Account, Job, $location, $http, Locations ) {
 
@@ -233,7 +259,7 @@ function homePage() {
       scope: {},
       controller : controller,
       link: link,
-      controllerAs: 'vm',
+      controllerAs: 'homeCtrl',
       templateUrl: '/partials/home/home.html'
   };
 
@@ -241,12 +267,13 @@ function homePage() {
 
   function controller($scope, $alert, $auth, Email) {
           
-        var vm = this;
+        var homeCtrl = this;
 
-        vm.joinUp = function() {
-            if(!vm.email) return $alert({ content: 'Email needs to be valid' });
+        homeCtrl.joinUp = function() {
+            if(!homeCtrl.email) return $alert({ content: 'Email needs to be valid' });
 
-            Email.subscribe({ email: vm.email }).then(function() {
+            Email.subscribe({ email: homeCtrl.email }).then(function() {
+              homeCtrl.email = '';
               $alert({ content: 'Thanks for subscribing' });
             })
             .catch(function(response) {
