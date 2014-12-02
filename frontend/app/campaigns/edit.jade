@@ -6,10 +6,10 @@
         form( method="post" ng-submit="campCtrl.addCampaign()" name="createForm" )
           .form-group
             //- label.control-label Title
-            input.form-control(type="text" ng-model="campCtrl.newcampaign.title" ng-required="true" placeholder="Title")
+            input.input-lg.form-control(type="text" ng-model="campCtrl.newcampaign.title" ng-required="true" placeholder="Title")
           .form-group
             //- label.control-label Description
-            textarea.form-control(ng-model="campCtrl.newcampaign.description" ng-required="true" placeholder="Description")
+            textarea.input-lg.form-control(ng-model="campCtrl.newcampaign.description" ng-required="true" placeholder="Description")
           button.btn.btn-lg.btn-success.btn-block Add New Campaign
 
       .col-sm-8
