@@ -13,20 +13,6 @@ angular.module('MyApp', ['ngAnimate', 'templates', 'ngResource', 'ngMessages', '
       { state: 'profile',         url: '/admin/profile',     html: '<user-profile/>',      directive: true }
     ];
 
-    // process routes
-    noauth.forEach(function(route) {
-      if(!route.directive) $stateProvider.state(route.state, { url: route.url, templateUrl: 'partials/' + route.html } );
-      else $stateProvider.state(route.state, { url: route.url, template: route.html } );
-    });
-
-    // process auth routes
-    hasauth.forEach(function(route) {
-      if(!route.directive) var page = { url: route.url, templateUrl: 'partials/' + route.html };
-      else var page = { url: route.url, template: route.html };
-      page.resolve = { authenticated: ['$location', '$auth', function($location, $auth) { if (!$auth.isAuthenticated()) return $location.path('/login'); }] };
-      $stateProvider.state(route.state, page);  
-    });
-
     // alert settings
     angular.extend($alertProvider.defaults, {
       animation: '',
@@ -51,6 +37,7 @@ angular.module('MyApp', ['ngAnimate', 'templates', 'ngResource', 'ngMessages', '
 
     $urlRouterProvider.otherwise('/');
 
+    // Satellizer settings
     $authProvider.loginOnSignup = true;
     $authProvider.loginRedirect = '/admin';
     $authProvider.logoutRedirect = '/';
@@ -75,6 +62,20 @@ angular.module('MyApp', ['ngAnimate', 'templates', 'ngResource', 'ngMessages', '
 
     $authProvider.twitter({
       url: '/auth/twitter'
+    });
+
+    // process routes
+    noauth.forEach(function(route) {
+      if(!route.directive) $stateProvider.state(route.state, { url: route.url, templateUrl: 'partials/' + route.html } );
+      else $stateProvider.state(route.state, { url: route.url, template: route.html } );
+    });
+
+    // process auth routes
+    hasauth.forEach(function(route) {
+      if(!route.directive) var page = { url: route.url, templateUrl: 'partials/' + route.html };
+      else var page = { url: route.url, template: route.html };
+      page.resolve = { authenticated: ['$location', '$auth', function($location, $auth) { if (!$auth.isAuthenticated()) return $location.path('/login'); }] };
+      $stateProvider.state(route.state, page);  
     });
 
   });

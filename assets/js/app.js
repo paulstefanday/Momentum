@@ -7,7 +7,7 @@ function navBar() {
     var directive = {
         restrict: 'E',
         templateUrl: '/partials/nav.html',
-        scope: {},
+        // scope: {},
         replace: true,
         controller : controller,
         controllerAs: 'navCtrl'
