@@ -12,4 +12,4 @@ Install:
 
 
 Uses:
-Sails.js, Angular, Gulp, Less, Mongodb
+Sails.js, Angular, Gulp, Less, Jade, Mongodb

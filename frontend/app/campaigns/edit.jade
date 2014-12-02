@@ -5,11 +5,9 @@
         h2 Add a Campaign
         form( method="post" ng-submit="campCtrl.addCampaign()" name="createForm" )
           .form-group
-            //- label.control-label Title
-            input.input-lg.form-control(type="text" ng-model="campCtrl.newcampaign.title" ng-required="true" placeholder="Title")
+            input.form-control(type="text" ng-model="campCtrl.newcampaign.title" ng-required="true" placeholder="Title")
           .form-group
-            //- label.control-label Description
-            textarea.input-lg.form-control(ng-model="campCtrl.newcampaign.description" ng-required="true" placeholder="Description")
+            textarea.form-control(ng-model="campCtrl.newcampaign.description" ng-required="true" placeholder="Description")
           button.btn.btn-lg.btn-success.btn-block Add New Campaign
 
       .col-sm-8
@@ -19,14 +17,5 @@
               img( src="http://placehold.it/320x150" alt="" )
               .caption
                 p {{campaign.title}}
-                p {{campaign.description}}
-                //- p Edit
-                a.ion-ios7-trash.pull-right(href="")
-
-
-          //- .col-sm-12.job( ng-repeat="campaign in campCtrl.campaigns" )
-          //-   .panel.panel-default
-          //-     .panel-body
-          //-       p.pull-left {{ campaign.title }}
-          //-       //- a.btn.btn-danger.pull-right( ng-click="deleteJob($index, job.id)" ) Delete
-          //-       a.btn.btn-success.pull-right( href="/#/admin/job/{{ campaign.id }}" ) Edit         
+                p {{campaign.description}}  
+                a.ion-ios7-trash.pull-right(href="" ng-click="deleteJob($index, job.id)")
