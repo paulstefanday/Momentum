@@ -9,3 +9,7 @@ Install:
 4. cd ../frontend; npm intstall; gulp
 5. cd ../; sails lift
 6. visit http://localhost:1337
+
+
+Uses:
+Sails.js, Angular, Gulp, Less, Mongodb
