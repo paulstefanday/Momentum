@@ -4,13 +4,13 @@
       .center-form
         .panel-body
           h2.text-center Log in
-          form( method="post" ng-submit="navBarCtrl.login({ email: vm.email, password: vm.password })" name="loginForm" )
+          form( method="post" ng-submit="loginCtrl.login()" name="loginForm" )
             .form-group.has-feedback
-              input.form-control.input-lg( type="text" name="email" ng-model="vm.email" placeholder="Email" required autofocus )
+              input.form-control.input-lg( type="text" name="email" ng-model="loginCtrl.email" placeholder="Email" required autofocus )
               span.ion-at.form-control-feedback
 
             .form-group.has-feedback
-              input.form-control.input-lg( type="password" name="password" ng-model="vm.password" placeholder="Password" required )
+              input.form-control.input-lg( type="password" name="password" ng-model="loginCtrl.password" placeholder="Password" required )
               span.ion-key.form-control-feedback
 
             button.btn.btn-lg.btn-block.btn-primary( type="submit" ng-disabled="loginForm.$invalid" ) Log in

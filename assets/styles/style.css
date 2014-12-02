@@ -210,7 +210,8 @@ input {
 p, a {
   font-family: Arial;
   font-size: 15px;
-  letter-spacing: 0.04em; }
+  letter-spacing: 0.04em;
+  color: #7CBBD7; }
 
 small, .small, .small a, small a {
   font-size: 12px !important; }

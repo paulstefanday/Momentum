@@ -33,16 +33,6 @@ function navBar() {
           return $auth.isAuthenticated();
         }
 
-        navCtrl.login = function(user) {
-          $auth.login(user)
-            .then(function() {
-              $alert({ content: 'You have successfully logged in' });
-            })
-            .catch(function(response) {
-              $alert({ content: JSON.stringify(response) });
-            });
-        }
-
         navCtrl.logout = function() {
             $auth.logout()
             .then(function() {

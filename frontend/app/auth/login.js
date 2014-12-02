@@ -10,12 +10,14 @@ function login() {
         replace: true,
         templateUrl: '/partials/auth/login.html',
         scope: {},
-        controller : controller,
-        controllerAs: 'vm',
         // require: '^navBar',
-        // link: function(scope, element, attr, navBarCtrl){
-        //     scope.navBarCtrl = navBarCtrl;
-        // } 
+        controller : controller,
+        controllerAs: 'loginCtrl',
+
+        link: function(scope, element, attr, ctrls){
+            // ctrl.login = navBarCtrl.login();
+            console.log(ctrls);
+        } 
     };
     return directive;
 
@@ -24,9 +26,19 @@ function login() {
   
   function controller($scope, $auth, $alert) {
     
-    var vm = this;
+    var loginCtrl = this;
 
-    vm.authenticate = function(provider) {
+    loginCtrl.login = function() {
+      $auth.login({ email: loginCtrl.email, password: loginCtrl.password })
+        .then(function() {
+          $alert({ content: 'You have successfully logged in' });
+        })
+        .catch(function(response) {
+          $alert({ content: JSON.stringify(response) });
+        });
+    }
+
+    loginCtrl.authenticate = function(provider) {
       $auth.authenticate(provider)
         .then(function() {
           $alert({ content: 'You have successfully logged in' });
@@ -34,7 +46,7 @@ function login() {
         .catch(function(response) {
           $alert({ content: JSON.stringify(response) });
         });
-    };
+    }
   
   }
 

@@ -9,6 +9,7 @@ angular.module('MyApp', ['ngAnimate', 'templates', 'ngResource', 'ngMessages', '
     ];
 
     var hasauth = [
+      { state: 'admin',         url: '/admin',     html: '<user-profile/>',      directive: true },
       { state: 'profile',         url: '/admin/profile',     html: '<user-profile/>',      directive: true }
     ];
 
@@ -51,7 +52,7 @@ angular.module('MyApp', ['ngAnimate', 'templates', 'ngResource', 'ngMessages', '
     $urlRouterProvider.otherwise('/');
 
     $authProvider.loginOnSignup = true;
-    $authProvider.loginRedirect = '/';
+    $authProvider.loginRedirect = '/admin';
     $authProvider.logoutRedirect = '/';
     $authProvider.signupRedirect = '/login';
     $authProvider.loginUrl = '/auth/login';
