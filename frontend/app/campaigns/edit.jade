@@ -1,23 +1,32 @@
-.container
-  .row  
-    .col-sm-6
-      h2.text-center Add a Campaign
-      form( method="post" ng-submit="campCtrl.addCampaign()" name="createForm" )
-        .form-group
-          //- label.control-label Title
-          input.form-control(type="text" ng-model="campCtrl.newcampaign.title" ng-required="true" placeholder="Title")
+.view
+  .container
+    .row  
+      .col-sm-4
+        h2 Add a Campaign
+        form( method="post" ng-submit="campCtrl.addCampaign()" name="createForm" )
+          .form-group
+            //- label.control-label Title
+            input.form-control(type="text" ng-model="campCtrl.newcampaign.title" ng-required="true" placeholder="Title")
+          .form-group
+            //- label.control-label Description
+            textarea.form-control(ng-model="campCtrl.newcampaign.description" ng-required="true" placeholder="Description")
+          button.btn.btn-lg.btn-success.btn-block Add New Campaign
 
-        .form-group
-          //- label.control-label Description
-          textarea.form-control(ng-model="campCtrl.newcampaign.description" ng-required="true" placeholder="Description")
-        button.btn.btn-lg.btn-success.btn-block Add New Campaign
+      .col-sm-8
+        .row(style="margin-top:73px;")
+          .col-sm-6.col-lg-4.col-md-4( ng-repeat="campaign in campCtrl.campaigns" )
+            .thumbnail
+              img( src="http://placehold.it/320x150" alt="" )
+              .caption
+                p {{campaign.title}}
+                p {{campaign.description}}
+                //- p Edit
+                a.ion-ios7-trash.pull-right(href="")
 
-    .col-sm-6
-      h2.text-center Campaigns
-      .row
-        .col-sm-12.job( ng-repeat="campaign in campCtrl.campaigns" )
-          .panel.panel-default
-            .panel-body
-              p.pull-left {{ campaign.title }}
-              //- a.btn.btn-danger.pull-right( ng-click="deleteJob($index, job.id)" ) Delete
-              a.btn.btn-success.pull-right( href="/#/admin/job/{{ campaign.id }}" ) Edit         
+
+          //- .col-sm-12.job( ng-repeat="campaign in campCtrl.campaigns" )
+          //-   .panel.panel-default
+          //-     .panel-body
+          //-       p.pull-left {{ campaign.title }}
+          //-       //- a.btn.btn-danger.pull-right( ng-click="deleteJob($index, job.id)" ) Delete
+          //-       a.btn.btn-success.pull-right( href="/#/admin/job/{{ campaign.id }}" ) Edit         

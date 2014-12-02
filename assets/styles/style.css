@@ -32,23 +32,6 @@ html, body {
   font-size: 1em;
   line-height: 1.35; }
 
-#view-cover {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-  background: -webkit-linear-gradient(120deg, #1e5d87 10%, #3893D3 90%);
-  /* Chrome 10+, Saf5.1+ */
-  background: -moz-linear-gradient(120deg, #1e5d87 10%, #3893D3 90%);
-  /* FF3.6+ */
-  background: -ms-linear-gradient(120deg, #1e5d87 10%, #3893D3 90%);
-  /* IE10 */
-  background: -o-linear-gradient(120deg, #1e5d87 10%, #3893D3 90%);
-  /* Opera 11.10+ */
-  background: linear-gradient(120deg, #1e5d87 10%, #3893D3 90%);
-  /* W3C */ }
-
 .alert-material {
   text-align: center;
   margin: 20px auto;
@@ -83,6 +66,9 @@ html, body {
 #view.ng-enter {
   -webkit-animation: 1.5s zoomIn;
   animation: 1.5s zoomIn; }
+  #view.ng-enter .view {
+    overflow-x: hidden;
+    overflow-y: hidden; }
 
 #view.ng-leave {
   -webkit-animation: 1s fadeOut;
@@ -92,6 +78,9 @@ html, body {
   left: 0;
   width: 100%;
   height: 100%; }
+  #view.ng-leave .view {
+    overflow-x: hidden;
+    overflow-y: hidden; }
 
 .alert-material.ng-enter {
   -webkit-animation: 0.5s zoomIn;
@@ -170,7 +159,8 @@ input, textarea {
 
 .input-xlg {
   padding: 20px 16px !important;
-  height: 60px; }
+  height: 60px;
+  font-size: 18px; }
 
 .datepicker.dropdown-menu {
   width: 250px;
@@ -275,8 +265,8 @@ a {
   margin-right: 5px; }
 
 .btn-xlg {
-  padding: 20px 36px !important;
-  text-transform: uppercase; }
+  padding: 18px 36px !important;
+  font-size: 18px; }
 
 .search-btn {
   position: fixed;
@@ -364,12 +354,30 @@ a {
   #view h1, #view h2, #view h3, #view h4 {
     color: #fff !important; }
 
+#view-cover {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: -webkit-linear-gradient(120deg, #1e5d87 10%, #3893D3 90%);
+  /* Chrome 10+, Saf5.1+ */
+  background: -moz-linear-gradient(120deg, #1e5d87 10%, #3893D3 90%);
+  /* FF3.6+ */
+  background: -ms-linear-gradient(120deg, #1e5d87 10%, #3893D3 90%);
+  /* IE10 */
+  background: -o-linear-gradient(120deg, #1e5d87 10%, #3893D3 90%);
+  /* Opera 11.10+ */
+  background: linear-gradient(120deg, #1e5d87 10%, #3893D3 90%);
+  /* W3C */ }
+
 .view {
   width: 100%;
   height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
-  -webkit-overflow-scrolling: touch; }
+  -webkit-overflow-scrolling: touch;
+  padding-top: 40px; }
 
 .view-white {
   position: absolute;
@@ -465,7 +473,7 @@ a {
     float: left;
     text-transform: uppercase;
     font-family: 'Raleway', Calibri, Arial, sans-serif !important;
-    font-weight: 500 !important;
+    font-weight: 300 !important;
     background-color: rgba(0, 161, 231, 0.24);
     margin-bottom: 1px; }
     #nav-menu a:hover {

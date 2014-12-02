@@ -32,18 +32,25 @@
 #view.ng-enter{
   -webkit-animation:1.5s zoomIn;//fadeInDown;
   animation:1.5s zoomIn; //fadeInDown;
+  & .view {
+    overflow-x: hidden;
+    overflow-y: hidden;  
+  }
 }
 
 
 #view.ng-leave {
-    -webkit-animation:1s fadeOut;
- animation:1s fadeOut;
+  -webkit-animation:1s fadeOut;
+  animation:1s fadeOut;
   position:absolute;
   top:0;
   left:0;
   width:100%;
   height:100%;
-  // background-color:#fff;
+  & .view {
+    overflow-x: hidden;
+    overflow-y: hidden;  
+  }
 }
 
 .alert-material.ng-enter {
@@ -56,7 +63,6 @@
  animation:1s fadeOut;
 }
 
-
 .ng-hide-remove {
   -webkit-animation:1s zoomIn;
   animation:1s zoomIn;
@@ -67,9 +73,6 @@
  animation:1s bounceOutDown;
     display: block !important;
 }
-
-
-
 
 
 @-webkit-keyframes zoomIn {

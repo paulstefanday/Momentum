@@ -30,20 +30,6 @@ html, body {
   line-height: 1.35;
 } 
 
-
-#view-cover {
-  position:absolute;
-  top:0;
-  right:0;
-  width:100%;
-  height:100%;
-  background: -webkit-linear-gradient(120deg, darken( $secondcolor, 20%) 10%, $secondcolor 90%); /* Chrome 10+, Saf5.1+ */
-  background:    -moz-linear-gradient(120deg, darken( $secondcolor, 20%) 10%, $secondcolor 90%); /* FF3.6+ */
-  background:     -ms-linear-gradient(120deg, darken( $secondcolor, 20%) 10%, $secondcolor 90%); /* IE10 */
-  background:      -o-linear-gradient(120deg, darken( $secondcolor, 20%) 10%, $secondcolor 90%); /* Opera 11.10+ */
-  background:         linear-gradient(120deg, darken( $secondcolor, 20%) 10%, $secondcolor 90%); /* W3C */
-}
-
 .alert-material {
   // position: fixed;
   text-align:center;
