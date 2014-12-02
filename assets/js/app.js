@@ -7,10 +7,10 @@ function navBar() {
     var directive = {
         restrict: 'E',
         templateUrl: '/partials/nav.html',
-        scope: false,
+        scope: {},
         replace: true,
         controller : controller,
-        // controllerAs: 'vm'
+        controllerAs: 'navCtrl'
     };
 
     return directive;
@@ -18,31 +18,36 @@ function navBar() {
 	controller.$inject = ['$scope', '$auth', '$state', '$alert'];
 	function controller($scope, $auth, $state, $alert) {
 
-        // var vm = this;
+        var navCtrl = this;
 
-        $scope.goTo = function(name) {
-            $scope.nav = false;
+        navCtrl.goTo = function(name) {
+            navCtrl.nav = false;
             $state.go(name);
         }
 
-        $scope.toggleNav = function() {
-            $scope.nav = !$scope.nav;
+        navCtrl.toggleNav = function() {
+            navCtrl.nav = !navCtrl.nav;
         }
 	    
-        $scope.isAuthenticated = function() {
+        navCtrl.isAuthenticated = function() {
           return $auth.isAuthenticated();
-        };
+        }
 
-        $scope.logout = function() {
+        navCtrl.login = function(user) {
+          $auth.login(user)
+            .then(function() {
+              $alert({ content: 'You have successfully logged in' });
+            })
+            .catch(function(response) {
+              $alert({ content: JSON.stringify(response) });
+            });
+        }
+
+        navCtrl.logout = function() {
             $auth.logout()
             .then(function() {
-                $scope.nav = false;
-                $alert({
-                  content: 'You have been logged out',
-                  animation: 'fadeZoomFadeDown',
-                  type: 'material',
-                  duration: 3
-                });
+                navCtrl.nav = false;
+                $alert({ content: 'You have been logged out' });
             });
         }
 
@@ -64,7 +69,11 @@ function login() {
         templateUrl: '/partials/auth/login.html',
         scope: {},
         controller : controller,
-        controllerAs: 'vm'
+        controllerAs: 'vm',
+        // require: '^navBar',
+        // link: function(scope, element, attr, navBarCtrl){
+        //     scope.navBarCtrl = navBarCtrl;
+        // } 
     };
     return directive;
 
@@ -74,16 +83,6 @@ function login() {
   function controller($scope, $auth, $alert) {
     
     var vm = this;
-
-    vm.login = function() {
-      $auth.login({ email: vm.email, password: vm.password })
-        .then(function() {
-          $alert({ content: 'You have successfully logged in' });
-        })
-        .catch(function(response) {
-          $alert({ content: JSON.stringify(response) });
-        });
-    };
 
     vm.authenticate = function(provider) {
       $auth.authenticate(provider)
@@ -96,6 +95,9 @@ function login() {
     };
   
   }
+
+
+
 
 }
 
@@ -232,8 +234,6 @@ function homePage() {
       controllerAs: 'vm',
       templateUrl: '/partials/home/home.html'
   };
-  
-
 
   controller.$inject = ['$scope', '$alert', '$auth', 'Email'];
 
@@ -242,7 +242,7 @@ function homePage() {
         var vm = this;
 
         vm.joinUp = function() {
-            // if(!auth) return $alert({ content: 'Email needs to be valid' });
+            if(!vm.email) return $alert({ content: 'Email needs to be valid' });
 
             Email.subscribe({ email: vm.email }).then(function() {
               $alert({ content: 'Thanks for subscribing' });
@@ -251,12 +251,11 @@ function homePage() {
               $alert({ content: JSON.stringify(response) });
             });
         }
-
   }
 
-    function link(scope, el, attr, ctrl) {
+  function link(scope, el, attr, ctrl) {
 
-    }
+  }
 
 };
 

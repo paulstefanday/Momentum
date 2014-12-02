@@ -18,12 +18,14 @@ module.exports = {
     });
 
     /** sets up the mail options, from and such like that **/
-    var from    = email.from || 'nobody@nobody.com';
+    var from    = email.from || 'info@momentum.build';
+    var name    = email.name || 'Momentum'
     var subject = email.subject || 'Momentum Email Message';
+    var to      = email.to || "paul@paulday.com.au"; 
 
     var mailOptions = {
-      from: email.name + '<' + from + '>',
-      to: email.to,
+      from: name + '<' + from + '>',
+      to: to,
       subject: subject,
       html: email.messageHtml
     }

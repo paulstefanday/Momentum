@@ -7,10 +7,10 @@ function navBar() {
     var directive = {
         restrict: 'E',
         templateUrl: '/partials/nav.html',
-        scope: false,
+        scope: {},
         replace: true,
         controller : controller,
-        // controllerAs: 'vm'
+        controllerAs: 'navCtrl'
     };
 
     return directive;
@@ -18,31 +18,36 @@ function navBar() {
 	controller.$inject = ['$scope', '$auth', '$state', '$alert'];
 	function controller($scope, $auth, $state, $alert) {
 
-        // var vm = this;
+        var navCtrl = this;
 
-        $scope.goTo = function(name) {
-            $scope.nav = false;
+        navCtrl.goTo = function(name) {
+            navCtrl.nav = false;
             $state.go(name);
         }
 
-        $scope.toggleNav = function() {
-            $scope.nav = !$scope.nav;
+        navCtrl.toggleNav = function() {
+            navCtrl.nav = !navCtrl.nav;
         }
 	    
-        $scope.isAuthenticated = function() {
+        navCtrl.isAuthenticated = function() {
           return $auth.isAuthenticated();
-        };
+        }
 
-        $scope.logout = function() {
+        navCtrl.login = function(user) {
+          $auth.login(user)
+            .then(function() {
+              $alert({ content: 'You have successfully logged in' });
+            })
+            .catch(function(response) {
+              $alert({ content: JSON.stringify(response) });
+            });
+        }
+
+        navCtrl.logout = function() {
             $auth.logout()
             .then(function() {
-                $scope.nav = false;
-                $alert({
-                  content: 'You have been logged out',
-                  animation: 'fadeZoomFadeDown',
-                  type: 'material',
-                  duration: 3
-                });
+                navCtrl.nav = false;
+                $alert({ content: 'You have been logged out' });
             });
         }
 

@@ -12,8 +12,6 @@ function homePage() {
       controllerAs: 'vm',
       templateUrl: '/partials/home/home.html'
   };
-  
-
 
   controller.$inject = ['$scope', '$alert', '$auth', 'Email'];
 
@@ -22,7 +20,7 @@ function homePage() {
         var vm = this;
 
         vm.joinUp = function() {
-            // if(!auth) return $alert({ content: 'Email needs to be valid' });
+            if(!vm.email) return $alert({ content: 'Email needs to be valid' });
 
             Email.subscribe({ email: vm.email }).then(function() {
               $alert({ content: 'Thanks for subscribing' });
@@ -31,12 +29,11 @@ function homePage() {
               $alert({ content: JSON.stringify(response) });
             });
         }
-
   }
 
-    function link(scope, el, attr, ctrl) {
+  function link(scope, el, attr, ctrl) {
 
-    }
+  }
 
 };
 

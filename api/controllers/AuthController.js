@@ -32,7 +32,7 @@ module.exports = {
         if (!valid) {
           return res.json(401, {err: 'invalid username or password'});
         } else {
-          res.json({user: user, token: sailsTokenAuth.issueToken({sid: user.id, exp: expiry })});
+          res.json(200, {user: user, token: sailsTokenAuth.issueToken({sub: user.id, exp: expiry })});
         }
       });
     })
@@ -50,7 +50,7 @@ module.exports = {
         return;
       }
       if (user) {
-        res.json({user: user, token: sailsTokenAuth.issueToken({sid: user.id, exp: expiry })});
+        res.json(200, {user: user, token: sailsTokenAuth.issueToken({sub: user.id, exp: expiry })});
       }
     });
   }

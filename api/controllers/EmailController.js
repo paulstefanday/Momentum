@@ -10,20 +10,17 @@ module.exports = {
 	subscribe: function(req, res) {
 		
 		var data = {
-              name:       'Momentum User',
-              from:       req.param('email'),
-              to:         'paul@paulday.com.au',
-              subject:    'New Signup',
-              messageHtml: req.param('email') + ' just subscribed.'
-        };
+        from:         req.param('email'),
+        subject:      'New Signup',
+        messageHtml:  req.param('email') + ' just subscribed.'
+    };
 		
 		if(!req.param('email')) return res.json(404, {err: 'Must Enter Email'});
 
-
-      nodemailer.send(data, function(err, response){
-              sails.log.debug('nodemailer sent', err, response);
-              res.json(200, {success: true});
-        });
+    nodemailer.send(data, function(err, response){
+            sails.log.debug('nodemailer sent', err, response);
+            res.json(200, {success: true});
+    });
 
 		
 	}

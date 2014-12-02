@@ -2,7 +2,7 @@ extends ./layout
 
 block body
   nav-bar
-  div( ng-click="hideNav()" ui-view id="view" ng-class="{ 'blur' : nav }" )
+  div( ng-click="navCtrl.nav = false" ui-view id="view" ng-class="{ 'blur' : navCtrl.nav }" )
 
 block styles
   link( href='http://fonts.googleapis.com/css?family=Raleway:200,500,800' rel='stylesheet' type='text/css' )
@@ -22,6 +22,7 @@ block scripts
   script(src="/bower_components/angular-strap/dist/angular-strap.min.js")
   script(src="/bower_components/angular-strap/dist/angular-strap.tpl.min.js")
   script(src="/bower_components/satellizer/dist/satellizer.js")
+  //- script(src="/js/satellizer.js")
   script(src="/bower_components/angular-loading-bar/build/loading-bar.min.js")
     
   script(src="/js/templates.js")    

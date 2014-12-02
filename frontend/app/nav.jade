@@ -1,17 +1,22 @@
 #nav
-  #nav-toggle(ng-click="toggleNav()" ng-class="{ 'ion-ios7-close-outline': nav, 'ion-navicon' : !nav}")
-  ul#nav-menu(ng-show="nav")
-    li 
-      a(href="" ng-click="goTo('home')") Home 
-    li
-      a(href="" ng-click="goTo('search')") Search
-    li( ng-if="isAuthenticated()" )
-      a(href="" ng-click="goTo('profile')") Profile
-    li( ng-if="isAuthenticated()" )
-      a(href="" ng-click="goTo('admin')") Admin
-    li( ng-if="!isAuthenticated()" )
-      a(href="" ng-click="goTo('login')") Login
-    li( ng-if="!isAuthenticated()" )
-      a(href="" ng-click="goTo('signup')") Signup
-    li( ng-if="isAuthenticated()" )
-      a(href="" ng-click="logout()") Logout
+  #nav-toggle(ng-click="navCtrl.toggleNav()" ng-class="{ 'ion-ios7-close-outline': navCtrl.nav, 'ion-navicon' : !navCtrl.nav}")
+  #nav-menu(ng-show="navCtrl.nav")
+    ul
+      li 
+        a(href="" ng-click="navCtrl.goTo('home')") Home 
+      li
+        a(href="" ng-click="navCtrl.goTo('search')") Search
+    
+    ul( ng-if="navCtrl.isAuthenticated()" )
+      li
+        a(href="" ng-click="navCtrl.goTo('profile')") Profile
+      li
+        a(href="" ng-click="navCtrl.goTo('admin')") Admin
+      li
+        a(href="" ng-click="navCtrl.logout()") Logout
+    
+    ul( ng-if="!navCtrl.isAuthenticated()" )
+      li
+        a(href="" ng-click="navCtrl.goTo('login')") Login
+      li
+        a(href="" ng-click="navCtrl.goTo('signup')") Signup

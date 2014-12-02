@@ -9,12 +9,7 @@ angular.module('MyApp', ['ngAnimate', 'templates', 'ngResource', 'ngMessages', '
     ];
 
     var hasauth = [
-      // { state: 'admin',           url: '/admin',             ctrl: 'Admin',           html: 'partials/admin/user/profile.html' },
       { state: 'profile',         url: '/admin/profile',     html: '<user-profile/>',      directive: true }
-      // { state: 'adminjobupdate',  url: '/admin/job/:id',     ctrl: 'JobUpdate',       html: 'partials/admin/job/update.html' },
-      // { state: 'adminjob',        url: '/admin/jobs',        ctrl: 'JobCreate',       html: 'partials/admin/job/create.html' },
-      // { state: 'adminjobfav',     url: '/admin/jobs/favorites', ctrl: 'JobFavorite',  html: 'partials/admin/job/favorites.html' },
-      // { state: 'admincategory',   url: '/category',          ctrl: 'CategoryCreate',  html: 'partials/admin/category/addcategory.html' }
     ];
 
     // process routes
@@ -25,27 +20,25 @@ angular.module('MyApp', ['ngAnimate', 'templates', 'ngResource', 'ngMessages', '
 
     // process auth routes
     hasauth.forEach(function(route) {
-        if(!route.directive) var page = { url: route.url, templateUrl: 'partials/' + route.html };
-        else var page = { url: route.url, template: route.html };
-        page.resolve = { authenticated: ['$location', '$auth', function($location, $auth) { if (!$auth.isAuthenticated()) return $location.path('/login'); }] };
-        $stateProvider.state(route.state, page);  
+      if(!route.directive) var page = { url: route.url, templateUrl: 'partials/' + route.html };
+      else var page = { url: route.url, template: route.html };
+      page.resolve = { authenticated: ['$location', '$auth', function($location, $auth) { if (!$auth.isAuthenticated()) return $location.path('/login'); }] };
+      $stateProvider.state(route.state, page);  
     });
 
     // alert settings
     angular.extend($alertProvider.defaults, {
-            animation: '',
-            type: 'material',
-            duration: 5,
-            // dismissable: false,
-            // placement: 'top-right'
+      animation: '',
+      type: 'material',
+      duration: 5,
     });
 
     // datepicker settings
     angular.extend($datepickerProvider.defaults, {
-        dateFormat: 'yyyy-MM-dd',
-        placement: "top-left",
-        dateType: 'string',
-        autoclose: 1
+      dateFormat: 'yyyy-MM-dd',
+      placement: "top-left",
+      dateType: 'string',
+      autoclose: 1
     });
 
     angular.extend($selectProvider.defaults, {
@@ -57,18 +50,18 @@ angular.module('MyApp', ['ngAnimate', 'templates', 'ngResource', 'ngMessages', '
 
     $urlRouterProvider.otherwise('/');
 
-$authProvider.loginOnSignup = true;
-$authProvider.loginRedirect = '/';
-$authProvider.logoutRedirect = '/';
-$authProvider.signupRedirect = '/login';
-$authProvider.loginUrl = '/auth/login';
-$authProvider.signupUrl = '/auth/signup';
-$authProvider.loginRoute = '/login';
-$authProvider.signupRoute = '/signup';
-$authProvider.tokenName = 'token';
-$authProvider.tokenPrefix = 'satellizer'; // Local Storage name prefix
-// $authProvider.unlinkUrl = '/auth/unlink/';
-// $authProvider.authHeader = 'Bearer';
+    $authProvider.loginOnSignup = true;
+    $authProvider.loginRedirect = '/';
+    $authProvider.logoutRedirect = '/';
+    $authProvider.signupRedirect = '/login';
+    $authProvider.loginUrl = '/auth/login';
+    $authProvider.signupUrl = '/auth/signup';
+    $authProvider.loginRoute = '/login';
+    $authProvider.signupRoute = '/signup';
+    $authProvider.tokenName = 'token';
+    $authProvider.tokenPrefix = 'satellizer'; // Local Storage name prefix
+    // $authProvider.unlinkUrl = '/auth/unlink/';
+    // $authProvider.authHeader = 'Bearer';
 
     // Social media login providers
     $authProvider.facebook({
@@ -83,14 +76,7 @@ $authProvider.tokenPrefix = 'satellizer'; // Local Storage name prefix
       url: '/auth/twitter'
     });
 
-  }).run(["$rootScope", "$location", 
-    function ($rootScope, $location) {
-        $rootScope.nav = false;
-
-        $rootScope.hideNav = function() {
-            $rootScope.nav = false;
-        }
-}] );
+  });
 
 
 
