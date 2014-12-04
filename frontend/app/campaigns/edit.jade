@@ -12,7 +12,7 @@
 
       .col-sm-8
         #campaigns.row
-          .repeat-animation.campaign-item.col-sm-6.col-lg-4.col-md-4( ng-repeat="campaign in campCtrl.campaigns | filter:search" )
+          .repeat-animation.campaign-item.col-sm-6.col-lg-4.col-md-4( ng-repeat="campaign in campCtrl.campaigns | orderBy:'-createdAt'" )
             .thumbnail
               //- img(  src="http://placehold.it/320x150" alt="" )
               a.ion-ios7-gear-outline(href="#")
