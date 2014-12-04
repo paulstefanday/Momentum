@@ -12,10 +12,12 @@
 
       .col-sm-8
         .row(style="margin-top:73px;")
-          .col-sm-6.col-lg-4.col-md-4( ng-repeat="campaign in campCtrl.campaigns" )
+          .campaign-item.col-sm-6.col-lg-4.col-md-4( ng-repeat="campaign in campCtrl.campaigns" )
             .thumbnail
-              img( src="http://placehold.it/320x150" alt="" )
+              //- img(  src="http://placehold.it/320x150" alt="" )
+              a.ion-ios7-gear-outline(href="#")
               .caption
-                p {{campaign.title}}
-                p {{campaign.description}}  
-                a.ion-ios7-trash.pull-right(href="" ng-click="deleteJob($index, job.id)")
+                p.dark {{campaign.title}}
+                //- p {{campaign.description | limitTo:70 }}  
+                a.ion-ios7-trash(href="" ng-click="deleteJob($index, job.id)")
+                a.ion-eye(href="" )

@@ -27,9 +27,6 @@ module.exports = {
     res.json(301, 'To create a user go to /auth/register');
   },
 
-  // update: function(req, res) {
-
-  // }
 };
 
 function destroyMessage(req, res) {
