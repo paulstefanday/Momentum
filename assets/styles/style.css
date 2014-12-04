@@ -11,17 +11,36 @@
   color: #fff !important;
   border-radius: 0px;
 }
+.alert-material.ng-enter {
+  -webkit-animation: 0.5s zoomIn;
+  animation: 0.5s zoomIn;
+}
+.alert-material.ng-leave {
+  -webkit-animation: 1s fadeOut;
+  animation: 1s fadeOut;
+}
 input.ng-invalid.ng-dirty {
   border: 1px solid #FA787E !important;
 }
 input.ng-valid.ng-dirty {
   border: 1px solid #0f9d58 !important;
 }
+.ng-hide-remove {
+  -webkit-animation: 1s zoomIn;
+  animation: 1s zoomIn;
+}
+.ng-hide-add {
+  -webkit-animation: 1s bounceOutDown;
+  animation: 1s bounceOutDown;
+  display: block !important;
+}
 .repeat-animation.ng-enter-stagger,
 .repeat-animation.ng-leave-stagger,
 .repeat-animation.ng-move-stagger {
   -webkit-transition-delay: 0.2s;
   transition-delay: 0.2s;
+  -webkit-transition-duration: 0;
+  transition-duration: 0;
 }
 .repeat-animation.ng-enter,
 .repeat-animation.ng-leave,
@@ -35,75 +54,11 @@ input.ng-valid.ng-dirty {
   -webkit-transition: 0.5s linear all;
   transition: 0.5s linear all;
   opacity: 0;
-  line-height: 0;
 }
 .repeat-animation.ng-leave,
 .repeat-animation.ng-move.ng-move-active,
 .repeat-animation.ng-enter.ng-enter-active {
   opacity: 1;
-  line-height: 20px;
-}
-#view.ng-enter {
-  -webkit-animation: 1.5s zoomIn;
-  animation: 1.5s zoomIn;
-}
-#view.ng-enter .view {
-  overflow-x: hidden;
-  overflow-y: hidden;
-}
-#view.ng-leave {
-  -webkit-animation: 1s fadeOut;
-  animation: 1s fadeOut;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-#view.ng-leave .view {
-  overflow-x: hidden;
-  overflow-y: hidden;
-}
-.alert-material.ng-enter {
-  -webkit-animation: 0.5s zoomIn;
-  animation: 0.5s zoomIn;
-}
-.alert-material.ng-leave {
-  -webkit-animation: 1s fadeOut;
-  animation: 1s fadeOut;
-}
-.ng-hide-remove {
-  -webkit-animation: 1s zoomIn;
-  animation: 1s zoomIn;
-}
-.ng-hide-add {
-  -webkit-animation: 1s bounceOutDown;
-  animation: 1s bounceOutDown;
-  display: block !important;
-}
-@-webkit-keyframes zoomIn {
-  0% {
-    opacity: 0;
-    -webkit-transform: scale3d(0.8, 0.8, 0.8);
-    -moz-transform: scale3d(0.8, 0.8, 0.8);
-    -ms-transform: scale3d(0.8, 0.8, 0.8);
-    transform: scale3d(0.8, 0.8, 0.8);
-  }
-  50% {
-    opacity: 1;
-  }
-}
-@keyframes zoomIn {
-  0% {
-    opacity: 0;
-    -webkit-transform: scale3d(0.8, 0.8, 0.8);
-    -moz-transform: scale3d(0.8, 0.8, 0.8);
-    -ms-transform: scale3d(0.8, 0.8, 0.8);
-    transform: scale3d(0.8, 0.8, 0.8);
-  }
-  50% {
-    opacity: 1;
-  }
 }
 * {
   -webkit-font-smoothing: antialiased;
@@ -549,7 +504,7 @@ textarea {
 #view h2,
 #view h3,
 #view h4 {
-  color: #ffffff !important;
+  color: #ffffff;
 }
 #view-cover {
   position: fixed;
@@ -602,40 +557,64 @@ textarea {
   z-index: 100000;
   color: #ffffff;
 }
+#view.ng-enter {
+  -webkit-animation: 1.5s zoomIn;
+  animation: 1.5s zoomIn;
+}
+#view.ng-enter .view {
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+#view.ng-leave {
+  -webkit-animation: 1s fadeOut;
+  animation: 1s fadeOut;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+#view.ng-leave .view {
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
 @media only screen and (max-width: 768px) {
   .view-white .container {
     margin-top: 20px;
     margin-bottom: 20px;
   }
 }
+#campaigns {
+  margin-top: 73px;
+}
 .campaign-item p {
   color: #999;
   font-size: 12px;
   font-weight: 400;
 }
-.campaign-item .dark {
-  color: #000;
+.campaign-item h2.dark {
+  color: #000 !important;
   font-size: 20px;
   margin-bottom: 2px;
   letter-spacing: -0.005em;
-  text-transform: capitalize;
-  font-weight: 300;
+  font-weight: 100;
   text-align: center;
-  font-family: Arial;
   position: absolute;
   top: 50%;
   width: 100%;
-  margin-top: -52px;
+  margin-top: -42px;
   left: 0;
+  padding: 0 30px;
+  overflow: hidden;
 }
-.campaign-item .ion-ios7-trash {
+.campaign-item .ion-ios7-trash-outline {
   position: absolute;
   bottom: 24px;
   right: 29px;
   color: #df2c2c;
   font-size: 29px;
 }
-.campaign-item .ion-eye {
+.campaign-item .ion-ios7-upload-outline {
   position: absolute;
   bottom: 24px;
   left: 29px;
@@ -660,14 +639,12 @@ textarea {
   transition: 0.4s linear all;
   height: 295px;
   border: 0px solid #fff;
-  -webkit-animation: 1s fadeIn;
-  animation: 1s fadeIn;
 }
 .campaign-item > .thumbnail:hover {
   background-color: #2cb2ec;
 }
 .campaign-item > .thumbnail:hover a,
-.campaign-item > .thumbnail:hover .ion-ios7-trash,
+.campaign-item > .thumbnail:hover .ion-ios7-trash-outline,
 .campaign-item > .thumbnail:hover p {
   color: #fff;
 }

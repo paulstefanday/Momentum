@@ -1,8 +1,24 @@
+
+
+.ng-hide-remove {
+  -webkit-animation:1s zoomIn;
+  animation:1s zoomIn;
+}
+ 
+.ng-hide-add {
+      -webkit-animation:1s bounceOutDown;
+ animation:1s bounceOutDown;
+    display: block !important;
+}
+
+
 .repeat-animation.ng-enter-stagger,
 .repeat-animation.ng-leave-stagger,
 .repeat-animation.ng-move-stagger {
   -webkit-transition-delay:0.2s;
   transition-delay:0.2s;
+  -webkit-transition-duration:0;
+  transition-duration:0;
 }
 
 .repeat-animation.ng-enter,
@@ -18,87 +34,10 @@
   -webkit-transition:0.5s linear all;
   transition:0.5s linear all;
   opacity:0;
-  line-height:0;
 }
 
 .repeat-animation.ng-leave,
 .repeat-animation.ng-move.ng-move-active,
 .repeat-animation.ng-enter.ng-enter-active {
   opacity:1;
-  line-height:20px;
-}
-
-
-#view.ng-enter{
-  -webkit-animation:1.5s zoomIn;//fadeInDown;
-  animation:1.5s zoomIn; //fadeInDown;
-  & .view {
-    overflow-x: hidden;
-    overflow-y: hidden;  
-  }
-}
-
-
-#view.ng-leave {
-  -webkit-animation:1s fadeOut;
-  animation:1s fadeOut;
-  position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  & .view {
-    overflow-x: hidden;
-    overflow-y: hidden;  
-  }
-}
-
-.alert-material.ng-enter {
-  -webkit-animation:0.5s zoomIn;//fadeInDown;
-  animation:0.5s zoomIn; //fadeInDown;
-}
-
-.alert-material.ng-leave {
-    -webkit-animation:1s fadeOut;
- animation:1s fadeOut;
-}
-
-.ng-hide-remove {
-  -webkit-animation:1s zoomIn;
-  animation:1s zoomIn;
-}
- 
-.ng-hide-add {
-      -webkit-animation:1s bounceOutDown;
- animation:1s bounceOutDown;
-    display: block !important;
-}
-
-
-@-webkit-keyframes zoomIn {
-  0% {
-    opacity: 0;
-    -webkit-transform: scale3d(0.8, 0.8, 0.8);
-    -moz-transform: scale3d(0.8, 0.8, 0.8);
-    -ms-transform: scale3d(0.8, 0.8, 0.8);
-    transform: scale3d(0.8, 0.8, 0.8);
-  }
-
-  50% {
-    opacity: 1;
-  }
-}
-
-@keyframes zoomIn {
-  0% {
-    opacity: 0;
-    -webkit-transform: scale3d(0.8, 0.8, 0.8);
-    -moz-transform: scale3d(0.8, 0.8, 0.8);
-    -ms-transform: scale3d(0.8, 0.8, 0.8);
-    transform: scale3d(0.8, 0.8, 0.8);
-  }
-
-  50% {
-    opacity: 1;
-  }
 }

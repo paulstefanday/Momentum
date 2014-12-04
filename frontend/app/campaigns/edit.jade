@@ -11,13 +11,13 @@
           button.btn.btn-lg.btn-success.btn-block Add New Campaign
 
       .col-sm-8
-        .row(style="margin-top:73px;")
-          .campaign-item.col-sm-6.col-lg-4.col-md-4( ng-repeat="campaign in campCtrl.campaigns" )
+        #campaigns.row
+          .repeat-animation.campaign-item.col-sm-6.col-lg-4.col-md-4( ng-repeat="campaign in campCtrl.campaigns | filter:search" )
             .thumbnail
               //- img(  src="http://placehold.it/320x150" alt="" )
               a.ion-ios7-gear-outline(href="#")
               .caption
-                p.dark {{campaign.title}}
+                h2.dark {{campaign.title}}
                 //- p {{campaign.description | limitTo:70 }}  
-                a.ion-ios7-trash(href="" ng-click="deleteJob($index, job.id)")
-                a.ion-eye(href="" )
+                a.ion-ios7-trash-outline(href="" ng-click="deleteJob($index, job.id)")
+                a.ion-ios7-upload-outline(href="" )

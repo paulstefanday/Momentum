@@ -36,10 +36,10 @@ function editCampaigns() {
     campCtrl.addCampaign = function() {
       Campaign.create(campCtrl.newcampaign)
         .success(function(data) {
-          console.log(data)
-          campCtrl.campaigns.push(data.campaigns[0]);
+          console.log(data);
+          campCtrl.campaigns.push(data.campaigns.slice(-1)[0]);
           campCtrl.newcampaign = {};
-          campCtrl.createForm.$setPristine();
+          $scope.createForm.$setPristine();
           $alert({ content: "Job created successfully" });
         })
         .error(function(error) {
