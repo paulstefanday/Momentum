@@ -16,8 +16,21 @@ module.exports = {
       type: 'string',
       required: true
     },
-    user: {
-      model: 'user'
+    admin: {
+      collection: 'user',
+      via: 'admin',
+      dominant:true
+    },
+    staff: {
+      collection: 'user',
+      via: 'staff',
+      dominant:true
+    },
+    toJSON: function() {
+      var obj = this.toObject();
+      delete obj.staff;
+      delete obj.admin;
+      return obj;
     }
   },
 

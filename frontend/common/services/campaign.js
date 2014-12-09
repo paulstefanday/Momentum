@@ -3,15 +3,15 @@ angular.module('MyApp')
     return {
       find: function() {
         var userId = $auth.getPayload().sub;
-        return $http.get('/user/' + userId + '/campaigns');
+        return $http.get('/user/' + userId + '/admin');
       },
       create: function(campaign) {
         var userId = $auth.getPayload().sub;
-        return $http.post('/user/' + userId + '/campaigns', campaign);
+        return $http.post('/user/' + userId + '/admin', campaign);
       },
       delete: function(campaign) {
         var userId = $auth.getPayload().sub;
-        return $http.delete('/user/' + userId + '/campains/' + campaign.id);
+        return $http.delete('/user/' + userId + '/admin/' + campaign.id);
       }
     }
   });

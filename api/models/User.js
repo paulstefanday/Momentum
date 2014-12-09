@@ -25,13 +25,19 @@ module.exports = {
     encryptedPassword: {
       type: 'string'
     },
-    campaigns: {
-      collection: 'campaign',
-      via: 'user'
+    admin: {
+      collection: 'user',
+      via: 'admin'
+    },
+    staff: {
+      collection: 'user',
+      via: 'staff'
     },
     toJSON: function() {
       var obj = this.toObject();
       delete obj.encryptedPassword;
+      delete obj.staff;
+      delete obj.admin;
       return obj;
     }
   },
