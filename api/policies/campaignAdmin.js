@@ -2,10 +2,9 @@ module.exports = function(req, res, next) {
 	
 	var campaignId = req.param('id');
 	var currentUserId = req.token.sub;
-	console.log(currentUserId);
-
+	
 	return Campaign.findOne(campaignId).populate('admin', { id: currentUserId }).exec(function(err, campaign) {
-	  	console.log(campaign);
+	  	
 	  	if(err) return res.json(403, err);
 
 	  	if(!campaign) return res.json(403, {err: 'This campaign does not exist'});	

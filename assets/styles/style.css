@@ -28,8 +28,8 @@ input.ng-valid.ng-dirty {
 }
 a,
 button {
-  -webkit-transition: 0.8s ease-out all;
-  transition: 0.8s ease-out all;
+  -webkit-transition: 0.3s ease-out all;
+  transition: 0.3s ease-out all;
 }
 .ng-hide-remove {
   -webkit-animation: 1s zoomIn;
@@ -100,7 +100,7 @@ textarea,
 }
 html,
 body {
-  background: #3893d3;
+  background: #339de5;
   color: #383a3c;
   font-weight: 400;
   font-size: 1em;
@@ -119,6 +119,7 @@ body {
   -moz-box-shadow: inset 0px 5px 0px 0px rgba(255, 255, 255, 0.2), 0px 2px 0px 0px rgba(0, 0, 0, 0.2) !important;
   -webkit-box-shadow: inset 0px 5px 0px 0px rgba(255, 255, 255, 0.2), 0px 2px 0px 0px rgba(0, 0, 0, 0.2) !important;
   box-shadow: inset 0px 5px 0px 0px rgba(255, 255, 255, 0.2), 0px 2px 0px 0px rgba(0, 0, 0, 0.2) !important;
+  padding: 20px 0 !important;
 }
 .btn [class^='ion-'] {
   margin-right: 5px;
@@ -517,15 +518,15 @@ textarea {
   right: 0;
   width: 100%;
   height: 100%;
-  background: -webkit-linear-gradient(120deg, #1e5c87 10%, #3893d3 90%);
+  background: -webkit-linear-gradient(120deg, #14669e 10%, #339de5 90%);
   /* Chrome 10+, Saf5.1+ */
-  background: -moz-linear-gradient(120deg, #1e5c87 10%, #3893d3 90%);
+  background: -moz-linear-gradient(120deg, #14669e 10%, #339de5 90%);
   /* FF3.6+ */
-  background: -ms-linear-gradient(120deg, #1e5c87 10%, #3893d3 90%);
+  background: -ms-linear-gradient(120deg, #14669e 10%, #339de5 90%);
   /* IE10 */
-  background: -o-linear-gradient(120deg, #1e5c87 10%, #3893d3 90%);
+  background: -o-linear-gradient(120deg, #14669e 10%, #339de5 90%);
   /* Opera 11.10+ */
-  background: linear-gradient(120deg, #1e5c87 10%, #3893d3 90%);
+  background: linear-gradient(120deg, #14669e 10%, #339de5 90%);
   /* W3C */
 }
 .view {
@@ -767,4 +768,5 @@ textarea {
   text-decoration: none;
   color: #fff;
   padding: 20px 20px 20px 30px;
+  background-color: rgba(0, 161, 231, 0.7);
 }

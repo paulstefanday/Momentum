@@ -36,8 +36,8 @@ module.exports = {
     toJSON: function() {
       var obj = this.toObject();
       delete obj.encryptedPassword;
-      // delete obj.staff;
-      // delete obj.admin;
+      delete obj.staff;
+      delete obj.admin;
       return obj;
     }
   },

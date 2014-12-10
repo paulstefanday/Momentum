@@ -33,7 +33,7 @@ module.exports.policies = {
   },
 
   'CampaignController': {
-    'find': true,
+    'find': ['tokenAuth', 'campaignAdmin'],
     'create': ['tokenAuth'],
     'update': ['tokenAuth', 'campaignAdmin'],
     'destroy': ['tokenAuth', 'campaignAdmin'],
