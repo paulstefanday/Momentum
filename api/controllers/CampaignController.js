@@ -11,15 +11,20 @@ module.exports = {
 		Campaign.create(req.body).exec(function createCB(err,created){
   			created.admin.add(req.token.sub);
   			created.save(function(err) { 
-  				if(err) return res.json({ err: err });
-  				return res.json(created);
+  				if(err) return res.json(403, { err: err });
+  				return res.json(200, created);
   			});
   			
   		});
 	},
 
 	update: function (req, res) {
-		Campaign.update(req.param('id'), req.body).exec(function(err, campaign) {
+		//remove any access params
+		var data = req.body;
+		delete data.admin;
+		delete data.staff;
+
+		Campaign.update(req.param('id'), data).exec(function(err, campaign) {
 			if(err) return res.json(403, err);
 			return res.json(200, campaign);
 		});
@@ -28,15 +33,21 @@ module.exports = {
 	addAdmin: function (req, res) {
 		Campaign.findOne(req.param('id')).exec(function createCB(err,campaign){
   			campaign.admin.add(req.param('user'));
-  			created.save(function(err) { 
-  				if(err) return res.json({ err: err });
-  				return res.json(created);
+  			campaign.save(function(err) { 
+  				if(err) return res.json(403, { err: err });
+  				return res.json(200, campaign);
   			});
   		});
 	},
 
 	removeAdmin: function (req, res) {
-
+		Campaign.findOne(req.param('id')).exec(function createCB(err,campaign){
+  			campaign.admin.remove(req.param('user'));
+  			campaign.save(function(err) { 
+  				if(err) return res.json(403, { err: err });
+  				return res.json(200, campaign);
+  			});
+  		});
 	}
 
 
