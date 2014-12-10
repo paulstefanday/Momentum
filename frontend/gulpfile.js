@@ -5,12 +5,16 @@ var htmlify = require('gulp-angular-htmlify');
 var templateCache = require('gulp-angular-templatecache');
 var path = require('path');
 var less = require('gulp-less');
+var jasmine = require('gulp-jasmine');
+
+
 
 var paths = {
   scripts: ['common/**/*.js', 'app/**/*.js'],
   templates: 'app/**/*.jade',
   css: [ 'styles/**/*.less', 'app/**/*.less'],
-  root: [ '../assets/js/' , '../assets/styles/']
+  root: [ '../assets/js/' , '../assets/styles/'],
+  testing: ['../tests/api/**/*.js']
 };
 
 gulp.task('less', function () {
@@ -43,6 +47,11 @@ gulp.src(paths.templates)
         module: "templates",
       }))
     .pipe(gulp.dest(paths.root[0]));
+});
+
+gulp.task('api-testing', function () {
+    return gulp.src(paths.testing[0])
+        .pipe(jasmine());
 });
 
 // Rerun the task when a file changes
