@@ -18,16 +18,18 @@ module.exports.policies = {
 
   // Default policy for all controllers and actions
   // (`true` allows public access)
-  // '/': true,
-  '*': true,
+  '/': true,
+  '*': false,
 
   'UserController': {
-    // 'add': ['tokenAuth', 'ownAssociations'],
-    // 'create': true,
     'findOne': ['tokenAuth', 'ownUser'],
     'update': ['tokenAuth', 'ownUser'],
-    // 'populate': ['tokenAuth', 'ownAssociations'],
-    // 'remove': ['tokenAuth', 'ownAssociations'],
+    '*': false
+  },
+
+  'AuthController': {
+    'login': true,
+    'signup': true,
     '*': false
   },
 
