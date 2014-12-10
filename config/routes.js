@@ -31,8 +31,11 @@ module.exports.routes = {
     view: 'homepage'
   },
 
-  'post /subscribe': 'EmailController.subscribe'
-  // Custom routes here...
+  'post /subscribe': 'EmailController.subscribe',
+
+  // Campaign Admin Routes
+  'post /campaign/:id/admin': 'CampaignController.addAdmin',
+  'delete /campaign/:id/admin': 'CampaignController.removeAdmin'
 
 
   // If a request to a URL doesn't match any of the custom routes above,

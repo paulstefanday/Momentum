@@ -28,6 +28,13 @@ module.exports.policies = {
     'populate': ['tokenAuth', 'ownAssociations'],
     'remove': ['tokenAuth', 'ownAssociations'],
     '*': false
+  },
+
+  'CampaignController': {
+    'create': ['tokenAuth'],
+    'update': ['tokenAuth', 'campaignAdmin'],
+    'addAdmin': ['tokenAuth', 'campaignAdmin'],
+    'removeAdmin': ['tokenAuth', 'campaignAdmin']
   }
 
 	// Here's an example of mapping some policies to run before

@@ -7,31 +7,40 @@
 
 module.exports = {
 
-	// find: function (req, res) {
-	// 	return Campaigns.find().exec(function(err, message) {
-	// 		return res.json({ data: message});
-	// 	});
-	// },
-
 	create: function (req, res) {
-		return Campaigns.create(req.params).exec(function createCB(err,created){
+		Campaign.create(req.body).exec(function createCB(err,created){
   			created.admin.add(req.token.sub);
-  			created.save();
-  			return res.json(created);
+  			created.save(function(err) { 
+  				if(err) return res.json({ err: err });
+  				return res.json(created);
+  			});
+  			
   		});
 	},
 
 	update: function (req, res) {
-	    return res.json({
-	      todo: 'Not implemented yet!'
-	    });
-	  },
+		Campaign.update(req.param('id'), req.body).exec(function(err, campaign) {
+			if(err) return res.json(403, err);
+			return res.json(200, campaign);
+		});
+	},
 
-	destroy: function (req, res) {
-	    return res.json({
-	      todo: 'Not implemented yet!'
-	    });
+	addAdmin: function (req, res) {
+		Campaign.findOne(req.param('id')).exec(function createCB(err,campaign){
+  			campaign.admin.add(req.param('user'));
+  			created.save(function(err) { 
+  				if(err) return res.json({ err: err });
+  				return res.json(created);
+  			});
+  		});
+	},
+
+	removeAdmin: function (req, res) {
+
 	}
-	
+
+
+
+
 };
 
