@@ -18,23 +18,26 @@ module.exports.policies = {
 
   // Default policy for all controllers and actions
   // (`true` allows public access)
+  // '/': true,
   '*': true,
 
   'UserController': {
-    'add': ['tokenAuth', 'ownAssociations'],
-    'create': true,
+    // 'add': ['tokenAuth', 'ownAssociations'],
+    // 'create': true,
     'findOne': ['tokenAuth', 'ownUser'],
     'update': ['tokenAuth', 'ownUser'],
-    'populate': ['tokenAuth', 'ownAssociations'],
-    'remove': ['tokenAuth', 'ownAssociations'],
+    // 'populate': ['tokenAuth', 'ownAssociations'],
+    // 'remove': ['tokenAuth', 'ownAssociations'],
     '*': false
   },
 
   'CampaignController': {
+    'find': ['tokenAuth'],
     'create': ['tokenAuth'],
     'update': ['tokenAuth', 'campaignAdmin'],
     'addAdmin': ['tokenAuth', 'campaignAdmin'],
-    'removeAdmin': ['tokenAuth', 'campaignAdmin']
+    'removeAdmin': ['tokenAuth', 'campaignAdmin'],
+    '*': false
   }
 
 	// Here's an example of mapping some policies to run before
