@@ -6,12 +6,15 @@ module.exports = function(req, res, next) {
 	return Campaign.findOne(campaignId).populate('admin', { id: currentUserId }).exec(function(err, campaign) {
 	  	
 	  	if(err) return res.json(403, err);
-	  	var user = campaign.admin[0];
 
+	  	if(!campaign) return res.json(403, {err: 'This campaign does not exist'});	
+	  	
 	  	// no user found
-	  	if(!user) return res.json(403, {err: 'No user record'});
+	  	var users = campaign.admin;
+	  	if(!users) return res.json(403, {err: 'You are not an admin of this campaign'});	
 	  	
 	  	// if user isn't admin then return error
+	  	var user = users[0];
 	  	if(currentUserId != user.id) return res.json(403, {err: 'You are not allowed to do that'});
 
 	  	next();

@@ -32,11 +32,11 @@ module.exports = {
 
 	addAdmin: function (req, res) {
 		Campaign.findOne(req.param('id')).exec(function createCB(err,campaign){
-  			campaign.admin.add(req.param('user'));
-  			campaign.save(function(err) { 
-  				if(err) return res.json(403, { err: err });
-  				return res.json(200, campaign);
-  			});
+  			// campaign.admin.add(req.param('user'));
+  			// campaign.save(function(err) { 
+  			// 	if(err) return res.json(403, { err: err });
+  			// 	return res.json(200, campaign);
+  			// });
   		});
 	},
 

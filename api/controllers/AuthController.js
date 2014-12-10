@@ -5,9 +5,9 @@
  * @help        :: See http://links.sailsjs.org/docs/controllers
  */
 
-        var expiry = new Date();
-        expiry.setDate(expiry.getDate() + 10);
-        expiry = parseInt( expiry / 1000 );
+var expiry = new Date();
+expiry.setDate(expiry.getDate() + 10);
+expiry = parseInt( expiry / 1000 );
 
 
 module.exports = {
