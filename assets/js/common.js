@@ -137,16 +137,22 @@ angular.module('MyApp')
   .factory('Campaign', function($http, $auth) {
     return {
       find: function() {
-        var userId = $auth.getPayload().sub;
-        return $http.get('/user/' + userId + '/admin');
+        return $http.get('/campaign/');
       },
       create: function(campaign) {
-        var userId = $auth.getPayload().sub;
-        return $http.post('/user/' + userId + '/admin', campaign);
+        return $http.post('/campaign/', campaign);
       },
-      delete: function(campaign) {
-        var userId = $auth.getPayload().sub;
-        return $http.delete('/user/' + userId + '/admin/' + campaign.id);
+      update: function(campaign) {
+        return $http.put('/campaign/' + campaign.id, campaign);
+      },
+      destory: function(id) {
+        return $http.delete('/campaign/' + id);
+      },
+      addAdmin: function(campaign, user) {
+        return $http.post('/campaign/' + campaign.id + '/admin/' + user.id);
+      },
+      removeAdmin: function(campaign, user) {
+        return $http.delete('/campaign/' + campaign.id + '/admin/' + user.id);
       }
     }
   });

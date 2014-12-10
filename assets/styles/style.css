@@ -10,6 +10,7 @@
   background-color: rgba(0, 0, 0, 0.2);
   color: #fff !important;
   border-radius: 0px;
+  bottom: 0px;
 }
 .alert-material.ng-enter {
   -webkit-animation: 0.5s zoomIn;
@@ -24,6 +25,11 @@ input.ng-invalid.ng-dirty {
 }
 input.ng-valid.ng-dirty {
   border: 1px solid #0f9d58 !important;
+}
+a,
+button {
+  -webkit-transition: 0.8s ease-out all;
+  transition: 0.8s ease-out all;
 }
 .ng-hide-remove {
   -webkit-animation: 1s zoomIn;
@@ -63,8 +69,6 @@ input.ng-valid.ng-dirty {
 * {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  -webkit-transition: 0.8s ease-out all;
-  transition: 0.8s ease-out all;
 }
 *,
 *:after,
@@ -81,8 +85,6 @@ input.ng-valid.ng-dirty {
   clear: both;
 }
 .shadow,
-.btn,
-.btn-primary,
 input,
 textarea,
 .campaign-item > .thumbnail,
@@ -112,8 +114,11 @@ body {
 .btn,
 .btn-primary {
   font-weight: 400;
-  background-color: #2cb2ec !important;
+  background-color: #2cb2ec;
   border: 0px solid #fff !important;
+  -moz-box-shadow: inset 0px 5px 0px 0px rgba(255, 255, 255, 0.2), 0px 2px 0px 0px rgba(0, 0, 0, 0.2) !important;
+  -webkit-box-shadow: inset 0px 5px 0px 0px rgba(255, 255, 255, 0.2), 0px 2px 0px 0px rgba(0, 0, 0, 0.2) !important;
+  box-shadow: inset 0px 5px 0px 0px rgba(255, 255, 255, 0.2), 0px 2px 0px 0px rgba(0, 0, 0, 0.2) !important;
 }
 .btn [class^='ion-'] {
   margin-right: 5px;
@@ -607,14 +612,14 @@ textarea {
   padding: 0 30px;
   overflow: hidden;
 }
-.campaign-item .ion-ios7-trash-outline {
+.campaign-item .ion-ios-close-outline {
   position: absolute;
   bottom: 24px;
   right: 29px;
   color: #df2c2c;
   font-size: 29px;
 }
-.campaign-item .ion-ios7-upload-outline {
+.campaign-item .ion-ios-arrow-thin-up {
   position: absolute;
   bottom: 24px;
   left: 29px;
@@ -623,7 +628,7 @@ textarea {
 .campaign-item a {
   color: #2cb2ec;
 }
-.campaign-item .ion-ios7-gear-outline {
+.campaign-item .ion-ios-paper-outline {
   opacity: 0;
   position: absolute;
   top: 50%;
@@ -644,14 +649,14 @@ textarea {
   background-color: #2cb2ec;
 }
 .campaign-item > .thumbnail:hover a,
-.campaign-item > .thumbnail:hover .ion-ios7-trash-outline,
+.campaign-item > .thumbnail:hover .ion-ios-close-outline,
 .campaign-item > .thumbnail:hover p {
   color: #fff;
 }
 .campaign-item > .thumbnail:hover .dark {
   display: none;
 }
-.campaign-item > .thumbnail:hover .ion-ios7-gear-outline {
+.campaign-item > .thumbnail:hover .ion-ios-paper-outline {
   opacity: 1;
 }
 .main-title {
@@ -705,7 +710,7 @@ textarea {
   z-index: 1000000;
   color: #fff;
 }
-#nav-toggle.ion-ios7-close-outline {
+#nav-toggle.ion-ios-close-outline {
   left: 300px;
 }
 #nav-menu.ng-hide-remove {

@@ -10,8 +10,8 @@ angular.module('MyApp')
       update: function(campaign) {
         return $http.put('/campaign/' + campaign.id, campaign);
       },
-      delete: function(campaign) {
-        return $http.delete('/campaign/' + campaign.id);
+      destory: function(id) {
+        return $http.delete('/campaign/' + id);
       },
       addAdmin: function(campaign, user) {
         return $http.post('/campaign/' + campaign.id + '/admin/' + user.id);

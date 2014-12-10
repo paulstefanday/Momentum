@@ -1,23 +1,30 @@
 .view
   .container
     .row  
-      .col-sm-4
+      #create.col-sm-4( ng-if="!campCtrl.editing" )
         h2 Add a Campaign
-        form( method="post" ng-submit="campCtrl.addCampaign()" name="createForm" )
-          .form-group
-            input.form-control(type="text" ng-model="campCtrl.newcampaign.title" ng-required="true" placeholder="Title")
-          .form-group
-            textarea.form-control(ng-model="campCtrl.newcampaign.description" ng-required="true" placeholder="Description")
-          button.btn.btn-lg.btn-success.btn-block Add New Campaign
+        form( method="post" ng-submit="campCtrl.create()" name="createForm" )
+          div(ng-include="'/partials/campaigns/form.html'")
+          button.btn.btn-lg.btn-success.btn-block Save
 
       .col-sm-8
         #campaigns.row
-          .repeat-animation.campaign-item.col-sm-6.col-lg-4.col-md-4( ng-repeat="campaign in campCtrl.campaigns | orderBy:'-createdAt'" )
+          .repeat-animation.campaign-item.col-sm-6.col-lg-4.col-md-4( ng-repeat="campaign in campCtrl.campaigns | orderBy:'-createdAt' " )
             .thumbnail
               //- img(  src="http://placehold.it/320x150" alt="" )
-              a.ion-ios7-gear-outline(href="#")
+              a.ion-ios-paper-outline(href="" ng-click="campCtrl.edit(campaign)")
               .caption
                 h2.dark {{campaign.title}}
                 //- p {{campaign.description | limitTo:70 }}  
-                a.ion-ios7-trash-outline(href="" ng-click="deleteJob($index, job.id)")
-                a.ion-ios7-upload-outline(href="" )
+                a.ion-ios-close-outline(href="" ng-click="campCtrl.destory(campaign.id)")
+                a.ion-ios-arrow-thin-up(href="" )
+
+      #edit.col-sm-4( ng-if="campCtrl.editing" )
+        h2 Edit {{campCtrl.oldcampaign.title}}
+        form( method="post" ng-submit="campCtrl.update(campCtrl.newcampaign)" name="editForm" )
+          div(ng-include="'/partials/campaigns/form.html'")
+          .row
+            .col-sm-4
+              button.btn.btn-lg.btn-google-plus.btn-block(ng-click="campCtrl.reset()") Cancel
+            .col-sm-8
+              button.btn.btn-lg.btn-success.btn-block Save
