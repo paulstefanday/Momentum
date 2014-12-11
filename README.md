@@ -17,11 +17,46 @@
 	password: 'string'
 }
 ```
-
+<p>/petition/:id -get -post</p>
+```
+{
+	title: {
+		type: 'string',
+		required: true
+	},
+	description: {
+		type: 'string',
+		required: true
+	},
+	type: {
+		type: 'string',
+		required: true
+	},
+	owner: '/campaign/:id',
+	actions: '/petition/:id/feed'
+}
+```
+<p>/petition/:id/feed -get</p>
+```
+{
+	count: 'integer',
+	actions: [
+		{
+		  	first_name: 'string',
+		    last_name: 'string',
+		   	image: 'string',
+		    postcode: 'integer',
+		    location: 'array',
+		    petition: '/petition/:id'
+		}
+	]
+}
+```
 <h3>Private Routes</h3>
 <p>/user/:id -get -put</p>
 <p>/campaign/:id -get -post -put -delete</p>
 <p>/campaign/:id/admin -post -delete</p>
+<p>/campaign/:id/petition -get -post -update -delete</p>
 
 <h3>Security</h3>
 <p>Uses JWT for authentication to private routes - Frontend examples to connect for <a href="https://github.com/sahat/satellizer">Angular (Can also be used with Ionic for mobile)</a>, <a href="https://github.com/jpadilla/ember-cli-simple-auth-token">Ember</a></p>
