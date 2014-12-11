@@ -1,17 +1,22 @@
 .container
   .row
     .center-form
+      .text-center
+        img#profile-img.img-circle(src="")
       h2.text-center Edit My Profile
-      form( method="post" ng-submit="vm.updateProfile()" )
+      form( method="post" ng-submit="profileCtrl.update()" )
         .form-group
-          input( type="text" class="form-control" ng-model="vm.user.first_name" placeholder="First Name" )
+          input( type="text" class="form-control" ng-model="profileCtrl.user.first_name" placeholder="First Name" )
         .form-group
-          input( type="text" class="form-control" ng-model="vm.user.last_name" placeholder="Last Name" )
+          input( type="text" class="form-control" ng-model="profileCtrl.user.last_name" placeholder="Last Name" )
         .form-group
-          input( type="email" class="form-control" ng-model="vm.user.email" placeholder="Email" )
-        button.btn.btn-lg.btn-success.btn-block Update Information
+          input( type="text" class="form-control" ng-model="profileCtrl.user.dob" placeholder="Date of birth (dd/mm/yyyy)" )
+        .form-group
+          input( type="hidden" class="form-control" ng-model="profileCtrl.user.image" )
+        .form-group
+          input( type="email" class="form-control" ng-model="profileCtrl.user.email" placeholder="Email" )
+        button.btn.btn-lg.btn-success.btn-block Update Information  
 
-    //- .col-sm-4
-    //-   h2 Linked Accounts
-    //-   button.btn.btn-lg.btn-danger.btn-block( ng-if="!vm.user.linkedin" ng-click="link('linkedin')" ) Link LinkedIn Account
-    //-   button.btn.btn-lg.btn-danger.btn-block( ng-if="vm.user.linkedin" ng-click="unlink('linkedin')" ) Unlink LinkedIn Account
+      h2#link-heading.text-center Link Account
+      button.btn.btn-lg.btn-facebook.btn-block(ng-if="!profileCtrl.user.facebook" ng-click="profileCtrl.link('facebook')") Link with Facebook
+      button.btn.btn-lg.btn-facebook.btn-block(ng-if="profileCtrl.user.facebook" ng-click="profileCtrl.unlink('facebook')") Unlink from Facebook

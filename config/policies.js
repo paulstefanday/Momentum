@@ -17,6 +17,7 @@
 module.exports.policies = {
   
   // (`true` allows public access)
+  
   '/': true,
   '*': false,
 

@@ -6,7 +6,7 @@
 */
 
 module.exports = {
-
+  schema: true,
   attributes: {
     title: {
       type: 'string',
@@ -15,6 +15,17 @@ module.exports = {
     description: {
       type: 'string',
       required: true
+    },
+    url: 'string',
+    logo: 'string',
+    video: 'string',
+    colors: 'array',
+    twitter: 'string',
+    facebook: 'string',
+    stripe: 'string',
+    petitions: {
+      collection: 'petition',
+      via: 'owner'
     },
     admin: {
       collection: 'user',
@@ -29,7 +40,7 @@ module.exports = {
     toJSON: function() {
       var obj = this.toObject();
       // delete obj.staff;
-      // delete obj.admin;
+      delete obj.stripe;
       return obj;
     }
   },

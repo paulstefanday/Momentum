@@ -39,7 +39,7 @@ function editCampaigns() {
           campCtrl.campaigns.push(data);
           campCtrl.newcampaign = {};
           // $scope.createForm.$setPristine();
-          $alert({ content: "Job created successfully" });
+          $alert({ content: "Campaign created successfully" });
         })
         .error(function(error) {
           $alert({ content: error.message });

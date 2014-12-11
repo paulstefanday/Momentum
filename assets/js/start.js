@@ -1,5 +1,5 @@
 angular.module('MyApp', ['ngAnimate', 'templates', 'ngResource', 'ngMessages', 'ui.router', 'mgcrea.ngStrap', 'satellizer', 'ngSanitize', 'ngLodash'])
-  .config(function($stateProvider, $urlRouterProvider, $authProvider, $httpProvider, $datepickerProvider, $alertProvider, $selectProvider) {
+  .config(function($stateProvider, $urlRouterProvider, $authProvider, $httpProvider, $datepickerProvider, $alertProvider, $selectProvider, $tooltipProvider) {
 
     var noauth = [
       { state: 'home',          url: '/',             html: '<home-page/>',             directive: true },
@@ -34,6 +34,11 @@ angular.module('MyApp', ['ngAnimate', 'templates', 'ngResource', 'ngMessages', '
       placement: 'top',
       html: true,
       multiple: true
+    });
+
+    angular.extend($tooltipProvider.defaults, {
+      animation: 'am-flip-x',
+      trigger: 'hover'
     });
 
     $urlRouterProvider.otherwise('/');

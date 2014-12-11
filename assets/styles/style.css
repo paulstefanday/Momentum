@@ -156,7 +156,7 @@ body {
 }
 .btn-facebook {
   color: #fff;
-  background-color: #3b5998;
+  background-color: #6B92F5;
   border: 1px solid #335190;
 }
 .btn-facebook:hover,
@@ -318,7 +318,7 @@ textarea {
 .center-form {
   max-width: 330px;
   width: 100%;
-  margin: 12% auto;
+  margin: 80px auto;
   color: #ffffff;
 }
 .signup-or-separator {
@@ -366,6 +366,11 @@ textarea {
 }
 .has-feedback .form-control {
   padding-left: 42.5px;
+}
+@media only screen and (max-width: 768px) {
+  .center-form {
+    margin: 40px auto;
+  }
 }
 /*! 
  * angular-loading-bar v0.5.0
@@ -608,7 +613,7 @@ textarea {
   position: absolute;
   top: 50%;
   width: 100%;
-  margin-top: -42px;
+  margin-top: -32px;
   left: 0;
   padding: 0 30px;
   overflow: hidden;
@@ -634,7 +639,7 @@ textarea {
   position: absolute;
   top: 50%;
   left: 50%;
-  margin: -62px 0 0 -21px;
+  margin: -52px 0 0 -21px;
   color: #fff;
   font-size: 60px;
   -webkit-transition: 1s linear all;
@@ -643,7 +648,7 @@ textarea {
 .campaign-item > .thumbnail {
   -webkit-transition: 0.4s linear all;
   transition: 0.4s linear all;
-  height: 295px;
+  height: 200px;
   border: 0px solid #fff;
 }
 .campaign-item > .thumbnail:hover {
@@ -700,6 +705,22 @@ textarea {
   background: transparent;
   border: none;
   float: right;
+}
+#link-heading {
+  margin-top: 40px;
+}
+#profile-img {
+  width: 120px;
+  height: 120px;
+  background-color: #fff;
+  margin: 0 0 30px;
+}
+@media only screen and (max-width: 768px) {
+  #profile-img {
+    width: 60px;
+    height: 60px;
+    margin: 0 0 10px;
+  }
 }
 #nav-toggle {
   position: fixed;

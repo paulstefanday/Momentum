@@ -16,15 +16,12 @@ module.exports = {
       required: true,
       unique: true
     },
-    first_name: {
-      type: 'string'
-    },
-    last_name: {
-      type: 'string'
-    },
-    encryptedPassword: {
-      type: 'string'
-    },
+    first_name: 'string',
+    last_name: 'string',
+    dob: 'string',
+    image: 'string',
+    facebook: 'string',
+    encryptedPassword: 'string',
     admin: {
       collection: 'user',
       via: 'admin'
