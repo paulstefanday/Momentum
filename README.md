@@ -11,6 +11,12 @@
 <h3>Public Routes</h3>
 <p>/auth/signup -post</p>
 <p>/auth/login -post</p>
+```
+{
+	email: 'string',
+	password: 'string'
+}
+```
 
 <h3>Private Routes</h3>
 <p>/user/:id -get -put</p>
@@ -18,6 +24,7 @@
 <p>/campaign/:id/admin -post -delete</p>
 
 <h3>Security</h3>
+<p>Uses JWT for authentication to private routes - Frontend examples to connect for <a href="https://github.com/sahat/satellizer">Angular (Can also be used with Ionic for mobile)</a>, <a href="https://github.com/jpadilla/ember-cli-simple-auth-token">Ember</a></p>
 <p>CORS for cross site access</p>
 <p>CSRF on all private routes</p>
 <p>Public routes have confidential information stripped</p>
