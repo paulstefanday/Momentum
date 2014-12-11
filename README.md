@@ -60,7 +60,8 @@
 		    last_name: 'string',
 		   	image: 'string',
 		    postcode: 'integer',
-		    location: 'array',
+		    location: ['latitude', 'longditude'](array) or 'ip address'(string),
+    		custom: 'json'
 		    petition: '/petition/:id'
 		}
 	]
