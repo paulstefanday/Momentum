@@ -1,4 +1,4 @@
-<h1>BaaS for campaigning</h1>
+<h1>BaaS for Campaigning</h1>
 
 <h3>Install:</h3>
 <p>1. sudo npm install sails -g; sudo npm install</p>
