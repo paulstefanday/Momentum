@@ -2,10 +2,10 @@
 
 <h3>Setup</h3>
 <ol>
-<li>1. sudo npm install sails -g; sudo npm install</li>
-<li>2. cd frontend; npm install; bower install; gulp</li>
-<li>3. cd ../; sails lift</li>
-<li>4. visit http://localhost:1337</li>
+<li>sudo npm install sails -g; sudo npm install</li>
+<li>cd frontend; npm install; bower install; gulp</li>
+<li>cd ../; sails lift</li>
+<li>visit http://localhost:1337</li>
 </ol>
 
 <h3>Public Routes</h3>
