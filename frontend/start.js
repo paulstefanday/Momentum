@@ -1,5 +1,5 @@
 angular.module('MyApp', ['ngAnimate', 'templates', 'ngResource', 'ngMessages', 'ui.router', 'mgcrea.ngStrap', 'satellizer', 'ngSanitize', 'ngLodash'])
-  .config(function($stateProvider, $urlRouterProvider, $authProvider, $httpProvider, $datepickerProvider, $alertProvider, $selectProvider, $tooltipProvider) {
+  .config(['$stateProvider', '$urlRouterProvider', '$authProvider', '$httpProvider', '$datepickerProvider', '$alertProvider', '$selectProvider', '$tooltipProvider', function($stateProvider, $urlRouterProvider, $authProvider, $httpProvider, $datepickerProvider, $alertProvider, $selectProvider, $tooltipProvider) {
 
     var noauth = [
       { state: 'home',          url: '/',             html: '<home-page/>',             directive: true },
@@ -84,7 +84,7 @@ angular.module('MyApp', ['ngAnimate', 'templates', 'ngResource', 'ngMessages', '
       $stateProvider.state(route.state, page);  
     });
 
-  });
+  }]);
 
 
 

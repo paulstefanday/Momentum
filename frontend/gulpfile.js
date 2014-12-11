@@ -6,6 +6,8 @@ var templateCache = require('gulp-angular-templatecache');
 var path = require('path');
 var less = require('gulp-less');
 var jasmine = require('gulp-jasmine');
+var minifyCSS = require('gulp-minify-css');
+var uglify = require('gulp-uglify');
 
 var paths = {
   scripts: [
@@ -43,6 +45,7 @@ gulp.task('less', function () {
     .pipe(concat('style.less'))
     .pipe(less())
     .pipe(concat('style.css'))
+    .pipe(minifyCSS({keepBreaks:false}))
     .pipe(gulp.dest(paths.root[1]));
 });
 
@@ -66,6 +69,7 @@ gulp.task('templates', function() {
 gulp.task('scripts', function() {
   gulp.src(paths.scripts)
     .pipe(concat('app.js'))
+    .pipe(uglify({mangle: false}))
     .pipe(gulp.dest(paths.root[0]))
 });
 
