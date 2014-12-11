@@ -17,7 +17,7 @@
 	password: 'string'
 }
 ```
-<p>/petition/:id -get -post</p>
+<p>/petition/:id -get</p>
 ```
 {
 	title: {
@@ -34,6 +34,20 @@
 	},
 	owner: '/campaign/:id',
 	actions: '/petition/:id/feed'
+}
+```
+<p>/petition/:id -post</p>
+```
+{
+	user: 'integer',
+	first_name: 'string',
+	last_name: 'string',
+	email: 'string',
+	image: 'string',
+	message: 'string',
+    postcode: 'integer',
+    location: ['latitude', 'longditude'](array) or 'ip address'(string),
+    custom: 'json'
 }
 ```
 <p>/petition/:id/feed -get</p>
