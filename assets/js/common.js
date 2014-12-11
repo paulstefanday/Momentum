@@ -130,6 +130,10 @@ angular.module('MyApp')
       update: function(profileData) {
         var userId = $auth.getPayload().sub;
         return $http.put('/user/'+ userId, profileData);
+      },
+      profile: function(profileData) {
+        var userId = $auth.getPayload().sub;
+        return $http.put('/user/'+ userId, profileData);
       }
     };
   });
