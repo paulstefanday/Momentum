@@ -58,6 +58,7 @@
 		{
 		  	first_name: 'string',
 		    last_name: 'string',
+		    profile: 'string',
 		   	image: 'string',
 		    postcode: 'integer',
 		    location: ['latitude', 'longditude'](array) or 'ip address'(string),
