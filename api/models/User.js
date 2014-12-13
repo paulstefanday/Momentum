@@ -30,6 +30,10 @@ module.exports = {
       collection: 'user',
       via: 'staff'
     },
+    petitions: {
+      collection: 'petition_action',
+      via: 'user'
+    },
     toJSON: function() {
       var obj = this.toObject();
       delete obj.encryptedPassword;

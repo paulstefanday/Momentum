@@ -11,10 +11,15 @@ module.exports = {
   	first_name: 'string',
     last_name: 'string',
    	image: 'string',
+    message: 'string',
     postcode: 'integer',
     location: 'array',
+    custom: 'json',
     petition: {
     	model: 'petition'
+    },
+    user: {
+      model: 'user'
     }
   }
 };
