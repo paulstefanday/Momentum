@@ -1,17 +1,28 @@
 angular.module('MyApp')
-  .factory('Account', function($http, $auth) {
+  .factory('Account', Account);
+
+Account.$inject = ['$http', '$auth']
+
+function Account($http, $auth) {
+
     return {
-      find: function() {
+      find: find,
+      update: update,
+      profile: profile
+    };
+
+    function find() {
         var userId = $auth.getPayload().sub;
         return $http.get('/user/'+ userId);
-      },
-      update: function(profileData) {
+    }
+
+    function update(profileData) {
         var userId = $auth.getPayload().sub;
         return $http.put('/user/'+ userId, profileData);
-      },
-      profile: function(profileData) {
+    }
+
+    function profile(profileData) {
         var userId = $auth.getPayload().sub;
         return $http.put('/user/'+ userId, profileData);
-      }
-    };
-  });
+    }
+}

@@ -28,6 +28,9 @@ function editCampaigns() {
         .success(function(data) {
           campCtrl.campaigns = data;
         })
+        .error(function(error) {
+          $alert({ content: JSON.stringify(error) });
+        });
     }
 
     campCtrl.create = function() {
@@ -38,6 +41,9 @@ function editCampaigns() {
           // $scope.createForm.$setPristine();
           $alert({ content: "Campaign created successfully" });
         })
+        .error(function(error) {
+          $alert({ content: error.message });
+        });
     }
 
     campCtrl.reset = function() {
@@ -58,6 +64,9 @@ function editCampaigns() {
           // $scope.editForm.$setPristine();
           $alert({ content: 'Campaign updated successfully' });
         })
+        .error(function(error) {
+          $alert({ content: error.message });
+        });
     }
 
     campCtrl.destory = function(id) {
@@ -67,6 +76,9 @@ function editCampaigns() {
           campCtrl.campaigns.splice(index, 1); 
           $alert({ content: 'Campaign deleted successfully' });
         })
+        .error(function(error) {
+          $alert({ content: error.message });
+        });
     }
 
   
