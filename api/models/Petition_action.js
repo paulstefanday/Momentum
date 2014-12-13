@@ -10,10 +10,11 @@ module.exports = {
   attributes: {
   	first_name: 'string',
     last_name: 'string',
+    profile_image: 'string',
    	image: 'string',
     message: 'string',
     postcode: 'integer',
-    location: 'array',
+    location: 'string',
     custom: 'json',
     petition: {
     	model: 'petition'

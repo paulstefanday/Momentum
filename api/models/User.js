@@ -19,6 +19,7 @@ module.exports = {
     first_name: 'string',
     last_name: 'string',
     dob: 'string',
+    location: 'array',
     image: 'string',
     facebook: 'string',
     encryptedPassword: 'string',
