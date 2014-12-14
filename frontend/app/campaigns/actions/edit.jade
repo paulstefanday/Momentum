@@ -1,0 +1,30 @@
+.view
+  .container
+    .row  
+      #create.col-sm-4( ng-if="!actCtrl.editing" )
+        h2 Add an action
+        form( method="post" ng-submit="actCtrl.create()" name="createForm" )
+          div(ng-include="'/partials/actions/actions/form.html'")
+          button.btn.btn-lg.btn-success.btn-block Save
+
+      .col-sm-8
+        #actions.row
+          .repeat-animation.campaign-item.col-sm-6.col-lg-4.col-md-4( ng-repeat="action in actCtrl.actions | orderBy:'-createdAt' " )
+            .thumbnail
+              //- img(  src="http://placehold.it/320x150" alt="" )
+              a.ion-ios-paper-outline(href="" ng-click="actCtrl.edit(action)")
+              .caption
+                h2.dark {{action.title}}
+                //- p {{action.description | limitTo:70 }}  
+                a.ion-ios-close-outline(href="" ng-click="actCtrl.destory(action.id)")
+                a.ion-ios-arrow-thin-up(href="" )
+
+      #edit.col-sm-4( ng-if="actCtrl.editing" )
+        h2 Edit {{actCtrl.oldaction.title}}
+        form( method="post" ng-submit="actCtrl.update(actCtrl.newaction)" name="editForm" )
+          div(ng-include="'/partials/actions/form.html'")
+          .row
+            .col-sm-4
+              button.btn.btn-lg.btn-google-plus.btn-block(ng-click="actCtrl.reset()") Cancel
+            .col-sm-8
+              button.btn.btn-lg.btn-success.btn-block Save

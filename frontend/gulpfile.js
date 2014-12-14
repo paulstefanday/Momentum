@@ -25,13 +25,13 @@ var paths = {
     'app.js',
     'templates.js',
     'app/**/*.js', 
-    'app-common/**/*.js'
+    'app_common/**/*.js'
   ],
   css: [ 
     'bower_components/ionicons/css/ionicons.min.css',
     'bower_components/bootstrap/dist/css/bootstrap.min.css',
     'bower_components/animate.css/animate.min.css',
-    'app-styles/**/*.less', 
+    'app_styles/**/*.less', 
     'app/**/*.less'
   ],
   templates: 'app/**/*.jade',
