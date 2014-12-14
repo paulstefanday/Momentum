@@ -31,8 +31,8 @@ module.exports = {
       collection: 'user',
       via: 'staff'
     },
-    petitions: {
-      collection: 'petition_action',
+    submissions: {
+      collection: 'submission',
       via: 'user'
     },
     toJSON: function() {

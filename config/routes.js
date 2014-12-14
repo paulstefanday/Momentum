@@ -38,6 +38,8 @@ module.exports.routes = {
   'post /campaign/:id/admin/:user': 'CampaignController.addAdmin',
   'delete /campaign/:id/admin/:user': 'CampaignController.removeAdmin',
 
+  // 'post /campaign/:id/petition/:childid': 'PetitionController.create',
+
 
   // If a request to a URL doesn't match any of the custom routes above,
   // it is matched against Sails route blueprints.  See `config/blueprints.js`

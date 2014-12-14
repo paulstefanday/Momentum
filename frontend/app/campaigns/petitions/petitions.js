@@ -1,80 +1,80 @@
 angular
     .module('MyApp')
-    .directive('editCampaigns', editCampaigns);
+    .directive('editPetitions', editPetitions);
 
-function editCampaigns() {
+function editPetitions() {
    
     var directive = {
         restrict: 'E',
         transclude: true,
         replace: true,
-        templateUrl: '/partials/campaigns/edit.html',
+        templateUrl: '/partials/campaigns/petitions/edit.html',
         scope: {},
         controller : controller,
-        controllerAs: 'campCtrl',
+        controllerAs: 'pertCtrl',
         link: link
     };
     return directive;
 
 
-  controller.$inject = ['$scope', '$alert', 'Campaign', 'lodash'];
+  controller.$inject = ['$scope', '$alert', 'Petition', 'lodash'];
   
-  function controller( $scope, $alert, Campaign, lodash ) {
+  function controller( $scope, $alert, Petition, lodash ) {
     
-    var campCtrl = this;
+    var pertCtrl = this;
 
-    campCtrl.find = function() {
-      Campaign.find()
+    pertCtrl.find = function() {
+      Petition.find()
         .success(function(data) {
-          campCtrl.campaigns = data;
+          pertCtrl.petitions = data;
         })
         .error(function(error) {
           $alert({ content: JSON.stringify(error) });
         });
     }
 
-    campCtrl.create = function() {
-      Campaign.create(campCtrl.newcampaign)
+    pertCtrl.create = function() {
+      Petition.create(pertCtrl.newpetition)
         .success(function(data) {
-          campCtrl.campaigns.push(data);
-          campCtrl.newcampaign = {};
+          pertCtrl.petitions.push(data);
+          pertCtrl.newpetition = {};
           // $scope.createForm.$setPristine();
-          $alert({ content: "Campaign created successfully" });
+          $alert({ content: "Petition created successfully" });
         })
         .error(function(error) {
           $alert({ content: error.message });
         });
     }
 
-    campCtrl.reset = function() {
-      campCtrl.newcampaign = {};
-      campCtrl.editing = false;
+    pertCtrl.reset = function() {
+      pertCtrl.newpetition = {};
+      pertCtrl.editing = false;
     }
 
-    campCtrl.edit = function(campaign) {
-      campCtrl.newcampaign = campaign;
-      campCtrl.editing = true;
+    pertCtrl.edit = function(petition) {
+      pertCtrl.newpetition = petition;
+      pertCtrl.editing = true;
     }
 
-    campCtrl.update = function(campaign) {
-      Campaign.update(campaign)
+    pertCtrl.update = function(petition) {
+      Petition.update(petition)
         .success(function(data) {
-          campCtrl.editing = false;
-          campCtrl.newcampaign = {};
+          pertCtrl.editing = false;
+          pertCtrl.newpetition = {};
           // $scope.editForm.$setPristine();
-          $alert({ content: 'Campaign updated successfully' });
+          $alert({ content: 'Petition updated successfully' });
         })
         .error(function(error) {
           $alert({ content: error.message });
         });
     }
 
-    campCtrl.destory = function(id) {
-      Campaign.destory(id)
+    pertCtrl.destory = function(id) {
+      Petition.destory(id)
         .success(function(data) {
-          var index = lodash.findIndex(campCtrl.campaigns, { 'id': id });
-          campCtrl.campaigns.splice(index, 1); 
-          $alert({ content: 'Campaign deleted successfully' });
+          var index = lodash.findIndex(pertCtrl.petitions, { 'id': id });
+          pertCtrl.petitions.splice(index, 1); 
+          $alert({ content: 'Petition deleted successfully' });
         })
         .error(function(error) {
           $alert({ content: error.message });
@@ -85,8 +85,8 @@ function editCampaigns() {
   }
 
   function link(scope, element, attr, ctrl) {
-    ctrl.newcampaign = {};
-    ctrl.campaigns = {};
+    ctrl.newpetition = {};
+    ctrl.petitions = {};
     ctrl.editing = false;
     ctrl.find();
   }

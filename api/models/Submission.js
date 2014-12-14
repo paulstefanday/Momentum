@@ -8,19 +8,26 @@
 module.exports = {
   schema: true,
   attributes: {
-  	first_name: 'string',
+    first_name: 'string',
     last_name: 'string',
     profile_image: 'string',
-   	image: 'string',
+    image: 'string',
     message: 'string',
     postcode: 'integer',
     location: 'string',
+    url: 'string',
+    donation: 'float',
+    reward: 'string',
     custom: 'json',
-    petition: {
-    	model: 'petition'
+    type: 'string',
+    action: {
+         model: 'action'
     },
     user: {
-      model: 'user'
+         model: 'user'
+    },
+    campaign: {
+        model: 'campaign' 
     }
   }
 };

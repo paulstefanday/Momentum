@@ -11,7 +11,8 @@ angular.module('MyApp', ['ngAnimate', 'templates', 'ngResource', 'ngMessages', '
     var hasauth = [
       { state: 'admin',         url: '/admin',              html: '<user-profile/>',        directive: true },
       { state: 'profile',       url: '/admin/profile',      html: '<user-profile/>',        directive: true },
-      { state: 'campaigns',     url: '/admin/campaigns',    html: '<edit-campaigns/>',      directive: true }
+      { state: 'campaigns',     url: '/admin/campaigns',    html: '<edit-campaigns/>',      directive: true },
+      { state: 'petitions',     url: '/admin/campaigns/:id/petitions',    html: '<edit-petitions/>',      directive: true }
     ];
 
     // alert settings

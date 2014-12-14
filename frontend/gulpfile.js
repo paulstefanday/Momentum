@@ -22,16 +22,16 @@ var paths = {
     'bower_components/angular-strap/dist/angular-strap.tpl.min.js',
     'bower_components/satellizer/satellizer.min.js',
     'bower_components/angular-loading-bar/build/loading-bar.min.js',
-    'start.js',
+    'app.js',
     'templates.js',
     'app/**/*.js', 
-    'common/**/*.js'
+    'app-common/**/*.js'
   ],
   css: [ 
     'bower_components/ionicons/css/ionicons.min.css',
     'bower_components/bootstrap/dist/css/bootstrap.min.css',
     'bower_components/animate.css/animate.min.css',
-    'styles/**/*.less', 
+    'app-styles/**/*.less', 
     'app/**/*.less'
   ],
   templates: 'app/**/*.jade',

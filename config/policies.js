@@ -41,6 +41,16 @@ module.exports.policies = {
     'addAdmin': ['tokenAuth', 'campaignAdmin'],
     'removeAdmin': ['tokenAuth', 'campaignAdmin'],
     '*': false
+  },
+
+  'PetitionController': {
+    'find': ['tokenAuth', 'campaignAdmin'],
+    'create': ['tokenAuth'],
+    'update': ['tokenAuth', 'campaignAdmin'],
+    'destroy': ['tokenAuth', 'campaignAdmin'],
+    'addAdmin': ['tokenAuth', 'campaignAdmin'],
+    'removeAdmin': ['tokenAuth', 'campaignAdmin'],
+    '*': false
   }
 
 

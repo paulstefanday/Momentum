@@ -23,9 +23,13 @@ module.exports = {
     twitter: 'string',
     facebook: 'string',
     stripe: 'string',
-    petitions: {
-      collection: 'petition',
-      via: 'owner'
+    actions: {
+      collection: 'action',
+      via: 'campaign'
+    },
+    submissions: {
+      collection: 'submission',
+      via: 'campaign'
     },
     admin: {
       collection: 'user',
