@@ -7,8 +7,20 @@
 
 module.exports = {
 	
+	find: function (req, res) {
+		var actionId = req.param('childid');
+		if(actionId) return Action.find().where({id: actionId})
+			.exec(function createCB(err,record){
+  				if(err) return res.json(403, { err: err });
+  			});
+		else return Action.find().limit(20)
+			.exec(function createCB(err,record){
+  				if(err) return res.json(403, { err: err });
+  		});
+	},
+
 	create: function (req, res) {
-		Petition.create(req.body).exec(function createCB(err,created){
+		Action.create(req.body).exec(function createCB(err,created){
   			created.campaign.add(req.param('id'));
   			created.save(function(err) { 
   				if(err) return res.json(403, { err: err });
@@ -19,7 +31,14 @@ module.exports = {
 	},
 
 	update: function (req, res) {
-		Petition.update(req.param('id'), data).exec(function(err, updated) {
+		Action.update(req.param('childid'), data).exec(function(err, updated) {
+			if(err) return res.json(403, err);
+			return res.json(200, updated);
+		});
+	},
+
+	destory: function (req, res) {
+		Action.update(req.param('childid'), data).exec(function(err, updated) {
 			if(err) return res.json(403, err);
 			return res.json(200, updated);
 		});

@@ -10,14 +10,17 @@
       .col-sm-8
         #campaigns.row
           .repeat-animation.campaign-item.col-sm-6.col-lg-4.col-md-4( ng-repeat="campaign in campCtrl.campaigns | orderBy:'-createdAt' " )
-            .thumbnail
-              //- img(  src="http://placehold.it/320x150" alt="" )
-              a.ion-ios-paper-outline(href="" ng-click="campCtrl.edit(campaign)")
-              .caption
-                h2.dark {{campaign.title}}
-                //- p {{campaign.description | limitTo:70 }}  
-                a.ion-ios-close-outline(href="" ng-click="campCtrl.destory(campaign.id)")
-                a.ion-ios-arrow-thin-up(href="" )
+            a.thumbnail(href="" ng-click="campCtrl.edit(campaign)")
+              img(  src="http://placehold.it/320x150" alt="" )
+            .campaign-info
+              h4(href="" ng-click="campCtrl.edit(campaign)") {{campaign.title | limitTo:30}}
+              p {{campaign.description | limitTo:70 }}...
+              //- need to add close edit actions users
+              .campaign-buttons
+                a.ion-ios-gear(href="" ng-click="campCtrl.edit(campaign)" data-title="Edit" bs-tooltip)
+                a.ion-ios-flask(href="#" data-title="Actions" bs-tooltip)
+                a.ion-ios-person(href="#" data-title="Users" bs-tooltip)
+                a.ion-ios-close-empty(href="" ng-click="campCtrl.destory(campaign.id)" data-title="Delete" bs-tooltip)
 
       #edit.col-sm-4( ng-if="campCtrl.editing" )
         h2 Edit {{campCtrl.oldcampaign.title}}

@@ -14,19 +14,19 @@ function Action($http, $auth, $stateParams) {
     };
 
     function find() {
-        return $http.get('/campaign/' + $stateParams.id + '/action');
+        return $http.get('/campaign/' + $stateParams.id + '/');
     }
 
     function findOne(id) {
-        return $http.get('/campaign/' + $stateParams.id + '/action/' + id);
+        return $http.get('/campaign/' + $stateParams.id + '/' + id);
     }
 
     function create(action) {
-        return $http.post('/campaign/' + $stateParams.id + '/action', action);
+        return $http.post('/campaign/' + $stateParams.id + '/' + action.type, action);
     }
 
     function update(action) {
-        return $http.put('/campaign/' + $stateParams.id + '/action/'  + action.id , action);
+        return $http.put('/campaign/' + $stateParams.id + '/' + action.type + '/'  + action.id , action);
     }
 
     function destory(id) {

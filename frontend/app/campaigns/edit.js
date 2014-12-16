@@ -9,7 +9,9 @@ function editCampaigns() {
         transclude: true,
         replace: true,
         templateUrl: '/partials/campaigns/edit.html',
-        scope: {},
+        scope: {
+          bsTooltip: '@',
+        },
         controller : controller,
         controllerAs: 'campCtrl',
         link: link
@@ -61,7 +63,7 @@ function editCampaigns() {
     }
 
     campCtrl.destory = function(id) {
-      Campaign.destory(id)
+      if(confirm("Are you sure you want to delete this campaign?")) Campaign.destory(id)
         .success(function(data) {
           var index = lodash.findIndex(campCtrl.campaigns, { 'id': id });
           campCtrl.campaigns.splice(index, 1); 

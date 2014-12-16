@@ -13,6 +13,10 @@
  * http://sailsjs.org/#!documentation/
  */
 
+ var loggedIn = ['tokenAuth'];
+ var campOwner = ['tokenAuth', 'campaignAdmin'];
+ var userOwner = ['tokenAuth', 'ownUser'];
+
 
 module.exports.policies = {
   
@@ -22,8 +26,8 @@ module.exports.policies = {
   '*': false,
 
   'UserController': {
-    'findOne': ['tokenAuth', 'ownUser'],
-    'update': ['tokenAuth', 'ownUser'],
+    'findOne': userOwner,
+    'update': userOwner,
     '*': false
   },
 
@@ -34,24 +38,32 @@ module.exports.policies = {
   },
 
   'CampaignController': {
-    'find': ['tokenAuth', 'campaignAdmin'],
-    'create': ['tokenAuth'],
-    'update': ['tokenAuth', 'campaignAdmin'],
-    'destroy': ['tokenAuth', 'campaignAdmin'],
-    'addAdmin': ['tokenAuth', 'campaignAdmin'],
-    'removeAdmin': ['tokenAuth', 'campaignAdmin'],
+    'find': campOwner,
+    'create': loggedIn,
+    'update': campOwner,
+    'destroy': campOwner,
+    'addAdmin': campOwner,
+    'removeAdmin': campOwner,
     '*': false
   },
 
-  'PetitionController': {
-    'find': ['tokenAuth', 'campaignAdmin'],
-    'create': ['tokenAuth'],
-    'update': ['tokenAuth', 'campaignAdmin'],
-    'destroy': ['tokenAuth', 'campaignAdmin'],
-    'addAdmin': ['tokenAuth', 'campaignAdmin'],
-    'removeAdmin': ['tokenAuth', 'campaignAdmin'],
+  'ActionController': {
+    'find': campOwner,
+    'create': campOwner,
+    'update': campOwner,
+    'destroy': campOwner,
     '*': false
-  }
+  },
+
+  // 'PetitionController': {
+  //   'find': ['tokenAuth', 'campaignAdmin'],
+  //   'create': ['tokenAuth'],
+  //   'update': ['tokenAuth', 'campaignAdmin'],
+  //   'destroy': ['tokenAuth', 'campaignAdmin'],
+  //   'addAdmin': ['tokenAuth', 'campaignAdmin'],
+  //   'removeAdmin': ['tokenAuth', 'campaignAdmin'],
+  //   '*': false
+  // }
 
 
 };

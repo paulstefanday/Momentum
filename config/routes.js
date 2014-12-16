@@ -34,11 +34,15 @@ module.exports.routes = {
   // Email routes
   'post /subscribe': 'EmailController.subscribe',
 
-  // Campaign Admin Routes
+  // Campaign routes
   'post /campaign/:id/admin/:user': 'CampaignController.addAdmin',
   'delete /campaign/:id/admin/:user': 'CampaignController.removeAdmin',
 
-  // 'post /campaign/:id/petition/:childid': 'PetitionController.create',
+  // Action routes
+  'get /campaign/:id/action/:childid': 'ActionController.find',
+  'post /campaign/:id/action/:childid': 'ActionController.create',
+  'put /campaign/:id/action/:childid': 'ActionController.update',
+  'delete /campaign/:id/action/:childid': 'ActionController.destory',
 
 
   // If a request to a URL doesn't match any of the custom routes above,
