@@ -11,6 +11,7 @@ function campaignsCtrl( $scope, $alert, Campaign, lodash ) {
     vm.find = function() {
       Campaign.find()
         .success(function(data) {
+          console.log(data);
           vm.campaigns = data;
         })
     }

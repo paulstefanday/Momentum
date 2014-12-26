@@ -5,16 +5,27 @@
  * @help        :: See http://links.sailsjs.org/docs/controllers
  */
 
+
+
 module.exports = {
 
+	find: function (req, res) {
+		var currentUserId = req.token.sub;
+		User.findOne(currentUserId).populate('admin')
+			.exec(function(err,record){
+				console.log(record);
+  				if(err) return res.json(403, { err: err });
+  				return res.json(200, record.admin);
+  		});
+	},
+
 	create: function (req, res) {
-		Campaign.create(req.body).exec(function createCB(err,created){
+		Campaign.create(req.body).exec(function(err,created){
   			created.admin.add(req.token.sub);
   			created.save(function(err) { 
   				if(err) return res.json(403, { err: err });
   				return res.json(200, created);
-  			});
-  			
+  			});	
   		});
 	},
 
@@ -31,7 +42,7 @@ module.exports = {
 	},
 
 	addAdmin: function (req, res) {
-		Campaign.findOne(req.param('id')).exec(function createCB(err,campaign){
+		Campaign.findOne(req.param('id')).exec(function(err,campaign){
   			campaign.admin.add(req.param('user'));
   			campaign.save(function(err) { 
   				if(err) return res.json(403, { err: err });
@@ -41,7 +52,7 @@ module.exports = {
 	},
 
 	removeAdmin: function (req, res) {
-		Campaign.findOne(req.param('id')).exec(function createCB(err,campaign){
+		Campaign.findOne(req.param('id')).exec(function(err,campaign){
   			campaign.admin.remove(req.param('user'));
   			campaign.save(function(err) { 
   				if(err) return res.json(403, { err: err });

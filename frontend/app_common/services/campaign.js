@@ -2,9 +2,9 @@ angular
   .module('momentum')
   .factory('Campaign', Campaign);
 
-Campaign.$inject = ['$http', '$auth'];
+Campaign.$inject = ['$http', '$auth', '$alert'];
 
-function Campaign($http, $auth) {
+function Campaign($http, $auth, $alert) {
     
     return {
       find: find,

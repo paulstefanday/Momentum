@@ -24,11 +24,11 @@ module.exports = {
     facebook: 'string',
     encryptedPassword: 'string',
     admin: {
-      collection: 'user',
+      collection: 'campaign',
       via: 'admin'
     },
     staff: {
-      collection: 'user',
+      collection: 'campaign',
       via: 'staff'
     },
     submissions: {

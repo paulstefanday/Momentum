@@ -19,9 +19,10 @@ function editActions() {
 
   function link(scope, element, attr, ctrl) {
     ctrl.newaction = {};
-    ctrl.actions = {};
+    ctrl.actions = [];
     ctrl.editing = false;
     ctrl.find();
+    console.log(ctrl.actions);
   }
 
 }

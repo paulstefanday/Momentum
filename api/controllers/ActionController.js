@@ -10,25 +10,22 @@ module.exports = {
 	find: function (req, res) {
 		var actionId = req.param('childid');
 		if(actionId) Action.find().where({id: actionId})
-			.exec(function createCB(err,record){
+			.exec(function(err,record){
   				if(err) return res.json(403, { err: err });
   				return res.json(200, record);
   			});
 		else Action.find().limit(20)
-			.exec(function createCB(err,record){
+			.exec(function(err,record){
   				if(err) return res.json(403, { err: err });
   				return res.json(200, record);
   		});
 	},
 
 	create: function (req, res) {
-		Action.create(req.body).exec(function createCB(err,record){
-  			created.campaign.add(req.param('id'));
-  			created.save(function(err) { 
-  				if(err) return res.json(403, { err: err });
+		req.body.campaign = req.param('id');
+		Action.create(req.body).exec(function(err, record){
+			  	if(err) return res.json(403, { err: err });
   				return res.json(200, record);
-  			});
-  			
   		});
 	},
 

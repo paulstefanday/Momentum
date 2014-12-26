@@ -38,7 +38,8 @@ module.exports.policies = {
   },
 
   'CampaignController': {
-    'find': campOwner,
+    'find': loggedIn,
+    // 'findOne': campOwner,
     'create': loggedIn,
     'update': campOwner,
     'destroy': campOwner,

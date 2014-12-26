@@ -11,7 +11,9 @@ function actionsCtrl( $scope, $alert, Action, lodash ) {
     vm.find = function() {
       Action.find()
         .success(function(data) {
+          console.log("actions", vm.actions);
           vm.actions = data;
+
         })
     }
 
@@ -30,7 +32,6 @@ function actionsCtrl( $scope, $alert, Action, lodash ) {
         .success(function(data) {
           vm.editing = false;
           vm.newaction = {};
-          // $scope.editForm.$setPristine();
           $alert({ content: 'Action updated successfully' });
         });
     }

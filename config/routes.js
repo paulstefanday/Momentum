@@ -40,7 +40,7 @@ module.exports.routes = {
 
   // Action routes
   'get /campaign/:id/action/:childid': 'ActionController.find',
-  'post /campaign/:id/action/:childid': 'ActionController.create',
+  'post /campaign/:id/action': 'ActionController.create',
   'put /campaign/:id/action/:childid': 'ActionController.update',
   'delete /campaign/:id/action/:childid': 'ActionController.destory',
 
