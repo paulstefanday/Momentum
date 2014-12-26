@@ -1,10 +1,10 @@
 angular
   .module('momentum')
-  .controller('campaignCtrl', campaignCtrl);
+  .controller('campaignsCtrl', campaignsCtrl);
 
-campaignCtrl.$inject = ['$scope', '$alert', 'Campaign', 'lodash'];
+campaignsCtrl.$inject = ['$scope', '$alert', 'Campaign', 'lodash'];
   
-function campaignCtrl( $scope, $alert, Campaign, lodash ) {
+function campaignsCtrl( $scope, $alert, Campaign, lodash ) {
     
     var vm = this;
 

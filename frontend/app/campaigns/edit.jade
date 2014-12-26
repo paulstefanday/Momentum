@@ -17,7 +17,7 @@
               p {{campaign.description | limitTo:70 }}...
               .campaign-buttons
                 a.ion-ios-gear(href="" ng-click="cc.edit(campaign)" data-title="Edit" bs-tooltip)
-                a.ion-ios-flask(href="#" data-title="Actions" bs-tooltip)
+                a.ion-ios-flask(href="/#/admin/campaigns/{{campaign.id}}/actions" data-title="Actions" bs-tooltip)
                 a.ion-ios-person(href="#" data-title="Users" bs-tooltip)
                 a.ion-ios-close-empty(href="" ng-click="cc.destory(campaign.id)" data-title="Delete" bs-tooltip)
 

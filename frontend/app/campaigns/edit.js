@@ -7,7 +7,7 @@ function editCampaigns() {
     var directive = {
         restrict: 'E',
         bindToController: true,
-        controller : 'campaignCtrl as cc',
+        controller : 'campaignsCtrl as cc',
         replace: true,
         templateUrl: '/partials/campaigns/edit.html',
         scope: {

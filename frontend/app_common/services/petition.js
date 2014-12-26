@@ -1,10 +1,10 @@
 angular
   .module('momentum')
-  .factory('Action', Action);
+  .factory('Petition', Petition);
 
-Action.$inject = ['$http', '$auth', '$stateParams'];
+Petition.$inject = ['$http', '$auth', '$stateParams'];
 
-function Action($http, $auth, $stateParams) {
+function Petition($http, $auth, $stateParams) {
     return {
       find: find,
       findOne: findOne,

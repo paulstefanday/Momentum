@@ -1,32 +1,30 @@
 .view
   .container
     .row  
-      #create.col-sm-4( ng-if="!actCtrl.editing" )
+      #create.col-sm-4( ng-if="!ac.editing" )
         h2 Add an action
-        form( method="post" ng-submit="actCtrl.create()" name="createForm" )
-          div(ng-include="'/partials/actions/actions/form.html'")
+        form( method="post" ng-submit="ac.create()" name="createForm" )
+          div(ng-include="'/partials/campaigns/actions/form.html'")
           button.btn.btn-lg.btn-success.btn-block Save
 
       .col-sm-8
-        #campaigns.row
-          .repeat-animation.campaign-item.col-sm-6.col-lg-4.col-md-4( ng-repeat="action in actCtrl.actions | orderBy:'-createdAt' " )
-            a.thumbnail(href="" ng-click="actCtrl.edit(action)")
-              img(  src="http://placehold.it/320x150" alt="" )
+        #actions.row
+          .repeat-animation.campaign-item.col-sm-6.col-lg-4.col-md-4( ng-repeat="action in ac.actions | orderBy:'-createdAt' " )
+            a.thumbnail(href="" ng-click="ac.edit(action)")
             .campaign-info
-              h4(href="" ng-click="actCtrl.edit(action)") {{action.title}}
+              h4(href="" ng-click="ac.edit(action)") {{action.title}}
               p {{action.type }}  
               .campaign-buttons
-                a.ion-ios-gear(href="" ng-click="actCtrl.edit(action)" data-title="Edit" bs-tooltip)
-                a.ion-ios-flask(href="#" data-title="Actions" bs-tooltip)
-                a.ion-ios-person(href="#" data-title="Users" bs-tooltip)
-                a.ion-ios-close-empty(href="" ng-click="actCtrl.destory(action.id)" data-title="Delete" bs-tooltip)
+                a.ion-ios-gear(href="" ng-click="ac.edit(action)" data-title="Edit" bs-tooltip)
+                a.ion-ios-flask(href="#" data-title="View" bs-tooltip)
+                a.ion-ios-close-empty(href="" ng-click="ac.destory(action.id)" data-title="Delete" bs-tooltip)
 
-      #edit.col-sm-4( ng-if="actCtrl.editing" )
-        h2 Edit {{actCtrl.oldaction.title}}
-        form( method="post" ng-submit="actCtrl.update(actCtrl.newaction)" name="editForm" )
-          div(ng-include="'/partials/actions/form.html'")
+      #edit.col-sm-4( ng-if="ac.editing" )
+        h2 Edit {{ac.oldaction.title}}
+        form( method="post" ng-submit="ac.update(ac.newaction)" name="editForm" )
+          div(ng-include="'/partials/campaigns/actions/form.html'")
           .row
             .col-sm-4
-              button.btn.btn-lg.btn-google-plus.btn-block(ng-click="actCtrl.reset()") Cancel
+              button.btn.btn-lg.btn-google-plus.btn-block(ng-click="ac.reset()") Cancel
             .col-sm-8
               button.btn.btn-lg.btn-success.btn-block Save
