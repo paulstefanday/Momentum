@@ -39,7 +39,8 @@ module.exports.routes = {
   'delete /campaign/:id/admin/:user': 'CampaignController.removeAdmin',
 
   // Action routes
-  'get /campaign/:id/action/:childid': 'ActionController.find',
+  'get /campaign/:id/action/': 'ActionController.find',
+  // 'get /campaign/:id/action/:childid': 'ActionController.findOne',
   'post /campaign/:id/action': 'ActionController.create',
   'put /campaign/:id/action/:childid': 'ActionController.update',
   'delete /campaign/:id/action/:childid': 'ActionController.destory',

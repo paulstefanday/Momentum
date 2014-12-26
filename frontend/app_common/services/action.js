@@ -38,7 +38,9 @@ function Action($http, $auth, $stateParams, $alert) {
     }
 
     function destory(id) {
-        return $http.delete('/action/' + id).error(function(error) {
+      var url = '/campaign/' + $stateParams.id + '/action/' + id;
+      console.log(url);
+        return $http.delete(url).error(function(error) {
           $alert({ content: JSON.stringify(error) });
         });
     }

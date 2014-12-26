@@ -13,7 +13,6 @@ function actionsCtrl( $scope, $alert, Action, lodash ) {
         .success(function(data) {
           console.log("actions", vm.actions);
           vm.actions = data;
-
         })
     }
 
@@ -53,6 +52,10 @@ function actionsCtrl( $scope, $alert, Action, lodash ) {
     vm.edit = function(action) {
       vm.newaction = action;
       vm.editing = true;
+    }
+
+    vm.count = function(count) {
+      return count ? count : 0;
     }
   
 }

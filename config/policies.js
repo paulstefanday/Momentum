@@ -52,7 +52,7 @@ module.exports.policies = {
     'find': campOwner,
     'create': campOwner,
     'update': campOwner,
-    'destroy': campOwner,
+    'destroy': true,
     '*': false
   },
 
