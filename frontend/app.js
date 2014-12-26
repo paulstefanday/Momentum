@@ -1,4 +1,4 @@
-angular.module('MyApp', ['ngAnimate', 'templates', 'ngResource', 'ngMessages', 'ui.router', 'mgcrea.ngStrap', 'satellizer', 'ngSanitize', 'ngLodash'])
+angular.module('momentum', ['ngAnimate', 'templates', 'ngResource', 'ngMessages', 'ui.router', 'mgcrea.ngStrap', 'satellizer', 'ngSanitize', 'ngLodash'])
   .config(['$stateProvider', '$urlRouterProvider', '$authProvider', '$httpProvider', '$datepickerProvider', '$alertProvider', '$selectProvider', '$tooltipProvider', function($stateProvider, $urlRouterProvider, $authProvider, $httpProvider, $datepickerProvider, $alertProvider, $selectProvider, $tooltipProvider) {
 
     var noauth = [

@@ -1,4 +1,4 @@
-angular.module('MyApp')
+angular.module('momentum')
   .directive('passwordStrength', function() {
     return {
       restrict: 'A',

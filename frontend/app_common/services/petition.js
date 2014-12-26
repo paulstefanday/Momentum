@@ -1,5 +1,5 @@
 angular
-  .module('MyApp')
+  .module('momentum')
   .factory('Action', Action);
 
 Action.$inject = ['$http', '$auth', '$stateParams'];

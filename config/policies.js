@@ -14,7 +14,7 @@
  */
 
  var loggedIn = ['tokenAuth'];
- var campOwner = ['tokenAuth', 'campaignAdmin'];
+ var campOwner = ['tokenAuth', 'ownCampaign'];
  var userOwner = ['tokenAuth', 'ownUser'];
 
 

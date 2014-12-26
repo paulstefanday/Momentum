@@ -1,4 +1,4 @@
-angular.module('MyApp')
+angular.module('momentum')
   .factory('Locations', function() {
     return {
       getStates: function() {

@@ -1,5 +1,5 @@
 
-angular.module('MyApp').directive('search', homeSearch);
+angular.module('momentum').directive('search', homeSearch);
 
 function homeSearch() {
   return {

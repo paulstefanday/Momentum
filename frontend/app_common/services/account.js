@@ -1,4 +1,4 @@
-angular.module('MyApp')
+angular.module('momentum')
   .factory('Account', Account);
 
 Account.$inject = ['$http', '$auth']

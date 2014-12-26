@@ -1,5 +1,5 @@
 
-angular.module('MyApp').directive('homePage', homePage);
+angular.module('momentum').directive('homePage', homePage);
 
 function homePage() {
   return {

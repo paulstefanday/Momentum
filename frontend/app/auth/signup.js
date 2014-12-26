@@ -1,5 +1,5 @@
 angular
-    .module('MyApp')
+    .module('momentum')
     .directive('signupForm', signup);
 
 function signup() {

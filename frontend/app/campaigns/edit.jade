@@ -1,33 +1,32 @@
 .view
   .container
     .row  
-      #create.col-sm-4( ng-if="!campCtrl.editing" )
+      #create.col-sm-4( ng-if="!cc.editing" )
         h2 Add a Campaign
-        form( method="post" ng-submit="campCtrl.create()" name="createForm" )
+        form( method="post" ng-submit="cc.create()" name="createForm" )
           div(ng-include="'/partials/campaigns/form.html'")
           button.btn.btn-lg.btn-success.btn-block Save
 
       .col-sm-8
         #campaigns.row
-          .repeat-animation.campaign-item.col-sm-6.col-lg-4.col-md-4( ng-repeat="campaign in campCtrl.campaigns | orderBy:'-createdAt' " )
-            a.thumbnail(href="" ng-click="campCtrl.edit(campaign)")
+          .repeat-animation.campaign-item.col-sm-6.col-lg-4.col-md-4( ng-repeat="campaign in cc.campaigns | orderBy:'-createdAt' " )
+            a.thumbnail(href="" ng-click="cc.edit(campaign)")
               img(  src="http://placehold.it/320x150" alt="" )
             .campaign-info
-              h4(href="" ng-click="campCtrl.edit(campaign)") {{campaign.title | limitTo:30}}
+              h4(href="" ng-click="cc.edit(campaign)") {{campaign.title | limitTo:30}}
               p {{campaign.description | limitTo:70 }}...
-              //- need to add close edit actions users
               .campaign-buttons
-                a.ion-ios-gear(href="" ng-click="campCtrl.edit(campaign)" data-title="Edit" bs-tooltip)
+                a.ion-ios-gear(href="" ng-click="cc.edit(campaign)" data-title="Edit" bs-tooltip)
                 a.ion-ios-flask(href="#" data-title="Actions" bs-tooltip)
                 a.ion-ios-person(href="#" data-title="Users" bs-tooltip)
-                a.ion-ios-close-empty(href="" ng-click="campCtrl.destory(campaign.id)" data-title="Delete" bs-tooltip)
+                a.ion-ios-close-empty(href="" ng-click="cc.destory(campaign.id)" data-title="Delete" bs-tooltip)
 
-      #edit.col-sm-4( ng-if="campCtrl.editing" )
-        h2 Edit {{campCtrl.oldcampaign.title}}
-        form( method="post" ng-submit="campCtrl.update(campCtrl.newcampaign)" name="editForm" )
+      #edit.col-sm-4( ng-if="cc.editing" )
+        h2 Edit {{cc.oldcampaign.title}}
+        form( method="post" ng-submit="cc.update(cc.newcampaign)" name="editForm" )
           div(ng-include="'/partials/campaigns/form.html'")
           .row
             .col-sm-4
-              button.btn.btn-lg.btn-google-plus.btn-block(ng-click="campCtrl.reset()") Cancel
+              button.btn.btn-lg.btn-google-plus.btn-block(ng-click="cc.reset()") Cancel
             .col-sm-8
-              button.btn.btn-lg.btn-success.btn-block Save
+              button.btn.btn-lg.btn-success.btn-block Update

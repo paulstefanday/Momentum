@@ -1,5 +1,5 @@
 angular
-  .module('MyApp')
+  .module('momentum')
   .factory('Campaign', Campaign);
 
 Campaign.$inject = ['$http', '$auth'];

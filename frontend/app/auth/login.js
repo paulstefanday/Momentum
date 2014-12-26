@@ -1,5 +1,5 @@
 angular
-    .module('MyApp')
+    .module('momentum')
     .directive('loginForm', login);
 
 function login() {

@@ -69,7 +69,7 @@ gulp.task('templates', function() {
 gulp.task('scripts', function() {
   gulp.src(paths.scripts)
     .pipe(concat('app.js'))
-    .pipe(uglify({mangle: false}))
+    // .pipe(uglify({mangle: false}))
     .pipe(gulp.dest(paths.root[0]))
 });
 

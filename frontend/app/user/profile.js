@@ -1,4 +1,4 @@
-angular.module('MyApp').directive('userProfile', userProfile);
+angular.module('momentum').directive('userProfile', userProfile);
 
 function userProfile() {
   
