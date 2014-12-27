@@ -10,7 +10,7 @@ function Campaign($http, $auth, $alert) {
       find: find,
       create: create,
       update: update,
-      destory: destory,
+      destroy: destroy,
       addAdmin: addAdmin,
       removeAdmin: removeAdmin
     };
