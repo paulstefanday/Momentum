@@ -43,7 +43,7 @@ module.exports.routes = {
   // 'get /campaign/:id/action/:childid': 'ActionController.findOne',
   'post /campaign/:id/action': 'ActionController.create',
   'put /campaign/:id/action/:childid': 'ActionController.update',
-  'delete /campaign/:id/action/:childid': 'ActionController.destory',
+  'delete /campaign/:id/action/:childid': 'ActionController.destroy',
 
 
   // If a request to a URL doesn't match any of the custom routes above,

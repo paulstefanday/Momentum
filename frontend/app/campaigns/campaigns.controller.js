@@ -46,8 +46,8 @@ function campaignsCtrl( $scope, $alert, Campaign, lodash ) {
         })
     }
 
-    vm.destory = function(id) {
-      if(confirm("Are you sure you want to delete this campaign?")) Campaign.destory(id)
+    vm.destroy = function(id) {
+      if(confirm("Are you sure you want to delete this campaign?")) Campaign.destroy(id)
         .success(function(data) {
           var index = lodash.findIndex(vm.campaigns, { 'id': id });
           vm.campaigns.splice(index, 1); 

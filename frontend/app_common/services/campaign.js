@@ -33,7 +33,7 @@ function Campaign($http, $auth, $alert) {
         });
     }
 
-    function destory(id) {
+    function destroy(id) {
         return $http.delete('/campaign/' + id).error(function(error) {
           $alert({ content: JSON.stringify(error) });
         });

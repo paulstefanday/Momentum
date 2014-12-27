@@ -35,8 +35,8 @@ function actionsCtrl( $scope, $alert, Action, lodash ) {
         });
     }
 
-    vm.destory = function(id) {
-      Action.destory(id)
+    vm.destroy = function(id) {
+      Action.destroy(id)
         .success(function(data) {
           var index = lodash.findIndex(vm.actions, { 'id': id });
           vm.actions.splice(index, 1); 

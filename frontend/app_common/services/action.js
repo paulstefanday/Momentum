@@ -10,7 +10,7 @@ function Action($http, $auth, $stateParams, $alert) {
       findOne: findOne,
       create: create,
       update: update,
-      destory: destory
+      destroy: destroy
     };
 
     function find() {
@@ -37,7 +37,7 @@ function Action($http, $auth, $stateParams, $alert) {
         });
     }
 
-    function destory(id) {
+    function destroy(id) {
       var url = '/campaign/' + $stateParams.id + '/action/' + id;
       console.log(url);
         return $http.delete(url).error(function(error) {

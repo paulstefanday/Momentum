@@ -43,9 +43,9 @@ module.exports = {
 			});
 	},
 
-	destory: function (req, res) {
+	destroy: function (req, res) {
 		console.log('child id: ', req.param('childid'));
-		Action.destory(req.param('childid'))
+		Action.destroy(req.param('childid'))
 			.exec(function(err, record) {
 				if(err) return res.json(403, err);
 				return res.json(200, record);
