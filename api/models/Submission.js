@@ -13,6 +13,7 @@ module.exports = {
     profile_image: 'string',
     image: 'string',
     message: 'string',
+    voted: 'boolean',
     postcode: 'integer',
     location: 'string',
     url: 'string',
@@ -21,13 +22,13 @@ module.exports = {
     custom: 'json',
     type: 'string',
     action: {
-         model: 'action'
+      model: 'action'
     },
     user: {
-         model: 'user'
+      model: 'user'
     },
     campaign: {
-        model: 'campaign' 
+      model: 'campaign' 
     }
   }
 };

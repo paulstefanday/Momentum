@@ -8,16 +8,25 @@
 module.exports = {
 	
 	find: function (req, res) {
-		// var actionId = req.param('childid');
-		// if(actionId) Action.find().where({id: actionId})
-		// 	.exec(function(err,record){
-  // 				if(err) return res.json(403, { err: err });
-  // 				return res.json(200, record);
-  // 			});
-		// else 
 		Action.find()
 			.where({campaign: req.param('id')})
 			.populate('submissions')
+			.exec(function(err,record){
+  				if(err) return res.json(403, { err: err });
+  				return res.json(200, record);
+  			});
+	},
+
+	findOne: function(req, res) {
+		Action.findOne(req.param('childid'))
+			.exec(function(err,record){
+  				if(err) return res.json(403, { err: err });
+  				return res.json(200, record);
+  			});
+	},
+
+	feed: function(req, res) {
+		Submission.find().where({action: req.param('childid')})
 			.exec(function(err,record){
   				if(err) return res.json(403, { err: err });
   				return res.json(200, record);

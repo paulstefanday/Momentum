@@ -50,9 +50,17 @@ module.exports.policies = {
 
   'ActionController': {
     'find': campOwner,
+    'findOne': true,
+    'feed': true,
     'create': campOwner,
     'update': campOwner,
     'destroy': campOwner,
+    '*': false
+  },
+
+
+  'PetitionController': {
+    'create': true,
     '*': false
   },
 
