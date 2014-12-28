@@ -10,9 +10,9 @@
       .col-sm-8
         #actions.row
           .repeat-animation.campaign-item.col-sm-6.col-lg-4.col-md-4( ng-repeat="action in ac.actions | orderBy:'-createdAt' " )
-            a.thumbnail(href="" ng-click="ac.edit(action)") <span>{{ ac.count(action.submissions.length) }}</span><br/> Submissions
+            a.thumbnail(href="") <span>{{ ac.count(action.submissions.length) }}</span><br/> Submissions
             .campaign-info
-              h4(href="" ng-click="ac.edit(action)") {{action.title}}
+              h4(href="" ng-click="ac.edit(action)") ({{action.id}}) {{action.title}}
               p {{action.type }}  
               .campaign-buttons
                 a.ion-ios-gear(href="" ng-click="ac.edit(action)" data-title="Edit" bs-tooltip)

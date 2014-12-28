@@ -13,7 +13,6 @@ module.exports = {
 		var currentUserId = req.token.sub;
 		User.findOne(currentUserId).populate('admin')
 			.exec(function(err,record){
-				console.log(record);
   				if(err) return res.json(403, { err: err });
   				return res.json(200, record.admin);
   		});
