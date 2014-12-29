@@ -58,7 +58,6 @@ module.exports.policies = {
     '*': false
   },
 
-
   'PetitionController': {
     'create': true,
     '*': false

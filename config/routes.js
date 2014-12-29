@@ -40,13 +40,26 @@ module.exports.routes = {
 
   // Action routes
   'get /campaign/:id/action/': 'ActionController.find',
-  'get /campaign/:id/action/:childid': 'ActionController.findOne',
-  'get /campaign/:id/action/:childid/feed': 'ActionController.feed',
   'post /campaign/:id/action': 'ActionController.create',
   'put /campaign/:id/action/:childid': 'ActionController.update',
   'delete /campaign/:id/action/:childid': 'ActionController.destroy',
 
-  'post /petition/:id': 'PetitionController.create'
+  // Public routes
+  'get /campaign/:id/action/:childid': {
+     controller: "ActionController",
+     action: "findOne",
+     cors: true
+  },
+  'get /campaign/:id/action/:childid/feed': {
+     controller: "ActionController",
+     action: "feed",
+     cors: true
+  },
+  'post /petition/:id': {
+     controller: "PetitionController",
+     action: "create",
+     cors: true
+  }
   // If a request to a URL doesn't match any of the custom routes above,
   // it is matched against Sails route blueprints.  See `config/blueprints.js`
   // for configuration options and examples.
