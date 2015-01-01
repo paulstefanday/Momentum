@@ -8,18 +8,20 @@
 <li>visit http://localhost:1337</li>
 </ol>
 
-<p>Live Example: https://momentum-sails.herokuapp.com</p>
+<p><b>Live Example: https://momentum-sails.herokuapp.com</b></p>
 
 <h3>Security</h3>
-<p>Uses JWT for authentication to private routes - Frontend examples to connect for <a href="https://github.com/sahat/satellizer">Angular (Can also be used with Ionic for mobile)</a>, <a href="https://github.com/jpadilla/ember-cli-simple-auth-token">Ember</a></p>
-<p>CORS for cross site access</p>
-<p>CSRF on all private routes</p>
-<p>Public routes have confidential information stripped</p>
+<ol>
+<li>Uses <a href="https://github.com/sahat/satellizer">JWT for authentication</a> for user login and private routes - Frontend examples to connect for <a href="https://github.com/sahat/satellizer">Angular</a>, <a href="http://ionicframework.com/" >Ionic</a> and <a href="https://github.com/jpadilla/ember-cli-simple-auth-token">Ember</a></li>
+<li>CORS turned off for all private routes becides user access</li>
+<!-- <p>CSRF on all private routes</p> -->
+<li>Public routes have confidential information stripped</li>
+</ol>
 
 <h3>Uses</h3>
 <p>Sails.js, Angular, Gulp, Less, Jade, Mongodb</p>
 
-<h3>Public Routes</h3>
+<h3>Public Routes (<a href="https://github.com/MomentumBuild/petition/blob/master/core/petition/app/service.js">Basic public routes using an angular service</a>)</h3>
 <p>/auth/signup -post</p>
 <p>/auth/login -post</p>
 ```
@@ -47,7 +49,12 @@
 	actions: '/petition/:id/feed'
 }
 ```
-<p>/campaign/:id/action/:actionid/feed -get</p>
+<p>/campaign/:id/action/:actionid/feed -get (object is the same as post object below)</p>
+```
+{
+	[object,object,object,etc]
+}
+```
 <p>/petition/:id -post ('petition' can be be changed to access any of the other types of actions that come with specific validations. Swap 'petition' out for 'email', 'image', 'donation', 'location', 'event')</p>
 ```
 {
@@ -63,16 +70,8 @@
     donation: 'float',
     reward: 'string',
     custom: 'json',
-    type: 'string',
-    action: {
-      model: 'action'
-    },
-    user: {
-      model: 'user'
-    },
-    campaign: {
-      model: 'campaign' 
-    }
+    type: 'string'
+    user: { userObject }
 }
 ```
 <!-- <p>/petition/:id/feed -get</p>

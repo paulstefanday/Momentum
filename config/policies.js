@@ -63,15 +63,9 @@ module.exports.policies = {
     '*': false
   },
 
-  // 'PetitionController': {
-  //   'find': ['tokenAuth', 'campaignAdmin'],
-  //   'create': ['tokenAuth'],
-  //   'update': ['tokenAuth', 'campaignAdmin'],
-  //   'destroy': ['tokenAuth', 'campaignAdmin'],
-  //   'addAdmin': ['tokenAuth', 'campaignAdmin'],
-  //   'removeAdmin': ['tokenAuth', 'campaignAdmin'],
-  //   '*': false
-  // }
-
+  'EmailController': {
+    'subscribe': true,
+    '*': false
+  },
 
 };

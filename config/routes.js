@@ -32,7 +32,7 @@ module.exports.routes = {
   },
 
   // Email routes
-  'post /subscribe': 'EmailController.subscribe',
+  'post /email/subscribe': 'EmailController.subscribe',
 
   // Campaign routes
   'post /campaign/:id/admin/:user': 'CampaignController.addAdmin',

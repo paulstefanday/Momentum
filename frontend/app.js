@@ -3,6 +3,7 @@ angular.module('momentum', ['ngAnimate', 'templates', 'ngResource', 'ngMessages'
 
     var noauth = [
       { state: 'home',          url: '/',             html: '<home-page/>',             directive: true },
+      { state: 'about',         url: '/about',        html: 'about.html',               directive: false },
       { state: 'login',         url: '/login',        html: '<login-form/>',            directive: true },
       { state: 'search',        url: '/search',       html: '<search/>',                directive: true },
       { state: 'signup',        url: '/signup',       html: '<signup-form/>',           directive: true }
@@ -73,7 +74,7 @@ angular.module('momentum', ['ngAnimate', 'templates', 'ngResource', 'ngMessages'
 
     // process routes
     noauth.forEach(function(route) {
-      if(!route.directive) $stateProvider.state(route.state, { url: route.url, templateUrl: 'partials/' + route.html } );
+      if(!route.directive) $stateProvider.state(route.state, { url: route.url, templateUrl: '/partials/' + route.html } );
       else $stateProvider.state(route.state, { url: route.url, template: route.html } );
     });
 
