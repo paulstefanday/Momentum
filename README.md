@@ -10,6 +10,15 @@
 
 <p>Live Example: https://momentum-sails.herokuapp.com</p>
 
+<h3>Security</h3>
+<p>Uses JWT for authentication to private routes - Frontend examples to connect for <a href="https://github.com/sahat/satellizer">Angular (Can also be used with Ionic for mobile)</a>, <a href="https://github.com/jpadilla/ember-cli-simple-auth-token">Ember</a></p>
+<p>CORS for cross site access</p>
+<p>CSRF on all private routes</p>
+<p>Public routes have confidential information stripped</p>
+
+<h3>Uses</h3>
+<p>Sails.js, Angular, Gulp, Less, Jade, Mongodb</p>
+
 <h3>Public Routes</h3>
 <p>/auth/signup -post</p>
 <p>/auth/login -post</p>
@@ -53,7 +62,7 @@
     custom: 'json'
 }
 ```
-<p>/petition/:id/feed -get</p>
+<!-- <p>/petition/:id/feed -get</p>
 ```
 {
 	count: 'integer',
@@ -70,7 +79,7 @@
 		}
 	]
 }
-```
+``` -->
 <h3>Private Routes</h3>
 <p>/user/:id -get -put</p>
 <p>/campaign/:id -get -post -put -delete</p>
@@ -82,11 +91,3 @@
 <li>"id" param in route kept for campaign id only. Required for ownership check.</li>
 </ol>
 
-<h3>Security</h3>
-<p>Uses JWT for authentication to private routes - Frontend examples to connect for <a href="https://github.com/sahat/satellizer">Angular (Can also be used with Ionic for mobile)</a>, <a href="https://github.com/jpadilla/ember-cli-simple-auth-token">Ember</a></p>
-<p>CORS for cross site access</p>
-<p>CSRF on all private routes</p>
-<p>Public routes have confidential information stripped</p>
-
-<h3>Uses</h3>
-<p>Sails.js, Angular, Gulp, Less, Jade, Mongodb</p>
