@@ -28,7 +28,6 @@
 	password: 'string'
 }
 ```
-<p>/campaign/:id/action/:actionid/feed -get</p>
 <p>/campaign/:id/action/:actionid -get</p>
 ```
 {
@@ -48,18 +47,32 @@
 	actions: '/petition/:id/feed'
 }
 ```
-<p>/petition/:id -post</p>
+<p>/campaign/:id/action/:actionid/feed -get</p>
+<p>/petition/:id -post ('petition' can be be changed to access any of the other types of actions that come with specific validations. Swap 'petition' out for 'email', 'image', 'donation', 'location', 'event')</p>
 ```
 {
-	user: 'integer',
-	first_name: 'string',
-	last_name: 'string',
-	email: 'string',
-	image: 'string',
-	message: 'string',
+    first_name: 'string',
+    last_name: 'string',
+    profile_image: 'string',
+    image: 'string',
+    message: 'string',
+    voted: 'boolean',
     postcode: 'integer',
-    location: ['latitude', 'longditude'](array) or 'ip address'(string),
-    custom: 'json'
+    location: 'string',
+    url: 'string',
+    donation: 'float',
+    reward: 'string',
+    custom: 'json',
+    type: 'string',
+    action: {
+      model: 'action'
+    },
+    user: {
+      model: 'user'
+    },
+    campaign: {
+      model: 'campaign' 
+    }
 }
 ```
 <!-- <p>/petition/:id/feed -get</p>
