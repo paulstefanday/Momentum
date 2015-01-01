@@ -19,7 +19,8 @@
 	password: 'string'
 }
 ```
-<p>/petition/:id -get</p>
+<p>/campaign/:id/action/:actionid/feed -get</p>
+<p>/campaign/:id/action/:actionid -get</p>
 ```
 {
 	title: {
