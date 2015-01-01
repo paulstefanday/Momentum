@@ -18,6 +18,7 @@ module.exports = {
 			if(err) return res.json(403, { err: err });
 
 			// Insert relations/variables into model
+			console.log(record);
 			req.body.campaign = record.campaign.id;
 			req.body.action = req.param('id');
 			req.body.type = record.type;

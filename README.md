@@ -8,6 +8,8 @@
 <li>visit http://localhost:1337</li>
 </ol>
 
+<p>Live Example: https://momentum-sails.herokuapp.com</p>
+
 <h3>Public Routes</h3>
 <p>/auth/signup -post</p>
 <p>/auth/login -post</p>
