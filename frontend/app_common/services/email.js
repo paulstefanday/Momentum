@@ -9,6 +9,6 @@ function Email($http, $auth) {
     };
 
     function subscribe(user) {
-		return $http.post('/subscribe/', user);
+		return $http.post('/email/subscribe/', user);
 	}
 }
