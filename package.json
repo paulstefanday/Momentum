@@ -1,7 +1,7 @@
 {
-  "name": "angularJwt",
+  "name": "Momentum",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "a Sails application",
   "keywords": [],
   "dependencies": {
@@ -26,7 +26,8 @@
     "nodemailer": "0.7.1",
     "rc": "~0.3.3",
     "sails": "~0.10.0-rc7",
-    "sails-disk": "~0.10.0"
+    "sails-disk": "~0.10.0",
+    "sails-mongo": "^0.10.4"
   },
   "scripts": {
     "start": "node app.js",
@@ -35,8 +36,8 @@
   "main": "app.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/jesus/angularJwt.git"
+    "url": "git://github.com/paulstefanday/momentum.git"
   },
-  "author": "jesus",
+  "author": "Paul Day",
   "license": ""
 }
