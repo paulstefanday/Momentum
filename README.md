@@ -8,7 +8,7 @@
 <li>visit http://localhost:1337</li>
 </ol>
 
-<p><b>Live Example: https://momentum-sails.herokuapp.com</b></p>
+<p><b>Live Example: http://www.momentum.build</b></p>
 
 <h3>Security</h3>
 <ol>
