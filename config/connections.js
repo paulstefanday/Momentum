@@ -52,10 +52,10 @@ module.exports.connections = {
   mongodbServer: {
     adapter: 'sails-mongo',
     host: process.env.MHOST || 'localhost',
-    port: process.env.MPORT || '',
+    port: process.env.MPORT || '27017',
     user: process.env.MUSER || '',
     password: process.env.MPASS || '',
-    database: process.env.MDB || ''
+    database: process.env.MDB || 'momentum'
   },
 
   // PostgreSQL is another officially supported relational database.
