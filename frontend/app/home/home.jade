@@ -1,15 +1,19 @@
-#home.view
-	a.search-btn.ion-ios7-search(href="#/search")
+#home
+	//- a#search-btn.ion-ios-search(href="#/search")
 	.content
-		#large-header.large-header
-			#intro-text
-				h1.main-title Momentum
-				p A new way to campaign online
-				br
-				
-				form.form-group(name="subscribe" style="max-width:400px;width:90%;margin:0 auto;" ng-submit="homeCtrl.joinUp()")
-					.input-group
-						input.form-control.input-xlg( type="email" placeholder="Your Email" ng-model="homeCtrl.email" style="text-transform: none !important")
-						span.input-group-btn
-							button.btn.btn-primary.btn-xlg( type="submit" ng-disabled="!homeCtrl.email" ) Request Invite
-	
+		#intro-text
+			h1#main-title Momentum
+			p A new way to campaign online
+			br
+			
+			form.form-group(name="subscribe" style="max-width:400px;width:90%;margin:0 auto;" ng-submit="homeCtrl.joinUp()")
+				.input-group
+					input.form-control.input-xlg( type="email" placeholder="Your Email" ng-model="homeCtrl.email" style="text-transform: none !important")
+					span.input-group-btn
+						button.btn.btn-primary.btn-xlg( type="submit" ng-disabled="!homeCtrl.email" ) Get updates
+
+			#links
+				a(href="https://github.com/paulstefanday/Momentum" data-title="Github repo" bs-tooltip).ion-social-github
+				a(href="https://github.com/MomentumBuild" data-title="Angular frontend modules" bs-tooltip).ion-social-angular
+				a(href="mailto:hi@paulday.com.au" data-title="Contact" bs-tooltip).ion-ios-email
+				a(href="#" data-title="Twitter" bs-tooltip).ion-social-twitter

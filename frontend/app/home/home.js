@@ -4,11 +4,11 @@ angular.module('momentum').directive('homePage', homePage);
 function homePage() {
   return {
       restrict: 'E',
-      transclude: true,
       replace: true,
-      scope: {},
+      scope: {
+        bsTooltip: '@',
+      },
       controller : controller,
-      link: link,
       controllerAs: 'homeCtrl',
       templateUrl: '/partials/home/home.html'
   };
@@ -26,14 +26,7 @@ function homePage() {
               homeCtrl.email = '';
               $alert({ content: 'Thanks for subscribing' });
             })
-            .catch(function(response) {
-              $alert({ content: JSON.stringify(response) });
-            });
         }
-  }
-
-  function link(scope, el, attr, ctrl) {
-
   }
 
 };
