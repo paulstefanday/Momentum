@@ -11,7 +11,7 @@ function actionsCtrl( $scope, $alert, Action, lodash ) {
     vm.find = function() {
       Action.find()
         .success(function(data) {
-          console.log("actions", vm.actions);
+          console.log("actions", data);
           vm.actions = data;
         })
     }
@@ -19,6 +19,7 @@ function actionsCtrl( $scope, $alert, Action, lodash ) {
     vm.create = function() {
       Action.create(vm.newaction)
         .success(function(data) {
+          console.log(data);
           vm.actions.push(data);
           vm.newaction = {};
           // $scope.createForm.$setPristine();
@@ -36,7 +37,7 @@ function actionsCtrl( $scope, $alert, Action, lodash ) {
     }
 
     vm.destroy = function(id) {
-      Action.destroy(id)
+      if(confirm("Are you sure you want to delete this action?")) Action.destroy(id)
         .success(function(data) {
           var index = lodash.findIndex(vm.actions, { 'id': id });
           vm.actions.splice(index, 1); 

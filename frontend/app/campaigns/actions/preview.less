@@ -1,0 +1,56 @@
+.action-preview {
+
+	.action-info {
+		height:170px;
+		width: 100%
+	}
+
+	p {
+		font-size: 12px;
+		font-weight:500;
+	}
+
+	a {
+		color:@maincolor;
+	}
+
+	.action-buttons a {
+ 		&:extend(.shadow);
+ 		background-color:#fff ;
+ 		&:extend(.img-circle);
+ 		width: 30px;
+ 		height: 30px;
+ 		margin-right: 5px;
+ 		text-align: center;
+		padding-top: 2px;
+		padding-left: 1px;
+ 		display: inline-block;
+
+ 		&.ion-ios-close-empty {
+		color: red;
+		}	
+	}
+
+	input {
+		margin-top: 15px;
+	}
+	
+	& .thumbnail {
+		-webkit-transition:0.4s linear all;
+    	transition:0.4s linear all;
+		border:0px solid #fff;
+		&:extend(.shadow);
+		text-align: center;
+		padding: 30px 0 35px;
+		color:@maincolor;
+
+		&:hover {
+			text-decoration: none
+		}
+
+		& span {
+			font-size: 30px;
+		}
+	}
+
+}

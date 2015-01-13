@@ -8,11 +8,8 @@ function editActions() {
       restrict: 'E',
       bindToController: true,
       controller : 'actionsCtrl as ac',
-      replace: true,
       templateUrl: '/partials/campaigns/actions/edit.html',
-      scope: {
-        bsTooltip: '@',
-      },
+      scope: {},
       link: link
     };
     return directive;
@@ -22,7 +19,6 @@ function editActions() {
     ctrl.actions = [];
     ctrl.editing = false;
     ctrl.find();
-    console.log(ctrl.actions);
   }
 
 }
