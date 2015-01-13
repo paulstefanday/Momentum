@@ -9,17 +9,8 @@
 
       .col-sm-8
         #campaigns.row
-          .repeat-animation.campaign-item.col-sm-6.col-lg-4.col-md-4( ng-repeat="campaign in cc.campaigns | orderBy:'-createdAt' " )
-            a.thumbnail(href="" ng-click="/#/admin/campaigns/{{campaign.id}}/actions")
-              img(  src="http://placehold.it/320x150" alt="" )
-            .campaign-info
-              h4(href="" ng-click="cc.edit(campaign)") ({{campaign.id}}) {{campaign.title | limitTo:30}}
-              p {{campaign.description | limitTo:70 }}...
-              .campaign-buttons
-                a.ion-ios-gear(href="" ng-click="cc.edit(campaign)" data-title="Edit" bs-tooltip)
-                a.ion-ios-flask(href="/#/admin/campaigns/{{campaign.id}}/actions" data-title="Actions" bs-tooltip)
-                a.ion-ios-person(href="#" data-title="Users" bs-tooltip)
-                a.ion-ios-close-empty(href="" ng-click="cc.destroy(campaign.id)" data-title="Delete" bs-tooltip)
+          .repeat-animation.campaign-preview.col-sm-6.col-lg-4.col-md-4( ng-repeat="campaign in cc.campaigns | orderBy:'-createdAt' " )
+            campaign-preview(campaign="campaign")
 
       #edit.col-sm-4( ng-if="cc.editing" )
         h2 Edit {{cc.oldcampaign.title}}

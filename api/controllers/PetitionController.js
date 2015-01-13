@@ -16,6 +16,7 @@ module.exports = {
 		function saveSubmission(err, record) {
 			// Check if error
 			if(err) return res.json(403, { err: err });
+			if(!record) return res.json(403, { err: 'No record found' });
 
 			// Insert relations/variables into model
 			console.log(record);

@@ -10,9 +10,7 @@ function editCampaigns() {
         controller : 'campaignsCtrl as cc',
         replace: true,
         templateUrl: '/partials/campaigns/edit.html',
-        scope: {
-          bsTooltip: '@',
-        },
+        scope: {},
         link: link
     };
     return directive;
@@ -21,6 +19,7 @@ function editCampaigns() {
     ctrl.newcampaign = {};
     ctrl.campaigns = {};
     ctrl.editing = false;
+    ctrl.showScript = false;
     ctrl.find();
   }
 

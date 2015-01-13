@@ -10,6 +10,7 @@ module.exports = {
   attributes: {
     first_name: 'string',
     last_name: 'string',
+    email: 'string',
     profile_image: 'string',
     image: 'string',
     message: 'string',
