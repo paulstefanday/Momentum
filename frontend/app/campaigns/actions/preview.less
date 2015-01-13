@@ -1,8 +1,10 @@
 .action-preview {
 
+
 	.action-info {
 		height:170px;
-		width: 100%
+		width: 100%;
+		text-align: center;
 	}
 
 	p {
@@ -14,21 +16,28 @@
 		color:@maincolor;
 	}
 
-	.action-buttons a {
- 		&:extend(.shadow);
- 		background-color:#fff ;
- 		&:extend(.img-circle);
- 		width: 30px;
- 		height: 30px;
- 		margin-right: 5px;
- 		text-align: center;
-		padding-top: 2px;
-		padding-left: 1px;
- 		display: inline-block;
+	.action-buttons {
+		text-align: center;
+		margin-top: -37px;
 
- 		&.ion-ios-close-empty {
-		color: red;
-		}	
+
+		a {
+	 		&:extend(.shadow);
+	 		background-color: #2CB2EC;
+	 		border: 1px solid #fff;
+			color: #fff;
+	 		&:extend(.img-circle);
+	 		width: 30px;
+	 		height: 30px;
+	 		margin-right: 5px;
+	 		text-align: center;
+			padding-top: 2px;
+			padding-left: 1px;
+	 		display: inline-block;
+	 		&.ion-ios-close-empty {
+	 			background-color:rgb(244, 93, 93);
+	 		}
+		}
 	}
 
 	input {
@@ -43,6 +52,7 @@
 		text-align: center;
 		padding: 30px 0 35px;
 		color:@maincolor;
+		font-size: 12px;
 
 		&:hover {
 			text-decoration: none
@@ -50,6 +60,7 @@
 
 		& span {
 			font-size: 30px;
+			font-weight: 100;
 		}
 	}
 

@@ -1,9 +1,9 @@
 a.thumbnail(href="/#/admin/campaigns/{{campaign.id}}/actions")
-              img(  src="http://placehold.it/320x150" alt="" )
-            .campaign-info
-              h4 ({{campaign.id}}) {{campaign.title | limitTo:30}}
-              p {{campaign.description | limitTo:70 }}...
-              .campaign-buttons
-                a.ion-ios-gear(href="" ng-click="edit(campaign)" data-title="Edit" bs-tooltip)
-                a.ion-ios-flask(href="/#/admin/campaigns/{{campaign.id}}/actions" data-title="Actions" bs-tooltip)
-                a.ion-ios-close-empty(href="" ng-click="destroy(campaign.id)" data-title="Delete" bs-tooltip)
+	img(  src="http://placehold.it/320x150" alt="" )
+.campaign-buttons
+	a.ion-ios-gear(href="" ng-click="edit(campaign)" data-title="Edit" bs-tooltip)
+	a.ion-ios-flask(href="/#/admin/campaigns/{{campaign.id}}/actions" data-title="Actions" bs-tooltip)
+	a.ion-ios-close-empty(href="" ng-click="destroy(campaign.id)" data-title="Delete" bs-tooltip)
+.campaign-info
+	h4 {{campaign.title | limitTo:30}}
+	p {{campaign.description | limitTo:70 }}...
