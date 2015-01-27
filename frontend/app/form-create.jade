@@ -1,0 +1,6 @@
+.view
+	#create
+		h2 {{ title }}
+		form( method="post" ng-submit="add()" name="createForm" )
+			.fields( ng-include="template" )
+			button.btn.btn-lg.btn-success.btn-block Save

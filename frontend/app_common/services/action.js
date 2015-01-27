@@ -13,26 +13,26 @@ function Action($http, $auth, $stateParams, $alert) {
       destroy: destroy
     };
 
-    function find() {
-        return $http.get('/campaign/' + $stateParams.id + '/action/').error(function(error) {
+    function find(id) {
+        return $http.get('/campaign/' + id + '/action/').error(function(error) {
           $alert({ content: JSON.stringify(error) });
         });
     }
 
     function findOne(id) {
-        return $http.get('/campaign/' + $stateParams.id + '/action/' + id).error(function(error) {
+        return $http.get('/campaign/' + $stateParams.campaign + '/action/' + id).error(function(error) {
           $alert({ content: JSON.stringify(error) });
         });
     }
 
     function create(action) {
-        return $http.post('/campaign/' + $stateParams.id + '/action/', action).error(function(error) {
+        return $http.post('/campaign/' + $stateParams.campaign + '/action/', action).error(function(error) {
           $alert({ content: JSON.stringify(error) });
         });
     }
 
     function update(action) {
-        return $http.put('/campaign/' + $stateParams.id + '/action/'  + action.id , action).error(function(error) {
+        return $http.put('/campaign/' + $stateParams.campaign + '/action/'  + action.id , action).error(function(error) {
           $alert({ content: JSON.stringify(error) });
         });
     }

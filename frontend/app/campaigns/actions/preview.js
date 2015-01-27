@@ -1,22 +1,23 @@
 angular
     .module('momentum')
-    .directive('actionPreview', actionPreview);
+    .directive('previewAction', previewAction);
 
-function actionPreview() {
+function previewAction() {
    
     var directive = {
         restrict: 'E',
         templateUrl: '/partials/campaigns/actions/preview.html',
-        require: "^editActions",
         scope: {
           bsTooltip: '@',
-          action: '='
+          item: '=',
+          edit: '&',
+          destroy: '&'
         },
         link: link
     };
     return directive;
 
-  function link(scope, element, attr, ctrl) {
+  function link(scope, element, attr) {
     
     scope.showScript = false;
 
@@ -24,23 +25,15 @@ function actionPreview() {
         scope.showScript = !scope.showScript;
     }
 
-    scope.edit = function(action){
-        ctrl.edit(action);
-    }
-
-    scope.destroy = function(id){
-        ctrl.destroy(id);
-    }
-
-    scope.getScript = function(action) {
-        var title = action.title.toString().toLowerCase()
+    scope.getScript = function() {
+        var title = scope.item.title.toString().toLowerCase()
           .replace(/\s+/g, '-')         // Replace spaces with -
           .replace(/[^\w\-]+/g, '')     // Remove all non-word chars
           .replace(/\-\-+/g, '-')       // Replace multiple - with single -
           .replace(/^-+/, '')           // Trim - from start of text
           .replace(/-+$/, '')           // Trim - from end of text
           .substring(0,10);          
-        return 'git clone https://github.com/MomentumBuild/angular-actions-example '+title+'; cd '+title+'; sudo npm install; bower update; gulp --server live --camp '+action.campaign+' --action '+ action.id;
+        return 'git clone https://github.com/MomentumBuild/angular-actions-example '+title+'; cd '+title+'; sudo npm install; bower update; gulp --server live --camp '+scope.item.campaign+' --action '+ scope.item.id;
     }
 
   }

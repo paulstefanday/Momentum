@@ -1,0 +1,5 @@
+form.form-group(name="subscribe" style="max-width:400px;width:90%;margin:0 auto;" ng-submit="home.joinUp()")
+	.input-group
+		input.form-control.input-xlg( type="email" placeholder="Your Email" ng-model="home.email" style="text-transform: none !important")
+		span.input-group-btn
+			button.btn.btn-primary.btn-xlg( type="submit" ng-disabled="!home.email" ) Find out more

@@ -1,26 +1,20 @@
 #nav
-  a#nav-toggle(href="" ng-click="navCtrl.toggleNav()" ng-class="{ 'ion-ios-close-outline': navCtrl.nav, 'ion-navicon' : !navCtrl.nav}")
-  #nav-menu(ng-show="navCtrl.nav")
+  a#nav-toggle(ng-click="nav = !nav" ng-class="{ 'ion-ios-close-outline': nav, 'ion-navicon' : !nav}")
+  #nav-menu(ng-show="nav")
     ul
       li 
-        a(href="" ng-click="navCtrl.goTo('home')") Home 
+        a( href="#/home" ) Home 
       li
-        a(href="" ng-click="navCtrl.goTo('about')") About
-      //- li
-        //- a(href="" ng-click="navCtrl.goTo('search')") Search
-    
-    ul( ng-if="navCtrl.isAuthenticated()" )
+        a( href="#/about" ) About
+    ul( ng-show="!hasAuth()" )
       li
-        a(href="" ng-click="navCtrl.goTo('profile')") Profile
-      //- li
-      //-   a(href="" ng-click="navCtrl.goTo('admin')") Admin
+        a( href="#/login") Login
       li
-        a(href="" ng-click="navCtrl.goTo('campaigns')") Campaigns
+        a( href="#/signup") Signup
+    ul( ng-show="hasAuth()" )
       li
-        a(href="" ng-click="navCtrl.logout()") Logout
-    
-    ul( ng-if="!navCtrl.isAuthenticated()" )
+        a( href="#/admin/campaigns/create" ) Campaigns
       li
-        a(href="" ng-click="navCtrl.goTo('login')") Login
+        a( href="#/admin/profile" ) Profile
       li
-        a(href="" ng-click="navCtrl.goTo('signup')") Signup
+        a( href="" ng-click="logout()") Logout

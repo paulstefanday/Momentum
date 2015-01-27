@@ -1,6 +1,12 @@
 .campaign-preview {
 
-	.campaign-info {
+// .make-lg-column(3);
+.make-md-column(6);
+.make-lg-column(4);
+
+&:extend(.repeat-animation);
+
+	.info {
 		height:130px;
 		width: 100%;
 		text-align: center;
@@ -15,7 +21,7 @@
 		color:@maincolor;
 	}
 
-	.campaign-buttons {
+	.buttons {
 		text-align: center;
 		margin-top: -37px;
 
@@ -30,7 +36,6 @@
 	 		margin-right: 5px;
 	 		text-align: center;
 			padding-top: 2px;
-			padding-left: 1px;
 	 		display: inline-block;
 	 		&.ion-ios-close-empty {
 	 			background-color:rgb(244, 93, 93);
@@ -38,11 +43,12 @@
 	 	}
 	}
 
-	& > .thumbnail {
+	& .thumbnail {
 		-webkit-transition:0.4s linear all;
     	transition:0.4s linear all;
 		border:0px solid #fff;
 		&:extend(.shadow);
+		padding:1px;
 	}
 
 	input {

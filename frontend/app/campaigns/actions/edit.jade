@@ -1,23 +1,6 @@
-.view
-  .container
-    .row  
-      #create.col-sm-4( ng-if="!ac.editing" )
-        h2 Add an action
-        form( method="post" ng-submit="ac.create()" name="createForm" )
-          div(ng-include="'/partials/campaigns/actions/form.html'")
-          button.btn.btn-lg.btn-success.btn-block Save
-
-      .col-sm-8
-        #actions.row
-          .repeat-animation.action-preview.col-sm-6.col-lg-4.col-md-4( ng-repeat="action in ac.actions | orderBy:'-createdAt' " )
-            action-preview(action="action")
-
-      #edit.col-sm-4( ng-if="ac.editing" )
-        h2 Edit {{ac.oldaction.title}}
-        form( method="post" ng-submit="ac.update(ac.newaction)" name="editForm" )
-          div(ng-include="'/partials/campaigns/actions/form.html'")
-          .row
-            .col-sm-4
-              button.btn.btn-lg.btn-google-plus.btn-block(ng-click="ac.reset()") Cancel
-            .col-sm-8
-              button.btn.btn-lg.btn-success.btn-block Save
+form-edit( 
+	title="action" 
+	reset="#/admin/campaigns/actions/create" 
+	update="act.update(item)" 
+	item="item" 
+	template="/partials/campaigns/actions/fields.html" )

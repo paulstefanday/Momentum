@@ -28,11 +28,12 @@ var paths = {
     'app_common/**/*.js'
   ],
   css: [ 
-    'bower_components/ionicons/css/ionicons.min.css',
-    'bower_components/bootstrap/dist/css/bootstrap.min.css',
+    
+    'bower_components/bootstrap/less/*.less',
     'bower_components/animate.css/animate.min.css',
     'app_styles/**/*.less', 
-    'app/**/*.less'
+    'app/**/*.less',
+    'bower_components/ionicons/css/ionicons.css',
   ],
   templates: 'app/**/*.jade',
   root: [ '../assets/js/' , '../assets/styles/', '../assets/fonts/'],

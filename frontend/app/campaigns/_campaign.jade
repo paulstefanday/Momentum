@@ -1,0 +1,10 @@
+#campaigns.view
+	.container
+		.row
+			#sidebar
+				.row
+					.small-view( ui-view="sidebar" )
+			#content
+				#campaigns.row
+					.campaign-preview( ng-repeat="campaign in camp.items | orderBy:'-createdAt' " )
+						preview-campaign( item="campaign" edit="camp.edit(campaign)" destroy="camp.destroy(campaign.id)")

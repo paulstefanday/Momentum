@@ -1,9 +1,11 @@
-a.thumbnail(href="/#/admin/campaigns/{{campaign.id}}/actions")
+a.thumbnail(href="/#/admin/items/{{item.id}}/actions")
 	img(  src="http://placehold.it/320x150" alt="" )
-.campaign-buttons
-	a.ion-ios-gear(href="" ng-click="edit(campaign)" data-title="Edit" bs-tooltip)
-	a.ion-ios-flask(href="/#/admin/campaigns/{{campaign.id}}/actions" data-title="Actions" bs-tooltip)
-	a.ion-ios-close-empty(href="" ng-click="destroy(campaign.id)" data-title="Delete" bs-tooltip)
-.campaign-info
-	h4 {{campaign.title | limitTo:30}}
-	p {{campaign.description | limitTo:70 }}...
+.buttons
+	a.ion-ios-gear(href="#/admin/campaigns/edit/{{item.id}}" data-title="Edit Campaign" bs-tooltip)
+	a.ion-ios-flask(href="/#/admin/actions/{{item.id}}/create" data-title="View Actions" bs-tooltip)
+	a.ion-log-out( ng-click="toggleScript()" data-title="View terminal start script" bs-tooltip)
+	a.ion-ios-close-empty(href="" ng-click="destroy()" data-title="Delete Campaign" bs-tooltip)
+.info
+	h4 {{item.title | limitTo:30}}
+	p {{item.description | limitTo:70 }}...
+	input.form-control(type="text" ng-value="getScript()" ng-show="showScript" onClick="this.select();")

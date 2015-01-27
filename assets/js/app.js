@@ -372,20 +372,106 @@ function f(a,c){g.push("<a ");h.isDefined(b)&&g.push('target="',b,'" ');g.push('
 angular.module('momentum', ['ngAnimate', 'templates', 'ngResource', 'ngMessages', 'ui.router', 'mgcrea.ngStrap', 'satellizer', 'ngSanitize', 'ngLodash'])
   .config(['$stateProvider', '$urlRouterProvider', '$authProvider', '$httpProvider', '$datepickerProvider', '$alertProvider', '$selectProvider', '$tooltipProvider', function($stateProvider, $urlRouterProvider, $authProvider, $httpProvider, $datepickerProvider, $alertProvider, $selectProvider, $tooltipProvider) {
 
-    var noauth = [
-      { state: 'home',          url: '/',             html: '<home-page/>',             directive: true },
-      { state: 'about',         url: '/about',        html: 'about.html',               directive: false },
-      { state: 'login',         url: '/login',        html: '<login-form/>',            directive: true },
-      { state: 'search',        url: '/search',       html: '<search/>',                directive: true },
-      { state: 'signup',        url: '/signup',       html: '<signup-form/>',           directive: true }
-    ];
+    $stateProvider
+      .state('app',         { abstract: true, controller: 'appCtrl as app', templateUrl: '/partials/index.html' })
+      .state('app.home',    { url: '/home',     templateUrl: '/partials/home/home.html' })
+      .state('app.about',   { url: '/about',    templateUrl: '/partials/about.html' })
+      .state('app.login',   { url: '/login',    template: '<login-form/>' })
+      .state('app.signup',  { url: '/signup',   template: '<signup-form/>' });
 
-    var hasauth = [
-      { state: 'admin',         url: '/admin',              html: '<user-profile/>',        directive: true },
-      { state: 'profile',       url: '/admin/profile',      html: '<user-profile/>',        directive: true },
-      { state: 'campaigns',     url: '/admin/campaigns',    html: '<edit-campaigns/>',      directive: true },
-      { state: 'actions',       url: '/admin/campaigns/:id/actions',    html: '<edit-actions/>',      directive: true }
-    ];
+
+
+    // Admin directive
+    $stateProvider
+      .state('app.admin', { 
+        abstract: true,
+        template: '<ui-view class="core-view" />',
+        url: '/admin',
+        resolve: {
+          authenticated: function($q, $location, $auth, $alert) {
+            var deferred = $q.defer();
+
+            if (!$auth.isAuthenticated()) {
+              $location.path('/login');
+              $alert({ content: 'You need to login to access this page' });
+            } else deferred.resolve();
+
+            return deferred.promise;
+          },
+          campaignFeed: function(Campaign) {
+            return Campaign.find().then(function(data){ return data.data; })
+          }
+        }
+      })
+
+
+      // Campaign States
+      .state('app.admin.campaigns', {
+        abstract: true,
+        url: '/campaigns',
+        templateUrl: '/partials/campaigns/_campaign.html',
+        controller: 'campaignsCtrl as camp'
+      })
+      .state('app.admin.campaigns.create', {
+        url: '/create',
+        views: {
+          'sidebar': { templateUrl: '/partials/campaigns/create.html' }
+        }
+      })
+      .state('app.admin.campaigns.edit', {
+        url: '/edit/:id',
+        resolve: {
+          campaignItem: function(campaignFeed, $stateParams){
+            return JSON.parse(JSON.stringify(campaignFeed.filter(function(item){ return item.id == $stateParams.id; })[0]));
+          }
+        },
+        views: {
+          'sidebar': { 
+            controller: function($scope, campaignItem) { 
+              $scope.item = campaignItem; 
+            },
+            templateUrl: '/partials/campaigns/edit.html' 
+          }
+        }
+      })
+
+
+      // Action States
+      .state('app.admin.actions', {
+        abstract: true,
+        url: '/actions/:campaign',
+        templateUrl: '/partials/campaigns/actions/_action.html',
+        resolve: {
+          actionFeed: function(Action, $stateParams) {
+            return Action.find($stateParams.campaign).then(function(data){ console.log(data); return data.data; })
+          }
+        },
+        controller: 'actionsCtrl as act'
+      })
+      .state('app.admin.actions.create', {
+        url: '/create',
+        views: {
+          'sidebar': { templateUrl: '/partials/campaigns/actions/create.html' }
+        }
+      })
+      .state('app.admin.actions.edit', {
+        url: '/edit/:action',
+        resolve: {
+          actionItem: function(actionFeed, $stateParams){
+            return JSON.parse(JSON.stringify(actionFeed.filter(function(item){ return item.id == $stateParams.action; })[0]));
+          }
+        },
+        views: {
+          'sidebar': { 
+            controller: function($scope, actionItem) { $scope.item = actionItem; },
+            templateUrl: '/partials/campaigns/actions/edit.html' 
+          }
+        }
+      })
+
+      .state('app.admin.profile', { url: '/profile', template: '<user-profile/>' });
+
+    $urlRouterProvider.otherwise('/home');
 
     // alert settings
     angular.extend($alertProvider.defaults, {
@@ -414,11 +500,9 @@ angular.module('momentum', ['ngAnimate', 'templates', 'ngResource', 'ngMessages'
       trigger: 'hover'
     });
 
-    $urlRouterProvider.otherwise('/');
-
     // Satellizer settings
     $authProvider.loginOnSignup = true;
-    $authProvider.loginRedirect = '/admin';
+    $authProvider.loginRedirect = '/admin/campaigns/create';
     $authProvider.logoutRedirect = '/';
     $authProvider.signupRedirect = '/login';
     $authProvider.loginUrl = '/auth/login';
@@ -443,83 +527,122 @@ angular.module('momentum', ['ngAnimate', 'templates', 'ngResource', 'ngMessages'
       url: '/auth/twitter'
     });
 
-    // process routes
-    noauth.forEach(function(route) {
-      if(!route.directive) $stateProvider.state(route.state, { url: route.url, templateUrl: '/partials/' + route.html } );
-      else $stateProvider.state(route.state, { url: route.url, template: route.html } );
-    });
-
-    // process auth routes
-    hasauth.forEach(function(route) {
-      if(!route.directive) var page = { url: route.url, templateUrl: 'partials/' + route.html };
-      else var page = { url: route.url, template: route.html };
-      page.resolve = { authenticated: ['$location', '$auth', function($location, $auth) { if (!$auth.isAuthenticated()) return $location.path('/login'); }] };
-      $stateProvider.state(route.state, page);  
-    });
-
-  }]);
+  }])
 
 
 
 
 
 angular.module("templates", []).run(["$templateCache", function($templateCache) {$templateCache.put("/partials/about.html","<div id=\"about\" class=\"container\"><h2>About</h2><div id=\"main-points\" class=\"row\"><div class=\"col-sm-4\"><div class=\"icon ion-ios-heart-outline\"></div><h4>Single admin panel</h4><p>Lets you manage your users, send custom emails, track donations and see which websites/apps are performing the best.</p></div><div class=\"col-sm-4\"><div class=\"icon ion-ios-infinite-outline\"></div><h4>Unlimited sites & mobile app\'s</h4><p>You can create as many different websites and mobile apps with our simple templates and everything is completely customisable.</p></div><div class=\"col-sm-4\"><div class=\"icon ion-ios-unlocked-outline\"></div><h4>No vendor lockin</h4><p> \nWe have seperated the frontend( user interface ) and backend( server / data ) so if you don\'t like us anymore \nyou can still use all your websites with another provider. Also everything will export to other providors \nsuch as Nationbuilder daily or manually.</p></div></div><h2>Overview</h2><p> \nMomentum is an open source CRM (customer relationship manager) that is focused on \nengaging specific user groups with meaningful and creative online actions and in turn \ndiscovering who is really dedicated to your cause. The second most important priority is \nre-engagement with those users and testing what works and what doesn\'t through rapid interation. </p><p> \nThis tool is designed to make it quick for developers to create online campaign tools. \nThis means it is cost effective to create mutiple campaigns with various actions targeted to a variety of demographics. \nSingle campaigns with a vague message and a broard audience are not effective but this is usually the most cost effective option. \nThis software makes it possible to enagage a range of different audiences with highly relevant online content. </p><p> \nEven though you can create 10 different campaigns, it is all managed by a single admin panel.\nThis means your online campaigns can be as complex and diverse as you like without making it complicated to track \nand engage with the progress of various campaigns and re-engage the audiences who interact with the camapign.</p></div>");
-$templateCache.put("/partials/nav.html","<div id=\"nav\"><a id=\"nav-toggle\" href=\"\" data-ng-click=\"navCtrl.toggleNav()\" data-ng-class=\"{ \'ion-ios-close-outline\': navCtrl.nav, \'ion-navicon\' : !navCtrl.nav}\"></a><div id=\"nav-menu\" data-ng-show=\"navCtrl.nav\"><ul><li> <a href=\"\" data-ng-click=\"navCtrl.goTo(\'home\')\">Home </a></li><li><a href=\"\" data-ng-click=\"navCtrl.goTo(\'about\')\">About</a></li></ul><ul data-ng-if=\"navCtrl.isAuthenticated()\"><li><a href=\"\" data-ng-click=\"navCtrl.goTo(\'profile\')\">Profile</a></li><li><a href=\"\" data-ng-click=\"navCtrl.goTo(\'campaigns\')\">Campaigns</a></li><li><a href=\"\" data-ng-click=\"navCtrl.logout()\">Logout</a></li></ul><ul data-ng-if=\"!navCtrl.isAuthenticated()\"><li><a href=\"\" data-ng-click=\"navCtrl.goTo(\'login\')\">Login</a></li><li><a href=\"\" data-ng-click=\"navCtrl.goTo(\'signup\')\">Signup</a></li></ul></div></div>");
+$templateCache.put("/partials/form-create.html","<div class=\"view\"><div id=\"create\"><h2>{{ title }}</h2><form method=\"post\" data-ng-submit=\"add()\" name=\"createForm\"><div data-ng-include=\"template\" class=\"fields\"></div><button class=\"btn btn-lg btn-success btn-block\">Save</button></form></div></div>");
+$templateCache.put("/partials/form-edit.html","<div class=\"view\"><div id=\"edit\"><h2>Edit {{title}}</h2><form method=\"post\" name=\"editForm\" data-ng-submit=\"update({ item: item })\"><div data-ng-include=\"template\" class=\"fields\"></div><div class=\"row\"><div class=\"col-sm-4 col-xs-6\"><a href=\"{{ reset }}\" class=\"btn btn-lg btn-google-plus btn-block\">Cancel</a></div><div class=\"col-sm-8 col-xs-6\"><button class=\"btn btn-lg btn-success btn-block\">Update</button></div></div></form></div></div>");
+$templateCache.put("/partials/index.html","<ui-view id=\"view\" data-ng-class=\"{ \'blur\' : app.nav }\" data-ng-click=\"app.nav = false\"></ui-view><nav-bar nav=\"app.nav\" has-auth=\"app.hasAuth()\" logout=\"app.logout()\"></nav-bar>");
+$templateCache.put("/partials/nav.html","<div id=\"nav\"><a id=\"nav-toggle\" data-ng-click=\"nav = !nav\" data-ng-class=\"{ \'ion-ios-close-outline\': nav, \'ion-navicon\' : !nav}\"></a><div id=\"nav-menu\" data-ng-show=\"nav\"><ul><li> <a href=\"#/home\">Home </a></li><li><a href=\"#/about\">About</a></li></ul><ul data-ng-show=\"!hasAuth()\"><li><a href=\"#/login\">Login</a></li><li><a href=\"#/signup\">Signup</a></li></ul><ul data-ng-show=\"hasAuth()\"><li><a href=\"#/admin/campaigns/create\">Campaigns</a></li><li><a href=\"#/admin/profile\">Profile</a></li><li><a href=\"\" data-ng-click=\"logout()\">Logout</a></li></ul></div></div>");
 $templateCache.put("/partials/auth/login.html","<div id=\"login\" class=\"view\"><div class=\"container\"><div class=\"row\"><div class=\"center-form\"><div class=\"panel-body\"><h2 class=\"text-center\">Log in</h2><form method=\"post\" data-ng-submit=\"loginCtrl.login()\" name=\"loginForm\"><div class=\"form-group has-feedback\"><input type=\"text\" name=\"email\" data-ng-model=\"loginCtrl.email\" placeholder=\"Email\" required=\"required\" autofocus=\"autofocus\" class=\"form-control input-lg\"/><span class=\"ion-at form-control-feedback\"></span></div><div class=\"form-group has-feedback\"><input type=\"password\" name=\"password\" data-ng-model=\"loginCtrl.password\" placeholder=\"Password\" required=\"required\" class=\"form-control input-lg\"/><span class=\"ion-key form-control-feedback\"></span></div><button type=\"submit\" data-ng-disabled=\"loginForm.$invalid\" class=\"btn btn-lg btn-block btn-primary\">Log in</button></form><p class=\"text-center\"><br/><a href=\"#\" class=\"small\">Forgot your password?</a><p class=\"small text-center text-muted\"><small>Don\'t have an account yet? <a href=\"/#/signup\">Sign up</a></small></p></p></div></div></div></div></div>");
 $templateCache.put("/partials/auth/signup.html","<div id=\"signup\" class=\"view\"><div class=\"container\"><div class=\"row\"><div class=\"center-form\"><div class=\"panel-body\"><h2 class=\"text-center\">Sign up</h2><form method=\"post\" data-ng-submit=\"vm.signup()\" name=\"signupForm\"><div data-ng-class=\"{ \'has-error\' : signupForm.email.$invalid &amp;&amp; signupForm.email.$dirty }\" class=\"form-group has-feedback\"><input type=\"email\" id=\"email\" name=\"email\" data-ng-model=\"vm.email\" placeholder=\"Email\" required=\"required\" class=\"form-control input-lg\"/><span class=\"ion-at form-control-feedback\"></span><div data-ng-if=\"signupForm.email.$dirty\" data-ng-messages=\"signupForm.email.$error\" class=\"help-block text-danger\"><div data-ng-message=\"required\">Your email address is required.</div><div data-ng-message=\"pattern\">Your email address is invalid.</div></div></div><div data-ng-class=\"{ \'has-error\' : signupForm.password.$invalid &amp;&amp; signupForm.password.$dirty }\" class=\"form-group has-feedback\"><input password-strength=\"password-strength\" type=\"password\" name=\"password\" data-ng-model=\"vm.password\" placeholder=\"Password\" required=\"required\" class=\"form-control input-lg\"/><span class=\"ion-key form-control-feedback\"></span><div data-ng-if=\"signupForm.password.$dirty\" data-ng-messages=\"signupForm.password.$error\" class=\"help-block text-danger\"><div data-ng-message=\"required\">Password is required.</div></div></div><p class=\"text-center text-muted\"> <small>By clicking on Sign up, you agree to <a href=\"#\">terms & conditions</a> and <a href=\"#\">privacy policy</a></small></p><button type=\"submit\" data-ng-disabled=\"signupForm.$invalid\" class=\"btn btn-lg btn-block btn-primary\">Sign up</button><br/><p class=\"small text-center text-muted\">Already have an account? <a href=\"/#/login\">Log in now</a></p></form></div></div></div></div></div>");
-$templateCache.put("/partials/campaigns/edit.html","<div class=\"view\"><div class=\"container\"><div class=\"row\"> <div id=\"create\" data-ng-if=\"!cc.editing\" class=\"col-sm-4\"><h2>Add a Campaign</h2><form method=\"post\" data-ng-submit=\"cc.create()\" name=\"createForm\"><div data-ng-include=\"\'/partials/campaigns/form.html\'\"></div><button class=\"btn btn-lg btn-success btn-block\">Save</button></form></div><div class=\"col-sm-8\"><div id=\"campaigns\" class=\"row\"><div data-ng-repeat=\"campaign in cc.campaigns | orderBy:\'-createdAt\' \" class=\"repeat-animation campaign-preview col-sm-6 col-lg-4 col-md-4\"><campaign-preview campaign=\"campaign\"></campaign-preview></div></div></div><div id=\"edit\" data-ng-if=\"cc.editing\" class=\"col-sm-4\"><h2>Edit {{cc.oldcampaign.title}}</h2><form method=\"post\" data-ng-submit=\"cc.update(cc.newcampaign)\" name=\"editForm\"><div data-ng-include=\"\'/partials/campaigns/form.html\'\"></div><div class=\"row\"><div class=\"col-sm-4\"><button data-ng-click=\"cc.reset()\" class=\"btn btn-lg btn-google-plus btn-block\">Cancel</button></div><div class=\"col-sm-8\"><button class=\"btn btn-lg btn-success btn-block\">Update</button></div></div></form></div></div></div></div>");
-$templateCache.put("/partials/campaigns/form.html","<div><div class=\"form-group\"><input type=\"text\" data-ng-model=\"cc.newcampaign.title\" data-ng-required=\"true\" placeholder=\"Title\" class=\"form-control\"/></div><div class=\"form-group\"><textarea data-ng-model=\"cc.newcampaign.description\" data-ng-required=\"true\" placeholder=\"Description\" class=\"form-control\"></textarea></div></div>");
-$templateCache.put("/partials/campaigns/preview.html","<a href=\"/#/admin/campaigns/{{campaign.id}}/actions\" class=\"thumbnail\"><img src=\"http://placehold.it/320x150\" alt=\"\"/></a><div class=\"campaign-buttons\"><a href=\"\" data-ng-click=\"edit(campaign)\" data-title=\"Edit\" bs-tooltip=\"bs-tooltip\" class=\"ion-ios-gear\"></a><a href=\"/#/admin/campaigns/{{campaign.id}}/actions\" data-title=\"Actions\" bs-tooltip=\"bs-tooltip\" class=\"ion-ios-flask\"></a><a href=\"\" data-ng-click=\"destroy(campaign.id)\" data-title=\"Delete\" bs-tooltip=\"bs-tooltip\" class=\"ion-ios-close-empty\"></a></div><div class=\"campaign-info\"><h4>{{campaign.title | limitTo:30}}</h4><p>{{campaign.description | limitTo:70 }}...</p></div>");
-$templateCache.put("/partials/home/home.html","<div id=\"home\"><div class=\"content\"><div id=\"intro-text\"><h1 id=\"main-title\">Momentum</h1><p>A new way to campaign online</p><br/><form name=\"subscribe\" style=\"max-width:400px;width:90%;margin:0 auto;\" data-ng-submit=\"homeCtrl.joinUp()\" class=\"form-group\"><div class=\"input-group\"><input type=\"email\" placeholder=\"Your Email\" data-ng-model=\"homeCtrl.email\" style=\"text-transform: none !important\" class=\"form-control input-xlg\"/><span class=\"input-group-btn\"><button type=\"submit\" data-ng-disabled=\"!homeCtrl.email\" class=\"btn btn-primary btn-xlg\">Find out more</button></span></div></form><div id=\"links\"><a href=\"https://github.com/paulstefanday/Momentum\" data-title=\"Github repo\" bs-tooltip=\"bs-tooltip\" class=\"ion-social-github\"></a><a href=\"https://github.com/MomentumBuild\" data-title=\"Angular frontend modules\" bs-tooltip=\"bs-tooltip\" class=\"ion-social-angular\"></a><a href=\"mailto:hi@paulday.com.au\" data-title=\"Contact\" bs-tooltip=\"bs-tooltip\" class=\"ion-ios-email\"></a><a href=\"https://twitter.com/momentum_build\" data-title=\"Twitter\" bs-tooltip=\"bs-tooltip\" class=\"ion-social-twitter\"></a></div></div></div></div>");
-$templateCache.put("/partials/home/search.html","<div id=\"search\"><a data-ng-click=\"vm.back()\" class=\"view-close ion-ios7-close-outline\"></a><div class=\"container\"><div id=\"search-field\" class=\"row padd-lg\"><div class=\"col-sm-10\"><input type=\"text\" placeholder=\"Search all activity here...\" class=\"noshadow\"/></div><div class=\"col-sm-2\"><button class=\"ion-ios7-search\"></button></div></div><div class=\"row\"><div class=\"col-sm-4\"><h4>Organisations</h4></div><div class=\"col-sm-4\"><h4>Campaigns</h4></div><div class=\"col-sm-4\"><h4>Events</h4></div></div></div></div>");
+$templateCache.put("/partials/campaigns/_campaign.html","<div id=\"campaigns\" class=\"view\"><div class=\"container\"><div class=\"row\"><div id=\"sidebar\"><div class=\"row\"><div ui-view=\"sidebar\" class=\"small-view\"></div></div></div><div id=\"content\"><div id=\"campaigns\" class=\"row\"><div data-ng-repeat=\"campaign in camp.items | orderBy:\'-createdAt\' \" class=\"campaign-preview\"><preview-campaign item=\"campaign\" edit=\"camp.edit(campaign)\" destroy=\"camp.destroy(campaign.id)\"></preview-campaign></div></div></div></div></div></div>");
+$templateCache.put("/partials/campaigns/create.html","<form-create title=\"Add a campaign\" create=\"camp.create(item)\" template=\"/partials/campaigns/fields.html\"></form-create>");
+$templateCache.put("/partials/campaigns/edit.html","<form-edit title=\"campaign\" reset=\"#/admin/campaigns/create\" update=\"camp.update(item)\" item=\"item\" template=\"/partials/campaigns/fields.html\"></form-edit>");
+$templateCache.put("/partials/campaigns/fields.html","<div class=\"form-group\"><input type=\"text\" data-ng-model=\"item.title\" data-ng-required=\"true\" placeholder=\"Title\" class=\"form-control\"/></div><div class=\"form-group\"><textarea data-ng-model=\"item.description\" data-ng-required=\"true\" placeholder=\"Description\" class=\"form-control\"></textarea></div>");
+$templateCache.put("/partials/campaigns/preview.html","<a href=\"/#/admin/items/{{item.id}}/actions\" class=\"thumbnail\"><img src=\"http://placehold.it/320x150\" alt=\"\"/></a><div class=\"buttons\"><a href=\"#/admin/campaigns/edit/{{item.id}}\" data-title=\"Edit Campaign\" bs-tooltip=\"bs-tooltip\" class=\"ion-ios-gear\"></a><a href=\"/#/admin/actions/{{item.id}}/create\" data-title=\"View Actions\" bs-tooltip=\"bs-tooltip\" class=\"ion-ios-flask\"></a><a data-ng-click=\"toggleScript()\" data-title=\"View terminal start script\" bs-tooltip=\"bs-tooltip\" class=\"ion-log-out\"></a><a href=\"\" data-ng-click=\"destroy()\" data-title=\"Delete Campaign\" bs-tooltip=\"bs-tooltip\" class=\"ion-ios-close-empty\"></a></div><div class=\"info\"><h4>{{item.title | limitTo:30}}</h4><p>{{item.description | limitTo:70 }}...</p><input type=\"text\" data-ng-value=\"getScript()\" data-ng-show=\"showScript\" onClick=\"this.select();\" class=\"form-control\"/></div>");
+$templateCache.put("/partials/home/emailSubscribe.html","<form name=\"subscribe\" style=\"max-width:400px;width:90%;margin:0 auto;\" data-ng-submit=\"home.joinUp()\" class=\"form-group\"><div class=\"input-group\"><input type=\"email\" placeholder=\"Your Email\" data-ng-model=\"home.email\" style=\"text-transform: none !important\" class=\"form-control input-xlg\"/><span class=\"input-group-btn\"><button type=\"submit\" data-ng-disabled=\"!home.email\" class=\"btn btn-primary btn-xlg\">Find out more</button></span></div></form>");
+$templateCache.put("/partials/home/home.html","<div id=\"home\"><div class=\"content\"><div id=\"intro-text\"><h1 id=\"main-title\">Momentum</h1><p>A new way to campaign online</p><br/><email-subscribe></email-subscribe><div id=\"links\"><a href=\"https://github.com/paulstefanday/Momentum\" data-title=\"Github repo\" bs-tooltip=\"bs-tooltip\" class=\"ion-social-github\"></a><a href=\"https://github.com/MomentumBuild\" data-title=\"Angular frontend modules\" bs-tooltip=\"bs-tooltip\" class=\"ion-social-angular\"></a><a href=\"mailto:hi@paulday.com.au\" data-title=\"Contact\" bs-tooltip=\"bs-tooltip\" class=\"ion-ios-email\"></a><a href=\"https://twitter.com/momentum_build\" data-title=\"Twitter\" bs-tooltip=\"bs-tooltip\" class=\"ion-social-twitter\"></a></div></div></div></div>");
+$templateCache.put("/partials/search/search.html","<div id=\"search\"><a data-ng-click=\"vm.back()\" class=\"view-close ion-ios7-close-outline\"></a><div class=\"container\"><div id=\"search-field\" class=\"row padd-lg\"><div class=\"col-sm-10\"><input type=\"text\" placeholder=\"Search all activity here...\" class=\"noshadow\"/></div><div class=\"col-sm-2\"><button class=\"ion-ios7-search\"></button></div></div><div class=\"row\"><div class=\"col-sm-4\"><h4>Organisations</h4></div><div class=\"col-sm-4\"><h4>Campaigns</h4></div><div class=\"col-sm-4\"><h4>Events</h4></div></div></div></div>");
 $templateCache.put("/partials/user/profile.html","<div class=\"container\"><div class=\"row\"><div class=\"center-form\"><div class=\"text-center\"><img id=\"profile-img\" src=\"\" class=\"img-circle\"/></div><h2 class=\"text-center\">Edit My Profile</h2><form method=\"post\" data-ng-submit=\"profileCtrl.update()\"><div class=\"form-group\"><input type=\"text\" data-ng-model=\"profileCtrl.user.first_name\" placeholder=\"First Name\" class=\"form-control\"/></div><div class=\"form-group\"><input type=\"text\" data-ng-model=\"profileCtrl.user.last_name\" placeholder=\"Last Name\" class=\"form-control\"/></div><div class=\"form-group\"><input type=\"text\" data-ng-model=\"profileCtrl.user.dob\" placeholder=\"Date of birth (dd/mm/yyyy)\" class=\"form-control\"/></div><div class=\"form-group\"><input type=\"hidden\" data-ng-model=\"profileCtrl.user.image\" class=\"form-control\"/></div><div class=\"form-group\"><input type=\"email\" data-ng-model=\"profileCtrl.user.email\" placeholder=\"Email\" class=\"form-control\"/></div><button class=\"btn btn-lg btn-success btn-block\">Update Information  </button></form><h2 id=\"link-heading\" class=\"text-center\">Link Account</h2><button data-ng-if=\"!profileCtrl.user.facebook\" data-ng-click=\"profileCtrl.link(\'facebook\')\" class=\"btn btn-lg btn-facebook btn-block\">Link with Facebook</button><button data-ng-if=\"profileCtrl.user.facebook\" data-ng-click=\"profileCtrl.unlink(\'facebook\')\" class=\"btn btn-lg btn-facebook btn-block\">Unlink from Facebook</button></div></div></div>");
-$templateCache.put("/partials/campaigns/actions/edit.html","<div class=\"view\"><div class=\"container\"><div class=\"row\"> <div id=\"create\" data-ng-if=\"!ac.editing\" class=\"col-sm-4\"><h2>Add an action</h2><form method=\"post\" data-ng-submit=\"ac.create()\" name=\"createForm\"><div data-ng-include=\"\'/partials/campaigns/actions/form.html\'\"></div><button class=\"btn btn-lg btn-success btn-block\">Save</button></form></div><div class=\"col-sm-8\"><div id=\"actions\" class=\"row\"><div data-ng-repeat=\"action in ac.actions | orderBy:\'-createdAt\' \" class=\"repeat-animation action-preview col-sm-6 col-lg-4 col-md-4\"><action-preview action=\"action\"></action-preview></div></div></div><div id=\"edit\" data-ng-if=\"ac.editing\" class=\"col-sm-4\"><h2>Edit {{ac.oldaction.title}}</h2><form method=\"post\" data-ng-submit=\"ac.update(ac.newaction)\" name=\"editForm\"><div data-ng-include=\"\'/partials/campaigns/actions/form.html\'\"></div><div class=\"row\"><div class=\"col-sm-4\"><button data-ng-click=\"ac.reset()\" class=\"btn btn-lg btn-google-plus btn-block\">Cancel</button></div><div class=\"col-sm-8\"><button class=\"btn btn-lg btn-success btn-block\">Save</button></div></div></form></div></div></div></div>");
-$templateCache.put("/partials/campaigns/actions/form.html","<div><div class=\"form-group\"><input type=\"text\" data-ng-model=\"ac.newaction.title\" data-ng-required=\"true\" placeholder=\"Title\" class=\"form-control\"/></div><div class=\"form-group\"><textarea data-ng-model=\"ac.newaction.description\" data-ng-required=\"true\" placeholder=\"Description\" class=\"form-control\"></textarea></div><div class=\"form-group\"><select data-ng-model=\"ac.newaction.type\" data-ng-required=\"true\" class=\"form-control\"><option value=\"signature\">signature</option><option value=\"image\">image</option><option value=\"message\">message</option><option value=\"email\">email</option></select></div></div>");
-$templateCache.put("/partials/campaigns/actions/preview.html","<div class=\"thumbnail\"><span>{{ action.submissions.length }}</span><br/> Submissions</div><div class=\"action-buttons\"><a href=\"\" data-ng-click=\"edit(action)\" data-title=\"Edit\" bs-tooltip=\"bs-tooltip\" class=\"ion-ios-gear\"></a><a href=\"#\" data-title=\"View\" bs-tooltip=\"bs-tooltip\" class=\"ion-ios-flask\"></a><a data-ng-click=\"toggleScript()\" data-title=\"View terminal start script\" bs-tooltip=\"bs-tooltip\" class=\"ion-log-out\"></a><a href=\"\" data-ng-click=\"destroy(action.id)\" data-title=\"Delete\" bs-tooltip=\"bs-tooltip\" class=\"ion-ios-close-empty\"></a></div><div class=\"action-info\"><h4>{{action.title}}</h4><p>{{action.type }}  </p><input type=\"text\" data-ng-value=\"getScript(action)\" data-ng-show=\"showScript\" onClick=\"this.select();\" class=\"form-control\"/></div>");}]);
+$templateCache.put("/partials/campaigns/actions/_action.html","<div id=\"campaigns\" class=\"view\"><div class=\"container\"><div class=\"row\"><div id=\"sidebar\"><div class=\"row\"><div ui-view=\"sidebar\" class=\"small-view\"></div></div></div><div id=\"content\"><div id=\"campaigns\" class=\"row\"><div data-ng-repeat=\"action in act.items | orderBy:\'-createdAt\' \" class=\"action-preview\"><preview-action item=\"action\" edit=\"act.edit(action)\" destroy=\"act.destroy(action.id)\"></preview-action></div></div></div></div></div></div>");
+$templateCache.put("/partials/campaigns/actions/create.html","<form-create title=\"Add an action\" create=\"act.create(item)\" template=\"/partials/campaigns/actions/fields.html\"></form-create>");
+$templateCache.put("/partials/campaigns/actions/edit.html","<form-edit title=\"action\" reset=\"#/admin/campaigns/actions/create\" update=\"act.update(item)\" item=\"item\" template=\"/partials/campaigns/actions/fields.html\"></form-edit>");
+$templateCache.put("/partials/campaigns/actions/fields.html","<div><div class=\"form-group\"><input type=\"text\" data-ng-model=\"item.title\" data-ng-required=\"true\" placeholder=\"Title\" class=\"form-control\"/></div><div class=\"form-group\"><textarea data-ng-model=\"item.description\" data-ng-required=\"true\" placeholder=\"Description\" class=\"form-control\"></textarea></div><div class=\"form-group\"><select data-ng-model=\"item.type\" data-ng-required=\"true\" class=\"form-control\"><option value=\"signature\">signature</option><option value=\"image\">image</option><option value=\"message\">message</option><option value=\"email\">email</option></select></div></div>");
+$templateCache.put("/partials/campaigns/actions/preview.html","<div class=\"thumbnail\"><span>{{ item.submissions.length ? item.submissions.length : 0 }}</span><br/> Submissions</div><div class=\"buttons\"><a href=\"#/admin/actions/{{item.campaign}}/edit/{{item.id}}\" data-title=\"Edit\" bs-tooltip=\"bs-tooltip\" class=\"ion-ios-gear\"></a><a data-ng-click=\"toggleScript()\" data-title=\"View terminal start script\" bs-tooltip=\"bs-tooltip\" class=\"ion-log-out\"></a><a href=\"\" data-ng-click=\"destroy()\" data-title=\"Delete\" bs-tooltip=\"bs-tooltip\" class=\"ion-ios-close-empty\"></a></div><div class=\"info\"><h4>{{item.title}}</h4><p>{{item.type }}  </p><input type=\"text\" data-ng-value=\"getScript()\" data-ng-show=\"showScript\" onClick=\"this.select();\" class=\"form-control\"/></div>");}]);
+angular.module('momentum')
+	.controller('appCtrl', appCtrl);
+
+appCtrl.$inject = ['$scope', '$rootScope', '$state', 'Account'];
+
+function appCtrl($scope, $rootScope, $state, Account) {
+
+	var vm = this;
+
+    vm.nav = false;
+
+	$rootScope.$on('$stateChangeStart', function(event, toState){ 
+	    vm.nav = false;
+	})
+
+	vm.logout = function() {
+		Account.logout();
+	}
+
+	vm.hasAuth = function() {
+	    return Account.hasAuth();
+	}
+
+}
+angular
+    .module('momentum')
+    .directive('formCreate', formCreate);
+
+function formCreate() {
+   
+    return {
+        restrict: 'E',
+        templateUrl: '/partials/form-create.html',
+        scope: {
+            create: "&",
+            template: "@",
+            title: "@"
+        }, link: link
+    };
+
+    function link(scope, element, attr) {
+        scope.item = {};
+
+        scope.add = function() {
+            scope.createForm.$setPristine();
+            scope.create({ item: scope.item });
+            scope.item = {};
+        }
+    }
+
+}
+
+angular
+    .module('momentum')
+    .directive('formEdit', formEdit);
+
+function formEdit() {
+   
+    var directive = {
+        restrict: 'E',
+        templateUrl: '/partials/form-edit.html',
+        scope: {
+            update: "&",
+            reset: "@",
+            title: "@",
+            template: "@",
+            item: "="
+        },  
+    };
+
+    return directive;
+
+}
+
 angular
     .module('momentum')
     .directive('navBar', navBar);
 
 function navBar() {
    
-    var directive = {
+    return {
         restrict: 'E',
         templateUrl: '/partials/nav.html',
-        // scope: {},
-        replace: true,
-        controller : controller,
-        controllerAs: 'navCtrl'
+        scope: {
+            nav: '=',
+            logout: '&',
+            hasAuth: '&'
+        }
     };
-
-    return directive;
-
-	controller.$inject = ['$scope', '$auth', '$state', '$alert'];
-	function controller($scope, $auth, $state, $alert) {
-
-        var navCtrl = this;
-
-        navCtrl.goTo = function(name) {
-            navCtrl.nav = false;
-            $state.go(name);
-        }
-
-        navCtrl.toggleNav = function() {
-            navCtrl.nav = !navCtrl.nav;
-        }
-	    
-        navCtrl.isAuthenticated = function() {
-          return $auth.isAuthenticated();
-        }
-
-        navCtrl.logout = function() {
-            $auth.logout()
-            .then(function() {
-                navCtrl.nav = false;
-                $alert({ content: 'You have been logged out' });
-            });
-        }
-
-    }
 
 }
 
@@ -630,107 +753,63 @@ angular
   .module('momentum')
   .controller('campaignsCtrl', campaignsCtrl);
 
-campaignsCtrl.$inject = ['$scope', '$alert', 'Campaign', 'lodash'];
+campaignsCtrl.$inject = ['$scope', '$alert', 'Campaign', '$state', 'campaignFeed'];
   
-function campaignsCtrl( $scope, $alert, Campaign, lodash ) {
+function campaignsCtrl( $scope, $alert, Campaign, $state, campaignFeed ) {
     
     var vm = this;
+    
+    vm.items = campaignFeed;
 
-    vm.find = function() {
-      Campaign.find()
+    vm.create = function(item) {
+      Campaign.create(item)
         .success(function(data) {
-          console.log(data);
-          vm.campaigns = data;
-        })
-    }
-
-    vm.create = function() {
-      Campaign.create(vm.newcampaign)
-        .success(function(data) {
-          vm.campaigns.push(data);
-          vm.newcampaign = {};
-          // $scope.createForm.$setPristine();
+          vm.items.push(data);
           $alert({ content: "Campaign created successfully" });
         })
     }
 
-    vm.reset = function() {
-      vm.newcampaign = {};
-      vm.editing = false;
-    }
-
-    vm.edit = function(campaign) {
-      vm.newcampaign = campaign;
-      vm.editing = true;
-    }
-
-    vm.update = function(campaign) {
-      Campaign.update(campaign)
+    vm.update = function(item) {
+      Campaign.update(item)
         .success(function(data) {
-          vm.editing = false;
-          vm.newcampaign = {};
-          // $scope.editForm.$setPristine();
+          angular.forEach(vm.items, function(item, i) {
+              if(item.id == data[0].id) vm.items[i] = data[0];
+          });
+          $state.go('^.create');
           $alert({ content: 'Campaign updated successfully' });
         })
     }
 
+    // needs to remove item from digest using scope.apply or angular.forEach
     vm.destroy = function(id) {
       if(confirm("Are you sure you want to delete this campaign?")) Campaign.destroy(id)
         .success(function(data) {
-          var index = lodash.findIndex(vm.campaigns, { 'id': id });
-          vm.campaigns.splice(index, 1); 
+          vm.items = vm.items.filter(function(item){ return item.id !== id; });
           $alert({ content: 'Campaign deleted successfully' });
         })
     }
-
   
   }
 angular
     .module('momentum')
-    .directive('editCampaigns', editCampaigns);
+    .directive('previewCampaign', previewCampaign);
 
-function editCampaigns() {
-   
-    var directive = {
-        restrict: 'E',
-        bindToController: true,
-        controller : 'campaignsCtrl as cc',
-        replace: true,
-        templateUrl: '/partials/campaigns/edit.html',
-        scope: {},
-        link: link
-    };
-    return directive;
-
-  function link(scope, element, attr, ctrl) {
-    ctrl.newcampaign = {};
-    ctrl.campaigns = {};
-    ctrl.editing = false;
-    ctrl.showScript = false;
-    ctrl.find();
-  }
-
-}
-
-angular
-    .module('momentum')
-    .directive('campaignPreview', campaignPreview);
-
-function campaignPreview() {
+function previewCampaign() {
    
     var directive = {
         restrict: 'E',
         templateUrl: '/partials/campaigns/preview.html',
-        require: "^editCampaigns",
         scope: {
           bsTooltip: '@',
-          campaign: '='
+          item: '=',
+          edit: '&',
+          destroy: '&'
         },
         link: link
     };
     return directive;
 
-  function link(scope, element, attr, ctrl) {
+  function link(scope, element, attr) {
     
     scope.showScript = false;
 
@@ -738,12 +817,15 @@ function campaignPreview() {
         scope.showScript = !scope.showScript;
     }
 
-    scope.edit = function(campaign){
-        ctrl.edit(campaign);
-    }
-
-    scope.destroy = function(id){
-        ctrl.destroy(id);
+    scope.getScript = function() {
+        var title = scope.item.title.toString().toLowerCase()
+          .replace(/\s+/g, '-')         // Replace spaces with -
+          .replace(/[^\w\-]+/g, '')     // Remove all non-word chars
+          .replace(/\-\-+/g, '-')       // Replace multiple - with single -
+          .replace(/^-+/, '')           // Trim - from start of text
+          .replace(/-+$/, '')           // Trim - from end of text
+          .substring(0,10);          
+        return 'git clone https://github.com/MomentumBuild/angular-actions-example '+title+'; cd '+title+'; sudo npm install; bower update; gulp --server live --camp --action '+ scope.item.id;
     }
 
   }
@@ -751,17 +833,17 @@ function campaignPreview() {
 }
 
 
-angular.module('momentum').directive('homePage', homePage);
+angular.module('momentum').directive('emailSubscribe', emailSubscribe);
 
-function homePage() {
+function emailSubscribe() {
   return {
       restrict: 'E',
       scope: {
         bsTooltip: '@',
       },
       bindToController: true,
-      controller : 'ContactCtrl as homeCtrl',
-      templateUrl: '/partials/home/home.html'
+      controller : 'ContactCtrl as home',
+      templateUrl: '/partials/home/emailSubscribe.html'
   };
 };
 
@@ -827,9 +909,9 @@ function userProfile() {
   };
   
 
-  controller.$inject = ['$scope', '$alert', '$auth', 'Account'];
+  controller.$inject = ['$scope', 'Account'];
 
-  function controller($scope, $alert, $auth, Account) {
+  function controller($scope, Account) {
           
     var profileCtrl = this;
 
@@ -839,48 +921,40 @@ function userProfile() {
         .success(function(data) {
           profileCtrl.user = data;
         })
-        .error(function(error) {
-          $alert({ content: JSON.stringify(error) });
-        });
     };
 
     // Update user's profile information.
     profileCtrl.update = function() {
-      console.log(profileCtrl.user)
-      Account.update(profileCtrl.user).then(function() {
-        $alert({ content: 'Profile has been updated' });
-      }).catch(function(response) {
-        $alert({ content: 'Update failed' });
-      });
+      Account.update(profileCtrl.user);
     };
 
-    // Link third-party provider.
-    profileCtrl.link = function(provider) {
-      $auth.link(provider)
-        .then(function() {
-          $alert({ content: 'You have successfully linked ' + provider + ' account' });
-        })
-        .then(function() {
-          profileCtrl.find();
-        })
-        .catch(function(response) {
-          $alert({ content: JSON.stringify(response) });
-        });
-    };
+    // // Link third-party provider.
+    // profileCtrl.link = function(provider) {
+    //   $auth.link(provider)
+    //     .then(function() {
+    //       $alert({ content: 'You have successfully linked ' + provider + ' account' });
+    //     })
+    //     .then(function() {
+    //       profileCtrl.find();
+    //     })
+    //     .catch(function(response) {
+    //       $alert({ content: JSON.stringify(response) });
+    //     });
+    // };
 
-    //Unlink third-party provider.
-    profileCtrl.unlink = function(provider) {
-      $auth.unlink(provider)
-        .then(function() {
-          $alert({ content: 'You have successfully unlinked ' + provider + ' account' });
-        })
-        .then(function() {
-          profileCtrl.find();
-        })
-        .catch(function(response) {
-          $alert({ content: response.data ? JSON.stringify(response) : 'Could not unlink ' + provider + ' account' });
-        });
-    };
+    // //Unlink third-party provider.
+    // profileCtrl.unlink = function(provider) {
+    //   $auth.unlink(provider)
+    //     .then(function() {
+    //       $alert({ content: 'You have successfully unlinked ' + provider + ' account' });
+    //     })
+    //     .then(function() {
+    //       profileCtrl.find();
+    //     })
+    //     .catch(function(response) {
+    //       $alert({ content: response.data ? JSON.stringify(response) : 'Could not unlink ' + provider + ' account' });
+    //     });
+    // };
 
   }
 
@@ -895,109 +969,61 @@ angular
   .module('momentum')
   .controller('actionsCtrl', actionsCtrl);
 
-actionsCtrl.$inject = ['$scope', '$alert', 'Action', 'lodash'];
+actionsCtrl.$inject = ['$scope', '$alert', 'Action', '$state', 'actionFeed'];
   
-function actionsCtrl( $scope, $alert, Action, lodash ) {
+function actionsCtrl( $scope, $alert, Action, $state, actionFeed ) {
     
     var vm = this;
+    vm.items = actionFeed;
 
-    vm.find = function() {
-      Action.find()
+    vm.create = function(item) {
+      Action.create(item)
         .success(function(data) {
-          console.log("actions", data);
-          vm.actions = data;
+          vm.items.push(data);
+          $alert({ content: "Action created successfully" });
         })
     }
 
-    vm.create = function() {
-      Action.create(vm.newaction)
+    vm.update = function(item) {
+      Action.update(item)
         .success(function(data) {
-          console.log(data);
-          vm.actions.push(data);
-          vm.newaction = {};
-          // $scope.createForm.$setPristine();
-          $alert({ content: "Action created successfully" });
-        });
-    }
-
-    vm.update = function(action) {
-      Action.update(action)
-        .success(function(data) {
-          vm.editing = false;
-          vm.newaction = {};
+          angular.forEach(vm.items, function(item, i) {
+              if(item.id == data[0].id) vm.items[i] = data[0];
+          });
+          $state.go('^.create');
           $alert({ content: 'Action updated successfully' });
-        });
+        })
     }
 
     vm.destroy = function(id) {
       if(confirm("Are you sure you want to delete this action?")) Action.destroy(id)
         .success(function(data) {
-          var index = lodash.findIndex(vm.actions, { 'id': id });
-          vm.actions.splice(index, 1); 
+          vm.items = vm.items.filter(function(item){ return item.id !== id; });
           $alert({ content: 'Action deleted successfully' });
-        });
-    }
-
-    vm.reset = function() {
-      vm.newaction = {};
-      vm.editing = false;
-    }
-
-    vm.edit = function(action) {
-      vm.newaction = action;
-      vm.editing = true;
-    }
-
-    vm.count = function(count) {
-      return count ? count : 0;
+        })
     }
   
-}
-
-
-angular
-    .module('momentum')
-    .directive('editActions', editActions);
-
-function editActions() {
-   
-    var directive = {
-      restrict: 'E',
-      bindToController: true,
-      controller : 'actionsCtrl as ac',
-      templateUrl: '/partials/campaigns/actions/edit.html',
-      scope: {},
-      link: link
-    };
-    return directive;
-
-  function link(scope, element, attr, ctrl) {
-    ctrl.newaction = {};
-    ctrl.actions = [];
-    ctrl.editing = false;
-    ctrl.find();
   }
-
-}
 angular
     .module('momentum')
-    .directive('actionPreview', actionPreview);
+    .directive('previewAction', previewAction);
 
-function actionPreview() {
+function previewAction() {
    
     var directive = {
         restrict: 'E',
         templateUrl: '/partials/campaigns/actions/preview.html',
-        require: "^editActions",
         scope: {
           bsTooltip: '@',
-          action: '='
+          item: '=',
+          edit: '&',
+          destroy: '&'
         },
         link: link
     };
     return directive;
 
-  function link(scope, element, attr, ctrl) {
+  function link(scope, element, attr) {
     
     scope.showScript = false;
 
@@ -1005,23 +1031,15 @@ function actionPreview() {
         scope.showScript = !scope.showScript;
     }
 
-    scope.edit = function(action){
-        ctrl.edit(action);
-    }
-
-    scope.destroy = function(id){
-        ctrl.destroy(id);
-    }
-
-    scope.getScript = function(action) {
-        var title = action.title.toString().toLowerCase()
+    scope.getScript = function() {
+        var title = scope.item.title.toString().toLowerCase()
           .replace(/\s+/g, '-')         // Replace spaces with -
           .replace(/[^\w\-]+/g, '')     // Remove all non-word chars
           .replace(/\-\-+/g, '-')       // Replace multiple - with single -
           .replace(/^-+/, '')           // Trim - from start of text
           .replace(/-+$/, '')           // Trim - from end of text
           .substring(0,10);          
-        return 'git clone https://github.com/MomentumBuild/angular-actions-example '+title+'; cd '+title+'; sudo npm install; bower update; gulp --server live --camp '+action.campaign+' --action '+ action.id;
+        return 'git clone https://github.com/MomentumBuild/angular-actions-example '+title+'; cd '+title+'; sudo npm install; bower update; gulp --server live --camp '+scope.item.campaign+' --action '+ scope.item.id;
     }
 
   }
@@ -1179,29 +1197,45 @@ angular.module('momentum')
 angular.module('momentum')
   .factory('Account', Account);
 
-Account.$inject = ['$http', '$auth']
+Account.$inject = ['$http', '$auth', '$alert']
 
-function Account($http, $auth) {
+function Account($http, $auth, $alert) {
 
     return {
       find: find,
       update: update,
-      profile: profile
+      profile: profile,
+      logout: logout,
+      hasAuth: hasAuth
     };
 
     function find() {
-        var userId = $auth.getPayload().sub;
-        return $http.get('/user/'+ userId);
+      var userId = $auth.getPayload().sub;
+      return $http.get('/user/'+ userId).error(function(error) {
+          $alert({ content: JSON.stringify(error) });
+        });
     }
 
     function update(profileData) {
-        var userId = $auth.getPayload().sub;
-        return $http.put('/user/'+ userId, profileData);
+      var userId = $auth.getPayload().sub;
+      return $http.put('/user/'+ userId, profileData).then(function() {
+        $alert({ content: 'Profile has been updated' });
+      }).catch(function(response) {
+        $alert({ content: 'Update failed' });
+      });
     }
 
     function profile(profileData) {
-        var userId = $auth.getPayload().sub;
-        return $http.put('/user/'+ userId, profileData);
+      var userId = $auth.getPayload().sub;
+      return $http.put('/user/'+ userId, profileData);
+    }
+
+    function logout() {
+      $auth.logout().then(function() { $alert({ content: 'You have been logged out' }); });
+    }
+
+    function hasAuth() {
+      return $auth.isAuthenticated();
     }
 }
 angular
@@ -1219,26 +1253,26 @@ function Action($http, $auth, $stateParams, $alert) {
       destroy: destroy
     };
 
-    function find() {
-        return $http.get('/campaign/' + $stateParams.id + '/action/').error(function(error) {
+    function find(id) {
+        return $http.get('/campaign/' + id + '/action/').error(function(error) {
           $alert({ content: JSON.stringify(error) });
         });
     }
 
     function findOne(id) {
-        return $http.get('/campaign/' + $stateParams.id + '/action/' + id).error(function(error) {
+        return $http.get('/campaign/' + $stateParams.campaign + '/action/' + id).error(function(error) {
           $alert({ content: JSON.stringify(error) });
         });
     }
 
     function create(action) {
-        return $http.post('/campaign/' + $stateParams.id + '/action/', action).error(function(error) {
+        return $http.post('/campaign/' + $stateParams.campaign + '/action/', action).error(function(error) {
           $alert({ content: JSON.stringify(error) });
         });
     }
 
     function update(action) {
-        return $http.put('/campaign/' + $stateParams.id + '/action/'  + action.id , action).error(function(error) {
+        return $http.put('/campaign/' + $stateParams.campaign + '/action/'  + action.id , action).error(function(error) {
           $alert({ content: JSON.stringify(error) });
         });
     }

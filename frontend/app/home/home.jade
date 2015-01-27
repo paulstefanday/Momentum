@@ -6,11 +6,7 @@
 			p A new way to campaign online
 			br
 			
-			form.form-group(name="subscribe" style="max-width:400px;width:90%;margin:0 auto;" ng-submit="homeCtrl.joinUp()")
-				.input-group
-					input.form-control.input-xlg( type="email" placeholder="Your Email" ng-model="homeCtrl.email" style="text-transform: none !important")
-					span.input-group-btn
-						button.btn.btn-primary.btn-xlg( type="submit" ng-disabled="!homeCtrl.email" ) Find out more
+			email-subscribe
 
 			#links
 				a(href="https://github.com/paulstefanday/Momentum" data-title="Github repo" bs-tooltip).ion-social-github

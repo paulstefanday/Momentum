@@ -1,0 +1,9 @@
+div
+	.form-group
+		input.form-control(type="text" ng-model="item.title" ng-required="true" placeholder="Title")
+	.form-group
+		textarea.form-control(ng-model="item.description" ng-required="true" placeholder="Description")
+	.form-group
+		select.form-control(ng-model="item.type" ng-required="true")
+			each val in ['signature', 'image', 'message', 'email']
+				option(value="#{val}")= val

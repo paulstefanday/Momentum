@@ -14,9 +14,9 @@ function userProfile() {
   };
   
 
-  controller.$inject = ['$scope', '$alert', '$auth', 'Account'];
+  controller.$inject = ['$scope', 'Account'];
 
-  function controller($scope, $alert, $auth, Account) {
+  function controller($scope, Account) {
           
     var profileCtrl = this;
 
@@ -26,48 +26,40 @@ function userProfile() {
         .success(function(data) {
           profileCtrl.user = data;
         })
-        .error(function(error) {
-          $alert({ content: JSON.stringify(error) });
-        });
     };
 
     // Update user's profile information.
     profileCtrl.update = function() {
-      console.log(profileCtrl.user)
-      Account.update(profileCtrl.user).then(function() {
-        $alert({ content: 'Profile has been updated' });
-      }).catch(function(response) {
-        $alert({ content: 'Update failed' });
-      });
+      Account.update(profileCtrl.user);
     };
 
-    // Link third-party provider.
-    profileCtrl.link = function(provider) {
-      $auth.link(provider)
-        .then(function() {
-          $alert({ content: 'You have successfully linked ' + provider + ' account' });
-        })
-        .then(function() {
-          profileCtrl.find();
-        })
-        .catch(function(response) {
-          $alert({ content: JSON.stringify(response) });
-        });
-    };
+    // // Link third-party provider.
+    // profileCtrl.link = function(provider) {
+    //   $auth.link(provider)
+    //     .then(function() {
+    //       $alert({ content: 'You have successfully linked ' + provider + ' account' });
+    //     })
+    //     .then(function() {
+    //       profileCtrl.find();
+    //     })
+    //     .catch(function(response) {
+    //       $alert({ content: JSON.stringify(response) });
+    //     });
+    // };
 
-    //Unlink third-party provider.
-    profileCtrl.unlink = function(provider) {
-      $auth.unlink(provider)
-        .then(function() {
-          $alert({ content: 'You have successfully unlinked ' + provider + ' account' });
-        })
-        .then(function() {
-          profileCtrl.find();
-        })
-        .catch(function(response) {
-          $alert({ content: response.data ? JSON.stringify(response) : 'Could not unlink ' + provider + ' account' });
-        });
-    };
+    // //Unlink third-party provider.
+    // profileCtrl.unlink = function(provider) {
+    //   $auth.unlink(provider)
+    //     .then(function() {
+    //       $alert({ content: 'You have successfully unlinked ' + provider + ' account' });
+    //     })
+    //     .then(function() {
+    //       profileCtrl.find();
+    //     })
+    //     .catch(function(response) {
+    //       $alert({ content: response.data ? JSON.stringify(response) : 'Could not unlink ' + provider + ' account' });
+    //     });
+    // };
 
   }
 

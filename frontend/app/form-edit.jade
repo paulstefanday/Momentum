@@ -1,0 +1,10 @@
+.view
+	#edit
+		h2 Edit {{title}}
+		form( method="post" name="editForm" ng-submit="update({ item: item })" )
+			.fields( ng-include="template" )
+			.row
+				.col-sm-4.col-xs-6
+					a.btn.btn-lg.btn-google-plus.btn-block( href="{{ reset }}" ) Cancel
+				.col-sm-8.col-xs-6
+					button.btn.btn-lg.btn-success.btn-block Update

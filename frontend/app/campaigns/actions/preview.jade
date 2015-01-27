@@ -1,10 +1,9 @@
-.thumbnail <span>{{ action.submissions.length }}</span><br/> Submissions
-.action-buttons
-	a.ion-ios-gear(href="" ng-click="edit(action)" data-title="Edit" bs-tooltip)
-	a.ion-ios-flask(href="#" data-title="View" bs-tooltip)
+.thumbnail <span>{{ item.submissions.length ? item.submissions.length : 0 }}</span><br/> Submissions
+.buttons
+	a.ion-ios-gear(href="#/admin/actions/{{item.campaign}}/edit/{{item.id}}" data-title="Edit" bs-tooltip)
 	a.ion-log-out( ng-click="toggleScript()" data-title="View terminal start script" bs-tooltip)
-	a.ion-ios-close-empty(href="" ng-click="destroy(action.id)" data-title="Delete" bs-tooltip)
-.action-info
-	h4 {{action.title}}
-	p {{action.type }}  
-	input.form-control(type="text" ng-value="getScript(action)" ng-show="showScript" onClick="this.select();")
+	a.ion-ios-close-empty(href="" ng-click="destroy()" data-title="Delete" bs-tooltip)
+.info
+	h4 {{item.title}}
+	p {{item.type }}  
+	input.form-control(type="text" ng-value="getScript()" ng-show="showScript" onClick="this.select();")

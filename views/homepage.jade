@@ -1,9 +1,8 @@
 extends ./layout
 
 block body
-  nav-bar
   #view-cover
-  div( ng-click="navCtrl.nav = false" ui-view id="view" ng-class="{ 'blur' : navCtrl.nav }" )
+  ui-view
 
 block styles
   link( href='https://fonts.googleapis.com/css?family=Raleway:100,300,800|Lato:300,400' rel='stylesheet' type='text/css' )
