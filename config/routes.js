@@ -50,10 +50,14 @@ module.exports.routes = {
      action: "findOne",
      cors: true
   },
-  'get /campaign/:id/action/:childid/feed': {
+  'get /campaign/:id/action/:childid/public': {
      controller: "ActionController",
-     action: "feed",
+     action: "feedPublic",
      cors: true
+  },
+  'get /campaign/:id/action/:childid/private': {
+     controller: "ActionController",
+     action: "feedPrivate"
   },
   'post /petition/:id': {
      controller: "PetitionController",

@@ -51,7 +51,7 @@ module.exports.policies = {
   'ActionController': {
     'find': campOwner,
     'findOne': true,
-    'feed': true,
+    'feedPublic': true,
     'create': campOwner,
     'update': campOwner,
     'destroy': campOwner,

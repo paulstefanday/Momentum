@@ -25,7 +25,15 @@ module.exports = {
   			});
 	},
 
-	feed: function(req, res) {
+	feedPublic: function(req, res) {
+		Submission.find().where({action: req.param('childid')})
+			.exec(function(err,record){
+  				if(err) return res.json(403, { err: err });
+  				return res.json(200, record);
+  			});
+	},
+
+	feedPrivate: function(req, res) {
 		Submission.find().where({action: req.param('childid')})
 			.exec(function(err,record){
   				if(err) return res.json(403, { err: err });

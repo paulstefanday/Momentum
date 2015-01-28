@@ -10,9 +10,8 @@ module.exports = function(req, res, next) {
 	  	if(!campaign) return res.json(403, {err: 'This campaign does not exist'});	
 	  	
 	  	// no user found
-	  	var users = campaign.admin;
 	  	if(!campaign.admin[0]) return res.json(403, {err: 'You are not an admin of this campaign'});	
-
+		var users = campaign.admin;
 
 	  	// if user isn't admin then return error
 	  	var user = users[0];
