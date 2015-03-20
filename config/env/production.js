@@ -10,6 +10,9 @@
  *
  */
 
+
+ console.log('dir', __dirname);
+
 module.exports = {
 
   /***************************************************************************
@@ -25,11 +28,18 @@ module.exports = {
    * Set the port in the production environment to 80                        *
    ***************************************************************************/
 
-  port: 80,
+  port: process.env.PORT || 80,
 
   /***************************************************************************
    * Set the log level in production environment to "silent"                 *
    ***************************************************************************/
+
+  ssl: {
+    ca: require('fs').readFileSync(__dirname + '../intermediate.crt'),
+    key: require('fs').readFileSync(__dirname + '../momentum.key'),
+    cert: require('fs').readFileSync(__dirname + '../momentum.crt')
+  },
+
 
   // log: {
   //   level: "silent"
