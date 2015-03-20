@@ -35,9 +35,9 @@ module.exports = {
    ***************************************************************************/
 
   ssl: {
-    ca: require('fs').readFileSync(__dirname + '../intermediate.crt'),
-    key: require('fs').readFileSync(__dirname + '../momentum.key'),
-    cert: require('fs').readFileSync(__dirname + '../momentum.crt')
+    ca: require('fs').readFileSync('/home/safeuser/intermediate.crt'),
+    key: require('fs').readFileSync('/home/safeuser/momentum.key'),
+    cert: require('fs').readFileSync('/home/safeuser/momentum.crt')
   },
 
 
