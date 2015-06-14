@@ -34,11 +34,11 @@ module.exports = {
    * Set the log level in production environment to "silent"                 *
    ***************************************************************************/
 
-  ssl: {
-    ca: require('fs').readFileSync('/home/safeuser/intermediate.crt'),
-    key: require('fs').readFileSync('/home/safeuser/momentum.key'),
-    cert: require('fs').readFileSync('/home/safeuser/momentum.crt')
-  },
+  // ssl: {
+  //   ca: require('fs').readFileSync('/home/safeuser/intermediate.crt'),
+  //   key: require('fs').readFileSync('/home/safeuser/momentum.key'),
+  //   cert: require('fs').readFileSync('/home/safeuser/momentum.crt')
+  // },
 
 
   // log: {
